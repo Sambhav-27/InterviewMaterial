@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+// http://practice.geeksforgeeks.org/problems/two-numbers-with-sum-closest-to-zero/0
+int main()
+ {
+	int i,j,k,n,l,r,ans,a[N],t;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    sort(a, a+n);
+	    l=0; r=n-1;
+	    i=0; j=n-1;
+	    ans=INT_MAX;
+	    while(l<r){
+	        if(abs(a[l]+a[r]) < ans){
+	            i=l; j=r;
+	            ans= abs(a[l]+a[r]);
+	        }
+	        
+	        if(a[l] +a[r] < 0)
+	        l++;
+	        else r--;
+	        
+	        
+	    }
+	    
+	    cout<<a[i]<<" "<<a[j]<<"\n";
+	    
+	}
+	
+	return 0;
+}

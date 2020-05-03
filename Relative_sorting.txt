@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100005
+int bsearch(int *a, int b, int e, int val){  // finds first occurence of a no.
+    while(b<=e){
+        int m=(b+e)/2;
+        if(m==0 || a[m]==val && a[m-1]<val)
+        return m;
+        else if(a[m]>=val)
+        e=m-1;
+        else
+        b=m+1;
+        
+    }
+}
+int main() {
+	
+	int t,i,j,k,a[N],b[N],m,n;
+	vector<int> v;
+	cin>>t;
+	while(t--){
+	    cin>>m>>n;
+	    bool visited[N]={0};
+	    v.clear();
+	    for(i=0;i<m;++i)
+	    cin>>a[i];
+	        
+	    for(i=0;i<n;++i)
+	    cin>>b[i];
+	    
+	    sort(a, a+m);
+	    for(i=0;i<n;++i){  // what if elements in b are not unique
+	        int x=b[i];
+	        int ind=bsearch(a, 0, m-1, x);
+	        if(ind==-1) continue;
+	        for(j=ind;a[j]==x;++j){
+	            v.push_back(x);
+	            visited[j]=1;
+	        }
+	    }
+	    for(i=0;i<m;++i)
+	    if(!visited[i])
+	    v.push_back(a[i]);
+	    
+	    for(i=0;i<m;++i)
+	    cout<<v[i]<<" ";
+	    cout<<"\n";
+	    
+	    
+	}
+	
+	
+	return 0;
+}

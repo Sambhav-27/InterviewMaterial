@@ -1,0 +1,43 @@
+//http://www.geeksforgeeks.org/number-full-binary-trees-node-product-children/
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define N 1000
+int find(int a[], int n){
+    int i,j,k,maxl=INT_MIN,minl=INT_MAX;
+    int ans[N]={0};
+    bool present[N]={0};
+    for(i=0;i<n;++i){
+        maxl=max(maxl, a[i]);
+        minl=min(minl, a[i]);
+        present[a[i]]=1;
+        ans[a[i]]=1;
+    }
+    for(i=minl;i<=maxl;++i){
+        
+        for(j=i*2;j<=maxl && j<=i*i;j+=i){
+            if(!present[j]) continue;
+            
+            ans[j]+= ans[i]*ans[j/i];
+            if(i!=j/i)
+            ans[j]+= ans[i]*ans[j/i];
+        }
+    }
+    int t=0;
+    for(i=0;i<=maxl;++i)
+    t+=ans[i];
+    return t;
+}
+int main() {
+	int i,j,t,a[N],n;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    cout<<find(a, n)<<"\n";
+	}
+	return 0;
+}

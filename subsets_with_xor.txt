@@ -1,0 +1,39 @@
+//http://www.geeksforgeeks.org/count-number-of-subsets-having-a-particular-xor-value/	
+
+#include <iostream>
+#include<cmath>
+#define N 1000
+using namespace std;
+int find(int *a, int n, int k){
+    
+    int i,j,m,x,maxl=a[0];
+    for(i=0;i<n;++i)
+    maxl=max(maxl, a[i]);
+    
+    x=(log2(maxl)+1); // no. of bits in biggest number
+    m=(1<<x) -1; // maximum no. possible (in other word for biggest no. next power of 2)
+    
+   // m = (1 << (int)(log2(maxl) + 1) ) - 1;
+    int dp[1000][1000]={0};
+   
+    dp[0][0]=1;
+    
+    for(i=1;i<=n;++i){
+        for(j=0;j<=m;++j)
+        dp[i][j]=dp[i-1][j] + dp[i-1][j xor a[i-1]] ;  // coz j =jxor a[i-1 xor a[i-1]
+    }
+    return dp[n][k];
+    
+}
+int main() {
+	int t,n,k,a[N],i;
+	cin>>t;
+	while(t--){
+	    cin>>n>>k;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    cout<<find(a,n,k)<<"\n";
+	}
+	return 0;
+}

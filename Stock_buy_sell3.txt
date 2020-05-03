@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+// one day you either buy or you sell or nothing
+// just find that index whose left is bigger than it. On that day buy and in previous day sell previously bought
+// test cases: 7
+//100 180 260 310 40 535 695
+//10
+//23 13 25 29 33 19 34 45 65 67
+
+
+
+int main()
+{
+    int i,j,k,t,n,a[N],ans;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        
+        int cur=0;
+        ans=0;
+        bool flag=0;
+        for(i=1; i<n; ++i){
+            if(a[i-1] > a[i]){
+                //ans+= a[i-1]-a[cur];  // uncomment to find max profit
+                if(cur!=i-1){
+                    cout<<"("<<cur<<" "<<i-1<<") ";
+                    flag=1;
+                }
+                cur=i;
+            }
+        }
+        if(cur!=n-1){
+            cout<<"("<<cur<<" "<<n-1<<") "; 
+            flag=1;
+        }
+        
+        
+        if(!flag) cout<<"No Profit";
+        cout<<"\n";
+        //ans+=a[n-1]-cur;
+    }
+	return 0;
+}

@@ -1,0 +1,78 @@
+// a lot harder than you think
+
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+    int data;
+    node *next;
+};
+node *getnode(int v){
+    node *t=new node;
+    t->data=v;
+    t->next=NULL;
+    return t;
+}
+int main()
+ {
+     int i,j,k,t,n;
+     cin>>t;
+     while(t--){
+         cin>>n;
+         node *head=NULL, *tail=NULL;
+         for(i=0;i<n;++i){
+             int x;
+             cin>>x;
+             node *t=getnode(x);
+             if(!tail){
+                 head=tail=t;
+             }
+             else{
+                 tail->next=t;
+                 tail=t;
+             }
+         }
+
+         node*head2=getnode(head->data);
+         node *tail2=head2;
+         node*head1=getnode(head->data);
+         node *tail1=head1;
+         
+         node *cur=head;
+         while(cur->next){ // go till 2nd last node
+             if(cur->next->data%2){
+                 node *t=cur->next;
+                 cur->next=cur->next->next;
+                 tail2->next=t;
+                 t->next=NULL; // pls don't forget this line
+                 tail2=t;
+             }
+             else{
+                 node *t=cur->next;
+                 cur->next=cur->next->next;
+                 tail1->next=t;
+                 t->next=NULL; // pls don't forget this line
+                 tail1=t;
+             }
+             //cur=cur->next; no need of this line
+         }
+         
+         // to handle first node
+         tail1->next=head2;
+         if(head->data%2){
+             head1=head1->next;
+         }
+         else{
+             tail1->next=tail1->next->next;
+         }
+         
+         
+         cur=head1;
+         while(cur){
+             cout<<cur->data<<" ";
+             cur=cur->next;
+         }
+         cout<<"\n";
+     }
+	
+	return 0;
+}

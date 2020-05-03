@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 22
+bool isprime[N];
+void find(){
+   
+    int i,j,k;
+	memset(isprime, 1, sizeof(isprime));
+	isprime[0]=isprime[1]=0;
+	
+    for(i=2;i*i<=N;++i){
+    	if(isprime[i]){
+    		for(j=i*2;j<=N;j+=i)
+    		isprime[j]=0;
+		}
+	}
+    
+}
+int main() {
+	int t,n;
+   
+	//cin>>t;
+	find();
+	
+	return 0;
+}
+
+
+refer kadane in test folder
+
+all primes are odd except 2.
+odd+odd=even
+thus a prime can only be equal to sum of two primes, if one of them is 2;
+1 is not a prime.

@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long
+// url shortener aka decimal to base62 and vice-versa
+//abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+// above are base62 digits
+//http://www.geeksforgeeks.org/how-to-design-a-tiny-url-or-url-shortener/
+int main()
+{
+    lld i,j,k,n,t;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>n;
+        
+        while(n){
+            lld x=n%62;
+            if(x<26){
+                s+= char('a'+x);
+            }
+            else if(x>=26 && x<52){
+                s+= char('A'+x -26);  // see this
+            }
+            else{
+                s+= char('0'+x -52);
+            }
+            n/=62;
+        }
+        lld ans=0;
+        for(i=s.length()-1; i>=0; --i){
+            char ch=s[i];
+            lld x;
+            if(ch>96){
+                x= int(ch-'a');
+            }
+            else if(ch>=65){
+                x= int(ch-'A')+26;  // see this
+            }
+            else{
+                x= int(ch-'0')+52;
+            }
+            ans+= x*pow(62, i);
+             cout<<s[i];
+        }
+        cout<<"\n";
+        cout<<ans<<"\n";
+        
+        
+        
+    }
+     
+	
+	return 0;
+}

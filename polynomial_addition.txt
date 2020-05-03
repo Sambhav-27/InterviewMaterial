@@ -1,0 +1,63 @@
+/* Structure of Node used
+struct Node
+{
+    int coeff;  // coefficient of the polynomial 
+    int pow;   // power of the polynomial 
+    Node* next;
+};
+*/
+
+/* The below method print the required sum of polynomial
+p1 and p2 as specified in output  */
+#include<bits/stdc++.h>
+#define f first
+#define s second
+#define pii pair<int, int>
+
+void addPolynomial(Node *p1, Node *p2)
+{
+    vector< pii > v;
+    v.clear();
+    Node *t1=p1, *t2=p2;
+    while(t1 && t2){
+        if(t1->pow==t2->pow){
+            int c=t1->coeff+t2->coeff;
+            int p=t1->pow;
+            //cout<<c<<"x^"<<p<<" + ";
+            v.push_back(pii(c,p));
+            t1=t1->next;
+            t2=t2->next;
+        }
+        else if(t1->pow > t2->pow){
+            int c=t1->coeff;
+            int p=t1->pow;
+          // cout<<c<<"x^"<<p<<" + "   ;
+          v.push_back(pii(c,p));
+            t1=t1->next;
+        }
+        else{
+            int c=t2->coeff;
+            int p=t2->pow;
+            //cout<<c<<"x^"<<p<<" + ";
+            v.push_back(pii(c,p));
+            t2=t2->next;
+        }
+    }
+    while(t1){
+        int c=t1->coeff;
+        int p=t1->pow;
+      // cout<<c<<"x^"<<p<<" + ";
+      v.push_back(pii(c,p));
+        t1=t1->next;
+    }
+    while(t2){
+        int c=t2->coeff;
+        int p=t2->pow;
+      // cout<<c<<"x^"<<p<<" + ";
+      v.push_back(pii(c,p));
+        t2=t2->next;
+    }
+    for(int i=0;i<v.size()-1;++i)
+    cout<<v[i].f<<"x^"<<v[i].s<<" + ";
+    cout<<v[v.size()-1].f<<"x^"<<v[v.size()-1].s;
+}

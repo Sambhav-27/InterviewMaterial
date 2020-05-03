@@ -1,0 +1,25 @@
+// awesome code. time =O(n) not n^2
+// if cur element-1 doesn't exist in array then it is a beginning of a new sequence
+//http://www.geeksforgeeks.org/longest-consecutive-subsequence/
+
+
+
+
+int findLongestConseqSubseq(int a[], int n)
+{
+    unordered_set<int> s;
+    int i,ans=0,j;
+    for(i=0;i<n;++i)
+    s.insert(a[i]);
+    
+    for(i=0;i<n;++i){
+        if(s.find(a[i]-1)==s.end()){
+            
+            int x=a[i];
+            while(s.find(x)!=s.end())
+            x++;
+            ans=max(ans, x-a[i]);
+        }
+    }
+    return ans;
+}

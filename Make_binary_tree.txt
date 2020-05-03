@@ -1,0 +1,53 @@
+/*
+The structure of Link list node is as follows 
+struct node
+{
+    int data;
+    struct node* next;
+};
+
+The structure of TreeNode is as follows
+struct TreeNode
+{
+    int data;
+    TreeNode *left;
+    TreeNode *right;
+};
+*/
+
+//http://www.geeksforgeeks.org/given-linked-list-representation-of-complete-tree-convert-it-to-linked-representation/
+
+
+#include<bits/stdc++.h>
+TreeNode *getnode(int val){
+    TreeNode *t=new TreeNode;
+    t->data=val;
+    t->left=t->right=NULL;
+    return t;
+}
+void convert(node *head,TreeNode * &root)
+{
+    queue<TreeNode*> q;
+    TreeNode *t=getnode(head->data);
+    root=t;
+    
+    
+    q.push(root);
+    while(head->next){
+        TreeNode *cur=q.front(); q.pop();
+        
+        if(head->next){
+            TreeNode *t=getnode(head->next->data);
+            cur->left=t;
+            q.push(t);
+            head=head->next;
+        }
+        if(head->next){
+            TreeNode *t=getnode(head->next->data);
+            cur->right=t;
+            q.push(t);
+            head=head->next;
+        }
+        
+    }
+}

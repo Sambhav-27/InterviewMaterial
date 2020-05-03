@@ -1,0 +1,84 @@
+// O(n*n) check at every node that if it is a bst with cur node as root
+
+// largest bst in binary  tree
+
+#include<bits/stdc++.h>
+struct stud{
+    bool isbst;
+    int lmax,rmin,size;
+};
+stud find(Node *root){
+    stud s1;
+    if(!root){
+        s1.isbst=1;
+        s1.lmax=INT_MIN;
+        s1.rmin=INT_MAX;
+        s1.size=0;
+        return s1;
+    }
+    stud x=find(root->left);
+    stud y=find(root->right);
+    if(x.isbst && y.isbst && x.lmax<root->data && root->data<y.rmin){ // don't segregate the conditions
+        s1.isbst=1;
+        s1.size=1+x.size+y.size;
+        s1.lmax=max(root->data,y.lmax);
+        s1.rmin=min(root->data,x.rmin);
+    }
+    else{
+        s1.isbst=0;
+        s1.size=max(x.size, y.size);
+        s1.rmin=INT_MAX;
+        s1.lmax=INT_MIN;
+    }
+    return s1;
+}
+int largestBst(Node *root)
+{
+    stud s1=find(root);
+    return s1.size;
+}
+
+
+////
+
+
+#define INF 10000
+
+bool find(Node *root, int *size, int *cmin, int *cmax){
+    
+    if(!root){ // necessary
+        *size=0; *cmax=-INF; *cmin=INF;
+        return 1;
+    }
+    if(!root->left && !root->right){
+        *size=1; *cmax=root->data; *cmin=root->data;
+        return 1;
+    }
+    
+    int s1=0, lmin=INF, lmax=-INF;
+    int s2=0, rmin=INF, rmax=-INF;
+    
+    bool x= find(root->left, &s1, &lmin, &lmax);
+    bool y= find(root->right, &s2, &rmin, &rmax);
+    
+    if(x && y && (lmax < root->data && root->data < rmin)){
+        *size= 1+s1+s2;
+        *cmin= lmin;
+        *cmax= rmax;
+        return 1;
+    }
+    
+    // if it is not a bst including this node then return false and maxsize of left and right subtree
+   *size=max(s1,s2);
+    return 0;
+}
+
+int largestBst(Node *root)
+{
+    int size, cmax, cmin;
+    cmin=INF; cmax=-INF;
+    size=0;
+	
+	find(root, &size, &cmin, &cmax);
+	return size;
+}

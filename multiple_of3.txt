@@ -1,0 +1,28 @@
+// is a binary n. multiple of 3// same for 11
+// do for no. in form of digits
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t,i,j,c1,c2;
+	cin>>t;
+	while(t--){
+	    string s;
+	    cin>>s;
+	    c1=0; c2=0;
+	    int n=s.length();
+	    for(i=0;i<n;++i){
+	        if(s[i]=='0') continue;
+	        if(i%2)
+	        c1++;
+	        else
+	        c2++;
+	    }
+	    if(abs(c1-c2)%3==0)
+	    cout<<"1\n";
+	    else
+	    cout<<"0\n";
+	}
+	return 0;
+}

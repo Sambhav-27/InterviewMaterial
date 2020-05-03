@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+// https://stackoverflow.com/questions/8031939/finding-maximum-for-every-window-of-size-k-in-an-array
+int main()
+{
+    int i,j,k,t,n,a[N],lr[N],rl[N],ans[N];
+    cin>>t;
+    while(t--){
+        cin>>n>>k;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        for(i=0;i<n;++i){
+            if(i%k==0)
+            lr[i]=a[i];
+            else
+            lr[i]=max(lr[i-1], a[i]);
+        }
+        for(i=n-1; i>=0; --i){
+            if((i+1)%k==0)
+            rl[i]=a[i];
+            else
+            rl[i]=max(rl[i+1], a[i]); //don't do it as rl[i-1]
+        }
+        
+        
+        for(i=0;i<n;++i){
+            j= i+k-1;
+            if(i>=n || j>=n) break;
+            
+            ans[i]=max(rl[i], lr[j]);
+            cout<<ans[i]<<" ";
+        }
+        cout<<"\n";
+        
+    }
+	return 0;
+}

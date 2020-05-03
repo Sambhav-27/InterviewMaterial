@@ -1,0 +1,28 @@
+/*
+  Reverse a linked list
+  The input list will have at least one element  
+  Return the node which points to the head of the new LinkedList
+  Node is defined as 
+  struct node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+struct node *reverse (struct node *head, int k)
+{ 
+  // Complete this method
+  node *temp,*cur,*pre;
+  pre=temp=NULL;
+  cur=head;
+  int n=k;
+  while(cur && n--){
+      temp=cur->next;
+      cur->next=pre;
+      pre=cur;
+      cur=temp;
+  }
+  if(temp)
+  head->next=reverse(temp, k);
+  return pre;
+}

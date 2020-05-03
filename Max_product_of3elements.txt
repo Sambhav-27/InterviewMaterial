@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+{
+    int i,j,k,n,t,a[N]	;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        sort(a, a+n);
+        
+        int ans= max(a[0]*a[1]*a[n-1], a[n-1]*a[n-2]*a[n-3]);
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

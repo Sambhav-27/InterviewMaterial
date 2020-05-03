@@ -1,0 +1,17 @@
+//http://www.geeksforgeeks.org/find-number-times-string-occurs-given-string/
+
+i=subsequence
+j=string
+
+
+if(a[i]==b[j])
+
+dp[i][j]= dp[i-1][j-1] + dp[i][j-1];
+else
+dp[i][j] = dp[i][j-1];
+
+
+// in recursion of tree LL
+
+if you want to maintain a single copy for whole tree then pass by reference.
+like nth node from end;

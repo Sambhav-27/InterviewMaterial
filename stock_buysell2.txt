@@ -1,0 +1,50 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+#define N 100005
+#define lld long long
+
+// any no. of transactions, at one day either buy 1, sell any no., or nothing
+
+// from end to beginning, as long as the price is the highest so far, 
+//all the shares purchased previously (which is lower then current max) 
+//will gain profit, so just buy it. If there is a new higher peak, then reset the peak and re-do it. 
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    lld t,i,j,k,n,ans,a[N];
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0;i<n;++i)
+            cin>>a[i];
+        
+        ans=0;
+        lld cmax=a[n-1];
+        lld csum=0,num=0;
+        for(i=n-2;i>=0;--i){
+            if(a[i]>cmax){                             
+                ans+=(num*cmax)-csum;                
+                csum=num=0;
+                 cmax=a[i];
+            }
+            else{
+                csum+=a[i];
+                num++;
+            }
+        }
+        ans+=(num*cmax)-csum;
+        cout<<ans<<"\n";
+    }
+    return 0;
+}
+
+
+/// for k transaction, tushar roy
+
+If we are allowed to buy and sell only once, then we can use following algorithm. Maximum difference between two elements such that larger appears after smaller.(http://www.geeksforgeeks.org/maximum-difference-between-two-elements/) visit the link
+
+test case: if array is sorted in non-increasing order

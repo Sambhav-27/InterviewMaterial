@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+int ans; // initialize in calling function
+
+find func return min till this subtree
+int find(Node *root){
+    if(!root) return INT_MAX;
+    
+    if(!root->left && !root->right) return root->data;
+   int x= find(root->left);
+    int y=find(root->right);
+    
+    
+    ans=max(ans, root->data-min(x,y));
+    return min(root->data, min(x,y));
+}
+int maxDiff(Node* root)
+{
+    ans=INT_MIN;
+    find(root);
+    return ans;
+}

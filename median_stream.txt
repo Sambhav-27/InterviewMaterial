@@ -1,0 +1,86 @@
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+struct comp{
+    bool operator()(const float &a, const float &b){
+        return a>b;
+    }
+};
+
+priority_queue<float, vector<float>, comp> minheap;
+priority_queue<float, vector<float> > maxheap;
+float find(float n){
+    static float ans;
+    if(minheap.empty() && maxheap.empty()){
+        maxheap.push(n);
+        return (ans=n);
+    }
+    else{
+        if(minheap.size() == maxheap.size()){
+            if(n<= ans)
+            maxheap.push(n);
+            else
+            minheap.push(n);
+        }
+        else{
+            if(n>ans){ 
+                if(minheap.size()< maxheap.size())
+                    minheap.push(n);
+                else{
+                    maxheap.push(minheap.top()); minheap.pop();
+                    minheap.push(n);
+                }                    
+            }
+            else{
+                if(maxheap.size()<minheap.size())
+                    maxheap.push(n);
+                else{
+                    minheap.push(maxheap.top()); maxheap.pop();
+                    maxheap.push(n);
+                }
+                
+            }
+        }
+        
+        
+        //cout<<maxheap.size()<<":"<<minheap.size()<<"   ";
+        if(minheap.size()==maxheap.size())
+            return ans = (minheap.top() + maxheap.top() )/2;
+        else if(minheap.size() > maxheap.size())
+            return ans = minheap.top();
+        else
+            return ans = maxheap.top();
+    }
+    return ans;
+    
+}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    float n,a;
+    cin>>n;
+    while(n--){
+        cin>>a;
+        cout<<find(a)<<"\n";
+    }
+    return 0;
+}

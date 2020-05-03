@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define pii pair<int, int>
+#define f first
+#define s second
+#define N 205
+
+bool comp(pii a, pii b){
+    if(a.s==b.s)
+    return a.f<b.f;
+    return a.s>b.s;
+}
+int main() {
+	int t,i,j,k,n,a[N];
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	   vector< pii > v(N);  // N is a must
+	   
+	   for(i=0;i<n;++i){
+	       v[a[i]].f=a[i];
+	       v[a[i]].s+=1;
+	        
+	   }
+	   
+	  sort(v.begin(), v.end(), comp);
+	   
+	   int c=0; j=0;
+	   while(1){       // this part is O(n)
+	       if(c>=n) break;
+	       if(v[j].s==0) break;
+	       while(v[j].s){
+	           cout<<v[j].f<<" ";
+	           v[j].s-=1;
+	           c++;
+	       }
+	       j++;
+	   }
+	   cout<<"\n";
+	}
+	return 0;
+}

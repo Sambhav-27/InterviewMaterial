@@ -1,0 +1,58 @@
+/*
+ A binary tree node has data, pointer to left child
+   and a pointer to right child 
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
+*/
+
+/* Function to print nodes of extreme corners
+of each level in alternate order */
+#include<bits/stdc++.h>
+void printExtremeNodes(Node* root)
+{
+    deque<Node *> q;
+    q.push_back(root);
+    bool flip=1;
+    int size=1,cursize;
+    while(!q.empty()){
+        cursize=0;
+        while(size--){
+            if(flip){
+                Node *t=q.front();  q.pop_front();
+                if(size==0)
+                cout<<t->data<<" ";
+                if(t->left){
+                    q.push_back(t->left);
+                    cursize++;
+                }
+                if(t->right){
+                    q.push_back(t->right);
+                    cursize++;
+                }
+                
+            }
+            else{
+                
+                Node *t=q.back();  q.pop_back();
+                if(size==0)  // notice this
+                cout<<t->data<<" ";
+                if(t->right){
+                    q.push_front(t->right);
+                    cursize++;
+                }
+                if(t->left){
+                    q.push_front(t->left);
+                    cursize++;
+                }
+            }
+        }
+       
+        size=cursize;
+        flip=!flip;
+    }
+    
+}

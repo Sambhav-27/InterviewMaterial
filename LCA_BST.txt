@@ -1,0 +1,47 @@
+
+// 1 other solution is to store paths of both nodes and check till common nodes
+
+
+Node * lca(Node *cur, int n1, int n2)
+{
+	if(!cur)
+	return NULL;
+
+	if(cur->data==n1 || cur->data==n2) // don't forget this
+	return cur;
+	
+	if(n1< cur->data && cur->data < n2) // assuming n1<n2 and n1 and n2 for sure lie in tree
+	return cur;
+	
+	if(cur->data > n2) // both n1 and n2 are smaller than cur node, therefore check in left side
+	return lca(cur->left, n1, n2);
+	
+	if(cur->data < n1) // both n1 and n2 are greater than cur node, thus check in right side
+	return lca(cur->right, n1, n2);
+}
+Node* LCA(Node *root, int n1, int n2)
+{
+   return lca(root, min(n1,n2), max(n1,n2)); // notice this cool line
+}
+
+/////
+
+// watch tushar roy video
+// if any node matches cur node, then return cur node
+// else keep on searching in both directns,
+// from cur node return the not null node
+
+Node * LCA(Node* root ,int n1 ,int n2 )
+{
+    if(!root) return NULL;
+    if(root->data == n1 || root->data==n2)
+    return root;
+    
+    Node *x= LCA(root->left, n1, n2);
+    Node *y= LCA(root->right, n1, n2);
+    
+    if(x && y) return root;
+    else if(x)
+    return x;
+    else return y;
+}

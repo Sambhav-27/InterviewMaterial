@@ -1,0 +1,59 @@
+// given array is first increasing then decreasing
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int find(int *a, int b, int e){  // finds bitonic point
+    while(b<=e){
+        int m=(b+e)/2;
+        
+        if(a[m] > a[m-1] && a[m] > a[m+1]) return m;
+        else if(a[m-1] >= a[m])
+        e=m-1;
+        else b=m+1;
+    }
+    return -1;
+}
+int search(int *a, int b, int e, int v){
+    while(b<=e){
+        int m=(b+e)/2;
+        if(a[m]==v) return m;
+        else if(a[m] > v)
+        e=m-1;
+        else b=m+1;
+    }
+    return -1;
+}
+int search2(int *a, int b, int e, int v){
+    while(b<=e){
+        int m=(b+e)/2;
+        if(a[m]==v) return m;
+        else if(a[m] < v)
+        e=m-1;
+        else b=m+1;
+    }
+    return -1;
+}
+int main()
+{
+    int i,j,k,t,n,a[N];
+    cin>>t;
+    while(t--){
+        int val;
+        cin>>n>>val;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        
+        int x=find(a, 0, n-1);
+        
+        int y= search(a, 0, x-1, val);
+        if(y==-1)
+        y= search2(a, x, n-1, val);
+        
+        if(y==-1)
+        cout<<"OOPS! NOT FOUND\n";
+        else
+        cout<<y<<"\n";
+    }
+	return 0;
+}

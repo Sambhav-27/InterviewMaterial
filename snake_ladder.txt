@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+#define INF 1000000022
+#define N 101
+using namespace std;
+int find(int cost[][N], int n){
+	int i,j,k,dist[N][N];
+	for(i=1;i<=n;++i)
+	for(j=1;j<=n;++j)
+	dist[i][j]=cost[i][j];
+	
+	for(k=1;k<=n;++k){
+		for(i=1;i<=n;++i){
+			for(j=1;j<=n;++j){
+				if(dist[i][j] > dist[i][k]+dist[k][j])
+				dist[i][j]= dist[i][k]+dist[k][j];
+			}
+		}		
+	}
+	
+	return dist[1][n];
+}
+int main(){
+	//int cost[][N]={0,4,11,6,0,2,3,INF,0 };
+	int i,j,k,test,n,m,cost[N][N],s,e;
+	cin>>test;
+	while(test--){
+        for(i=0;i<N;++i)
+            for(j=0;j<N;++j)
+            cost[i][j]=INF;
+		for(i=1;i<=99;++i){
+			for(j=1;j<=6;++j){
+				if(i+j<=100)
+				cost[i][i+j]=1;
+			}
+		}
+		cin>>n;
+		for(i=0;i<n;++i){
+			cin>>s>>e;
+			cost[s][e]=0;
+            for(j=1;j<=6;++j){
+                if(s+j<=100)
+                    cost[s][s+j]=INF;
+            }
+            
+		}
+		cin>>m;
+		for(i=0;i<m;++i){
+			cin>>s>>e;
+			cost[s][e]=0;
+            for(j=1;j<=6;++j){
+                if(s+j<=100)
+                    cost[s][s+j]=INF;
+            }
+            
+		}
+        
+		//cout<<find(cost, N-1)<<"\n";
+        int x=find(cost, N-1);
+        if(x>10000)
+            cout<<"-1\n";
+        else
+            cout<<x<<"\n";
+	}
+
+}

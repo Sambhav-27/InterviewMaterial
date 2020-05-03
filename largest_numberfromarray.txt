@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define f first
+#define s second
+#define pii pair<int, int>
+#define mod 1000000007
+#define N 100005
+
+//http://www.geeksforgeeks.org/given-an-array-of-numbers-arrange-the-numbers-to-form-the-biggest-number/
+// awesome question
+bool comp(int a, int b){
+    string x,y,xy,yx;
+    x=to_string(a); y=to_string(b);
+    xy=x.append(y);
+    yx=y.append(x);
+    
+    return xy.compare(yx)>0;
+}
+void find(int *a, int n){
+    
+    sort(a, a+n, comp);
+    for(int i=0;i<n;++i)
+    cout<<a[i];
+    cout<<"\n";
+}
+ int main() {
+   int t,n,a[N],i;
+   cin>>t;
+   while(t--){
+       cin>>n;
+       for(i=0;i<n;++i)
+       cin>>a[i];
+       find(a, n);
+   }
+    
+	return 0;
+}

@@ -1,0 +1,74 @@
+//http://practice.geeksforgeeks.org/problems/shortest-source-to-destination-path/0
+
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100
+#define INF 100000000
+int n,m,dx,dy;
+bool visited[N][N];
+bool cell[N][N];
+bool issafe(int x, int y){
+    if(x>=0 && y>=0 && x<n && y<m)
+    return (!visited[x][y] && cell[x][y]);
+    return 0;
+}
+struct pii{
+    int x,y,w;
+    pii(){}
+    pii(int a, int b, int c): x(a), y(b), w(c) {}
+};
+
+int main() {
+	int t,i,j,k;
+	cin>>t;
+	while(t--){
+	    cin>>n>>m;
+	    for(i=0;i<n;++i)
+	    for(j=0;j<m;++j)
+	    cin>>cell[i][j];
+	    cin>>dx>>dy;
+	    
+	    
+	    
+	    for(i=0;i<N;++i){
+	        for(j=0;j<N;++j){
+	            visited[i][j]=0;
+	        }
+	    }
+	    
+	    int ans1=-1;
+	    
+	    queue< pii >q;
+	    q.push(pii(0,0,0));
+	    visited[0][0]=1;
+	    
+	    while(!q.empty()){
+	        pii p=q.front(); q.pop();
+	        int a=p.x, b=p.y;
+	        int dir[4][2]={1,0, -1,0, 0,1, 0,-1};
+	        if(a==dx && b==dy){
+	            ans1=p.w;
+	            break;
+	        }
+	        
+	        for(int i=0;i<4;++i){
+	            int u= a+dir[i][0];
+	            int v= b+dir[i][1];
+	            if(!issafe(u,v)) continue;
+	            
+	           
+	            visited[u][v]=1;
+	            q.push(pii(u,v, p.w+1));
+	        }
+	       
+	        
+	    }
+	  
+	  if(cell[0][0]==0 || cell[dx][dy]==-1) // don't forget this
+	  // we can also keep a 2d array of ans to store levels for all nodes
+	  cout<<"-1\n";
+	  else
+	  cout<<ans1<<"\n";
+	}
+	return 0;
+}

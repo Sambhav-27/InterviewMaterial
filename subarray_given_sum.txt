@@ -1,0 +1,50 @@
+// find subarray with given sum. array contains non-negative
+// window strategy
+// test case: descending array
+
+// if -ves are include then form a cumulative sum array
+// and search for two ele with diff as k after sorting cf array
+// or use the strategy of xero sum subarray question
+#include <iostream>
+using namespace std;
+#define N 100005
+int main() {
+	int t,i,j,k,l,r,n,a[N];
+	cin>>t;
+	while(t--){
+	    cin>>n>>k;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    l=r=0;
+	    int s=a[0];
+	    while(l<n && r<n){
+	        if(s>k){
+	            if(l<r){
+	                s-=a[l];
+	                l++;
+	            }
+	            else{
+	                s=a[r];
+	                l++; r++;
+	            }
+	        }
+	        else if(s<k){
+	            r++;
+	            s+=a[r];
+	        }
+	        else break;
+	    }
+	    if(l>=n || r>=n)
+	    cout<<"-1\n";
+	    else
+	    cout<<l+1<<" "<<r+1<<"\n";
+	}
+	
+	return 0;
+}
+
+
+//http://www.geeksforgeeks.org/find-subarray-with-given-sum-in-array-of-integers/
+
+do visit the link

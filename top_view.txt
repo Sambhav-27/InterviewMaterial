@@ -1,0 +1,65 @@
+
+
+ map<int, int> m;
+  map<int, int>::iterator it;
+  
+void find(Node * root, int w){
+    if(!root) return;
+    
+    
+    find(root->left, w-1);
+    
+    find(root->right, w+1);
+    m[w]=root->data;  // post order is essential, so that top values don't get overrwritten
+    // for bottom view make this statement at starting of this funct
+}
+
+void topView(struct Node *root)
+{
+    // Your code here
+   int w=0;
+   m.clear();
+    find(root, w);
+   
+    for(it=m.begin();it!=m.end();++it){
+        int x=it->first;
+        int y=it->second;
+        cout<<y<<" ";
+    }
+    cout<<"\n";
+    
+}
+// ouput is from left to right as keys in map are in sorted order
+
+
+////////////////////////////
+
+
+
+// top view level wise
+
+
+#define pii pair<Node*, int>
+void topView(struct Node *root)
+{
+    unordered_map<int, int> m;
+    m.clear();
+    queue< pii >q;
+    q.push(pii(root, 0));
+    
+    while(!q.empty()){
+        pii p=q.front(); q.pop();
+        
+        Node*t=p.first;
+        int w=p.second;
+        
+        if(m.find(w)==m.end()){ // value doesn't exists i.e. first time width is reached
+            cout<<t->data<<" ";
+            m[w]=t->data;   // actually we just need to store the keys(width) in map, value is useless. thus an array  can also be used but for 				//-ve w mapping to +ve values need to be done
+        }
+        if(t->left)
+        q.push(pii(t->left, w-1));
+        if(t->right)
+        q.push(pii(t->right, w+1));
+    }
+}

@@ -1,0 +1,63 @@
+//http://practice.geeksforgeeks.org/problems/distinct-transformations/0
+/*Given two sequences A, B, find out number of unique ways 
+in sequence A, to form a subsequence that is identical to the sequence B.
+
+Example :
+A = "abcccdf"  B = "abccdf"
+
+Return 3. And the formations as follows:
+
+A1= "ab.ccdf"
+A2= "abc.cdf"
+A3="abcc.df"
+
+"." is where character is removed.*/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 300
+#define N1 105
+int ** find(string a, string b){
+    int i,j,k,n,m;
+    n=a.length();
+    m=b.length();
+        
+    int **dp;
+    dp =new int*[N1];
+    for(i=0; i<N1;++i)
+    dp[i]= new int[N]();
+        
+        
+        for(j=0; j<=n;++j)
+        dp[0][j]=1;
+        
+        for(i=1; i<=m;++i){
+            for(j=1; j<=n; ++j){
+                if(b[i-1]==a[j-1]){
+                    dp[i][j]= dp[i-1][j-1]+dp[i][j-1];
+                }
+                else{
+                    dp[i][j]=dp[i][j-1];
+                }
+            }
+            
+        }
+    return dp;
+}
+int main()
+{
+    int i,j,k,n,m,t;
+    cin>>t;
+    while(t--){
+        string a,b;
+        cin>>a>>b;
+        
+        int **dp=find(a,b);
+        
+        n=a.length(); m=b.length();
+        cout<<dp[m][n]<<"\n";
+    }
+    
+	return 0;
+}

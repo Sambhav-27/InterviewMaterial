@@ -1,0 +1,55 @@
+// your task is tocomplete this function
+// function should return an pointer to output array int*
+// of size k*k
+#include<bits/stdc++.h>
+#define pii pair<int, int>
+#define f first
+#define s second
+#define INF 10000000
+struct comp{
+    bool operator()(const pii &a, const pii &b)   {
+        return a.f>b.f;
+    }
+};
+
+priority_queue< pii, vector<pii>, comp> q;
+vector<int> v; // declare it outside; reason I don't know
+
+int *mergeKArrays(int a[][N], int k)
+{
+    int i,j;
+    
+    while(!q.empty()) q.pop();
+    v.clear();
+    for(i=0;i<k;++i){
+        q.push(pii(a[i][0], i));
+    }
+    
+    
+    int ind[N];
+    for(i=0;i<k;++i)
+    ind[i]=1;
+    
+    i=0;
+    while(i<k*k){
+        int x=q.top().f;
+        int y=q.top().s; q.pop();
+        i++;
+        v.push_back(x);
+        
+        if(ind[y]<k){
+            j=a[y][ind[y]];
+            ind[y]+=1;
+            q.push(pii(j,y));
+        }
+        else{
+            q.push(pii(INF, y)); // notice this
+        }
+        
+    }
+    
+   
+    int *p;
+    p=&v[0];
+    return p;
+}

@@ -1,0 +1,37 @@
+// an array of size n, the array contains numbers in range
+//from 0 to k-1 where k is a positive integer and k <= n.
+// discuss all 3 approaches: O(n*n) using O(1) space
+// O(n) using O(n) space
+// or below  soln in O(1) space 
+// since each element is less than k; do a[a[i]%k] += k
+// after this index of max element will be maximum in original array
+// to get original arrau back a[i]= a[i]%k
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+{
+    int i,j,k,t,n,a[N];
+    cin>>t;
+    while(t--){
+        cin>>n>>k;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        
+        for(i=0; i<n; ++i){ // element is used as index. thus if an element occurs most; then a[i]th index will be maxx
+            a[a[i]%k] += k;
+        }
+        for(i=0; i<n; ++i) // this loop is necessary in cases of clashes;to print smaller element
+        a[i]/=k;            // gives count of ith index
+        
+        int ans=0,maxl=a[0];
+        for(i=0; i<n; ++i){
+            if(a[i] > maxl){
+                maxl=a[i];
+                ans=i;
+            }
+        }
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

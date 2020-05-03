@@ -1,0 +1,67 @@
+1. They give marks in VIVA by asking where you are interning.
+
+2.http://www.geeksforgeeks.org/number-subsequences-form-ai-bj-ck/
+
+3.working of maps
+
+4. mention something awkward in the interview or funny.
+
+5.Internship in a company doesn't show that you are a champ in programming. It just shows that you have a bit of experience in real world coding and projects.
+
+Your projects in your last 3 years shows how much have you learnt yourself. What difficulties you might have faced and how you did overcome those hurdles.
+
+6. partitioning a set into 2 subsets of equal sum
+
+7. asymptotic notations
+
+8. write a complete tree, LL program
+
+9. check password of all you coding ids
+
+10. small programs like mirror isomorphic, converting to mirror tree, symmetric etc ect
+
+11. check if a number is palindrome, reverse the number and then compare if equal to original.
+
+12. lexicographical comparing
+
+13. rational, irrational no,s
+14.level of root=1;
+15. if you find any os term not related, tell i might know this by a different name, ask for elaboration
+
+
+17.http://www.geeksforgeeks.org/lexicographic-rank-of-a-string/
+
+18. in the project, he might ask about features used. watch andrew ng
+
+19. A more honest answer, he adds, might be, “You were the only ones who read my resume, so of course I want to work for you. I need a job.”
+
+20For example, “I’ve been told that I bring energy to every project I tackle.” Or, “I have the ability to connect with anyone on my team, bringing a sense of cohesiveness to the workplace.”
+
+21“A good answer would include, Here’s the mistake I made, here is where I went wrong, and here is what I learned as a result.”
+
+22 Two things I know is cricket and programming
+
+23 OCR and spm classifier for a friend. I just coded and tested the accuracy in spam classifier.
+
+24 I like to learn and then implement, not all thoery that is why I didn't do full course
+
+15 string search, lru etc
+
+16. website design, They asked about the data structures I used and how to optimize it and what further additions i can do in it.
+
+17. algorithm to allocate seats in project
+
+18. researcch paper of project
+
+19. bfs is used for non-weighted and dijkstra for weighted
+
+20 to convert c++ string to c string
+use: strcpy(ch, ans.c_str());
+  c_str() returns const pointer so have to use strcpy
+
+
+21. Hardest problem you have solved
+22. function memort: stack; global: heap
+23: IN DBMS project seat allocated using excel sheet wala algo
+
+

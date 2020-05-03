@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+
+// if signature of function is like below then use the counting method
+
+void sortList(Node *head)
+{
+    if(!head || !head->next) return;
+   Node *tail, *cur=head;
+   int i,j,c=0;
+   while(cur){
+       c++;
+       tail=cur;
+       cur=cur->next;
+   }
+  
+   if(head->data==2){
+       tail->next=head;
+       tail=tail->next;
+       head=head->next;
+       tail->next=NULL;
+   }
+   cur=head;
+   i=0;
+   while(i<c-1){
+       if(cur->next->data==2){
+           Node * t=cur->next;
+           cur->next=cur->next->next;
+           tail->next=t;
+           t->next=NULL;
+           tail=t;
+       }
+       else if(cur->next->data==0){
+           Node *t=cur->next;
+           cur->next=cur->next->next;
+           t->next=head;
+           head=t; // t head ban gya
+           
+           std::cout<<head->data<<":"<<head->next->data<<":"<<head->next->next->data<<"::";
+       }
+       else
+       cur=cur->next;
+       ++i;
+   }
+ 
+}
+
+

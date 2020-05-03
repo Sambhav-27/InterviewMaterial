@@ -1,0 +1,41 @@
+// find next greater of all elements in array
+// done by self
+#include<bits/stdc++.h>
+using namespace std;
+#define pii pair<int, int>
+#define f first
+#define p second // posn in array
+#define N 100005
+int main()
+ {
+	int i,j,k,t,n,ng[N];
+	cin>>t;
+	while(t--){
+	    vector< pii > v;
+	    cin>>n;
+	    for(i=0;i<n;++i){
+	        int x;
+	        cin>>x;
+	        v.push_back(pii(x,i));
+	    }
+	    
+	    
+	    stack< pii > s; // elements in stack are in descending order from bottom to top
+	    for(i=0; i<n; ++i){
+	        while(!s.empty() && s.top().f < v[i].f){
+	            pii x= s.top(); s.pop();
+	            ng[x.p]=v[i].f;
+	        }
+	        s.push(v[i]);
+	    }
+	    
+	    while(!s.empty()){
+	        pii x= s.top(); s.pop();
+	        ng[x.p]=-1;
+	    }
+	    for(i=0; i<n; ++i)
+	    cout<<ng[i]<<" ";
+	    cout<<"\n";
+	}
+	return 0;
+}

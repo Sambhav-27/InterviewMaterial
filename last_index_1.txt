@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+// last index of 1
+// array can be sorted in descending or ascending order
+// binary array
+int find(string a, int b, int e, int n){
+    while(b<=e){
+        int m=(b+e)/2;
+        
+        if(a[m]=='1' && m+1<n && a[m+1]=='0') return m;
+        else if(a[m]=='1' && m+1<n && a[m+1]=='1')
+        b=m+1;
+        else
+        e=m-1;
+    }
+    return -1;
+}
+int main()
+{
+    int i,j,k,t,n;
+    cin>>t;
+    while(t--){
+        
+        string s;
+        cin>>s;
+        n=s.length();
+        if(s[n-1]=='1'){
+            cout<<n-1<<"\n";
+        }
+        else{
+            cout<<find(s, 0, n-1, n)<<"\n";
+        }
+    }
+	return 0;
+}

@@ -1,0 +1,55 @@
+//tip: never use memset
+
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100005
+int prime[N];
+int s[N]; // to store smallest prime factor of number
+bool flag[N];
+void find(){
+    int i,j;
+    for(i=0;i<N;++i){
+        prime[i]=1;
+        s[i]=i;
+    }
+    prime[0]=prime[1]=0;
+    s[1]=0; // notice this
+    for(i=2;i*i<=N;++i){
+        if(prime[i]){
+            s[i]=i; flag[i]=1;
+            for(j=2*i;j<=N;j+=i){
+                prime[j]=0;
+                if(!flag[j]){
+                    s[j]=i; flag[j]=1;
+                }
+            }
+        }
+    }
+    //cout<<s[35899]<<":"<<prime[35899]<<"  ";
+}
+void find2(int n){
+    int i,j,k,cur,c;
+    c=1;
+    cur=s[n];
+    while(n>1){
+        n/=cur;
+        if(cur==s[n]) c++;
+        else{
+            cout<<cur<<" "<<c<<" ";
+            cur=s[n];
+            c=1;
+        }
+    }
+}
+int main() {
+	find();
+	int i,j,k,test,n;
+	cin>>test;
+	while(test--){
+	    cin>>n;
+	    
+	    find2(n);
+	    cout<<"\n";
+	}
+	return 0;
+}

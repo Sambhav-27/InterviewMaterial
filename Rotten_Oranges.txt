@@ -1,0 +1,76 @@
+// 1= fresh orange
+// 2= rotten 0= empty
+// initially push all rotten oranges in q
+// then for each of its childer: level= parent's level+1
+// return max level
+// also check if any fresh orange is left then -1
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 1000
+int n,m,a[N][N],c;
+bool visited[N][N];
+int dir[4][2]={1,0, -1,0, 0,1, 0,-1};
+bool safe(int x, int y){
+    if(x>=0 && x<n && y>=0 && y<m && !visited[x][y])
+    return 1;
+    return 0;
+}
+struct pii{
+    int x,y,l;
+    pii(){}
+    pii(int a, int b, int c){
+        x=a; y=b; l=c;
+    }
+};
+int find(){
+    int i,j,k,ans=0;
+    queue< pii > q;
+    for(i=0; i<n; ++i){
+        for(j=0; j<m; ++j){
+            visited[i][j]=0;
+            if(a[i][j]==2){
+                q.push(pii(i,j,0));
+                visited[i][j]=1;
+            }
+        }
+    }
+    
+    while(!q.empty()){
+        pii p =q.front(); q.pop();
+        ans=max(ans, p.l);
+        
+        for(i=0; i<4; ++i){
+            int u= p.x+dir[i][0];
+            int v= p.y+dir[i][1];
+            if(safe(u,v) && a[u][v]==1){
+                visited[u][v]=1;
+                q.push(pii(u,v,p.l+1));
+            }
+        }
+    }
+    
+    for(i=0; i<n;++i){
+        for(j=0; j<m; ++j){
+            if(a[i][j]==1 && !visited[i][j]){
+                ans=-1; break;
+            }
+        }
+    }
+    return ans;
+}
+int main()
+{
+    int i,j,k,t;
+    cin>>t;
+    while(t--){
+        cin>>n>>m;
+        for(i=0; i<n; ++i){
+            for(j=0;j<m; ++j)
+            cin>>a[i][j];
+        }
+        
+        cout<<find()<<"\n";
+    }
+	return 0;
+}

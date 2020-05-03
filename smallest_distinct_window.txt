@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define f first
+#define s second
+#define pii pair<int, int>
+#define mod 1000000007
+#define N 100005
+//http://practice.geeksforgeeks.org/problems/smallest-distant-window/0
+
+
+
+int find(string s){
+    int l,i,j,k,c,n=s.length();
+    int ans=INT_MAX, maxc=0;
+    vector<int> v(26);
+    for(l=1;l<=n;++l){
+        c=0;
+        int v[26]={0};
+        
+        for(k=0;k<l;++k)  // first window of size l
+        v[s[k]-'a']++;
+        for(k=0;k<26;++k)
+        if(v[k]) c++;
+        
+        
+        if(c>maxc){
+            maxc=c;
+            ans=l;
+        }
+        
+        for(i=1;i<n;++i){ // rest of windows
+            j=i+l-1;
+            if(i>=n || j>=n) continue;
+            
+            v[s[i-1]-'a']--; 
+            if(v[s[i-1]-'a']==0)
+            c--;
+            
+            if(v[s[j]-'a']==0) c++;
+            v[s[j]-'a']++;
+            
+            
+            if(c>maxc){
+                maxc=c;
+                ans=l;
+            }
+        }
+       
+        
+    }
+    return ans;
+    
+}
+
+ int main() {
+   int t,i,j,k;
+   string s;
+   cin>>t;
+   while(t--){
+       cin>>s;
+       
+       cout<<find(s)<<"\n";
+   }
+    
+	return 0;
+}

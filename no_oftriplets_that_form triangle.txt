@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+//http://www.geeksforgeeks.org/find-number-of-triangles-possible/
+// time is n*n not n*n*n. Notice that k wala loop is not initialized every time
+int main()
+{
+	int i,j,k,t,n,l,r,ans,a[N];
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    ans=0;
+	    sort(a, a+n);
+	    for(i=0; i<n-2; ++i){ // i till 3rd last
+
+	        k=i+2; // k is at 3rd element from now
+
+	        for(j=i+1; j<n-1; ++j){   // j till 2nd last
+	            while(k<n && a[i]+a[j] > a[k])
+	                k++;
+	            ans+=k-j-1;
+    	         
+	        }
+	    }
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}

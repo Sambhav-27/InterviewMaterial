@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t,i,j,k;
+	cin>>t;
+	while(t--){
+	    string s;
+	    cin>>s;
+	    string t;
+	    int n=s.length();
+	    for(i=n-1;i>=0;--i){
+	        if(s[i]=='.'){
+	            for(j=t.length()-1;j>=0;--j)
+	            cout<<t[j];
+	            cout<<".";
+	            t.clear();
+	        }
+	        else{
+	            t+=s[i];
+	        }
+	    }
+	    for(j=t.length()-1;j>=0;--j)
+	            cout<<t[j];
+	    cout<<"\n";
+	}
+	return 0;
+}

@@ -1,0 +1,21 @@
+void rever(Node *head, Node **temp){
+    if(!head) return;
+    if(!head->next){
+        *temp=head; return;
+    }
+    
+    rever(head->next, temp);
+    
+    head->next->prev= head->next->next;
+    head->prev= head->next;
+    
+    head->next->next= head;
+    head->next= NULL;
+}
+
+
+Node* Reverse(Node* head)
+{
+    rever(head, &head);
+    return head;
+}

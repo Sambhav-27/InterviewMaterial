@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 1000
+vector< int > v1[N];
+vector<int> v2[N];
+bool visited1[N],visited2[N];
+int n,e;
+bool dfs(int u1, int u2){
+    visited1[u1]=1;
+    visited2[u2]=1;
+    
+    if(u1!=u2) return 0;
+    
+    for(int i=0;i<v1[u1].size(); ++i){
+        int n2=v2[u2].size();
+        int x1=v1[u1][i];
+        int x2=v2[u2][n2-1-i];
+        if(!visited1[x1] && !visited2[x2])
+        return dfs(x1, x2);
+    }
+    return 1;
+}
+
+int main() {
+	int t,i,j,k;
+	cin>>t;
+	while(t--){
+	    cin>>n>>e;
+	    for(i=0;i<n;++i){
+	        visited1[i]=visited2[i]=0;
+	        v1[i].clear();
+	        v2[i].clear();
+	    }
+	    for(i=0;i<e;++i){
+	        int x,y;
+	        cin>>x>>y;
+	        v1[x].push_back(y);
+	    }
+	    for(i=0;i<e;++i){
+	        int x,y;
+	        cin>>x>>y;
+	        v2[x].push_back(y);
+	    }
+	    
+	    cout<<dfs(1, 1)<<"\n";
+	}
+	return 0;
+}

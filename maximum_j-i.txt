@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100005
+//http://www.geeksforgeeks.org/given-an-array-arr-find-the-maximum-j-i-such-that-arrj-arri/
+// maintain 2 arrays
+// l stores min till now including cur from left
+// r stores max till now from right including cur
+// i ptr is for l array
+// j for r array
+// if l[i]>r[j] i++
+// else find max j-i
+
+int find(int *a, int n){
+    int i,j,k,l[N],r[N],mins=INT_MAX,maxs=INT_MIN;
+    
+    for(i=0;i<n;++i){
+        mins=min(mins, a[i]);
+        l[i]=mins;
+    }
+    for(i=n-1;i>=0;--i){
+        maxs=max(maxs,a[i]);
+        r[i]=maxs;
+    }
+    int ans=0; i=j=0;
+    
+    while(1){
+        if(i==n || j==n) break;
+        if(l[i]>r[j]) i++;
+        else{
+            ans=max(ans, j-i);
+            j++;
+        }
+    }
+    return ans;
+    
+}
+int main() {
+	int i,j,k,t;
+	cin>>t;
+	int n,a[N];
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    cout<<find(a, n)<<"\n";
+	}
+	return 0;
+}

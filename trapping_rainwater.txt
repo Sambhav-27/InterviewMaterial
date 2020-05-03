@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+#define N 100005
+int main() {
+	int t,n,i,j,k,a[N],maxl[N],maxr[N];
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    maxl[0]=a[0];
+	    maxr[n-1]=a[n-1];
+	    for(i=1;i<n;++i)
+	    maxl[i]=max(a[i], maxl[i-1]); // max on left including self
+	    
+	    for(j=n-2;j>=0;--j)
+	    maxr[j]=max(a[j],maxr[j+1]); // maximum on right including self
+	    
+	    int ans=0;
+	    for(i=0;i<n;++i)
+	    ans+=min(maxl[i], maxr[i])-a[i];
+	    cout<<ans<<endl;
+	}
+	return 0;
+}

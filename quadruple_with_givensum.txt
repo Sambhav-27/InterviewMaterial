@@ -1,0 +1,89 @@
+// first discuss the O(n*n*n) sol
+// uncomment the commented portion to print all paths. The time will be O(n*n*n) itself
+// thus sorting and then 3 loops approach will be better
+#include<bits/stdc++.h>
+using namespace std;
+#define N 10005
+struct pii{
+    int f,s,x;
+    pii(){}
+    pii(int a, int b, int c){
+        f=a; s=b; x=c;
+    }
+};
+// struct piii{
+//     int a,b,c,d;
+//     piii(){}
+//     piii(int x, int y, int z, int w){
+//         a=x; b=y; c=z; d=w;
+//     }
+// };
+bool comp(pii a, pii b){
+    return a.x<b.x;
+}
+// bool operator< (const piii &p1, const piii &p2)
+// {
+//     if(p1.a==p2.a){
+//         if(p1.b==p2.b){
+//             if(p1.c==p2.c)
+//             return p1.d<p2.d;
+//             return p1.c<p2.c;
+//         }
+//         return p1.b<p2.b;
+//     }
+//     return p1.a < p2.a;
+// }
+int main()
+{
+    int i,j,k,t,n,a[N];
+    cin>>t;
+    while(t--){
+        cin>>n>>k;
+        for(i=0; i<n; ++i)
+        cin>>a[i];
+        
+        // set< piii > s;
+        vector< pii > v;
+        for(i=0; i<n; ++i){
+            for(j=i+1; j<n; ++j){
+                int x=a[i]+a[j];
+               v.push_back(pii(i, j, x));
+            }
+        }
+        sort(v.begin(), v.end(), comp);
+        
+        i=0; j=v.size()-1;
+        while(i<j){
+            int y=v[i].x+v[j].x;
+            //cout<<y<<":";
+            if(y < k)
+            i++;
+            else if(y > k)
+            j--;
+            else{
+                int b[4];
+                b[0]=a[v[i].f];   b[1]=a[v[i].s];
+                b[2]=a[v[j].f];   b[3]=a[v[j].s];
+                sort(b, b+4);
+                if(v[i].f==v[j].f || v[i].f==v[j].s || v[i].s==v[j].f || v[i].s==v[j].s){
+                    // notice the above condition carefully
+                }
+                else
+               // s.insert(piii(b[0], b[1], b[2], b[3]));
+                cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<" "<<b[3]<<" $";
+                break;
+                i++;
+            }
+        }
+        // set< piii >::iterator it;
+        // for(it=s.begin(); it!=s.end(); ++it){
+        //     piii x= *it;
+        //     cout<<x.a<<" "<<x.b<<" "<<x.c<<" "<<x.d<<" $";
+        // }
+        // if(s.empty())
+        // cout<<"-1";
+        cout<<"\n";
+        
+    }
+	return 0;
+}

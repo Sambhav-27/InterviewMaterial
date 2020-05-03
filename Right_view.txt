@@ -1,0 +1,17 @@
+int plevel=-1;
+void print(Node *root, int clevel){
+    if(!root) return;
+    
+    if(clevel> plevel){
+        cout<<root->data<<" ";
+        plevel=clevel;
+    }
+    print(root->right, clevel+1); // for left view exchange below statements
+    print(root->left, clevel+1);
+    
+}
+void rightView(Node *root)
+{
+    plevel=-1;
+    print(root, 0);
+}

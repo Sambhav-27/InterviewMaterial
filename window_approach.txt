@@ -1,0 +1,70 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+ {
+	int i,j,k,n,m,l,r,t;
+	cin>>t;
+	while(t--){
+	    string s,a;
+	    cin>>s>>a;
+	    
+	    int ansi,ansl;
+	    int f[26]={0};
+	    m=a.length();
+	    n=s.length();
+	    
+	    for(i=0;i<m;++i)
+	    f[a[i]-'a']++;
+	    
+	    
+	    ansi=ansl=-1;
+	    for(l=1;l<=n;++l){
+	        int g[26]={0};
+	        for(i=0;i<l;++i){
+	            g[s[i]-'a']++;
+	        }
+	        bool flag=1;
+	        for(k=0;k<26;++k){
+	            if(f[k]>g[k]){
+	                flag=0; break;
+	            }
+	        }
+	        if(flag){
+	            ansi=0;
+	            ansl=l-1;
+	            break;
+	        }
+	        for(i=1; i<n; ++i){
+	            j=i+l-1;
+	            if(i>=n || j>=n) continue;
+	            g[s[i-1]-'a']--;
+	            g[s[j]-'a']++;
+	           
+	            flag=1;
+	            for(k=0;k<26;++k){
+	                if(f[k]>g[k]){
+	                    flag=0; break;
+	                }
+	            }
+	            if(flag){
+	                ansi=i;
+	                ansl=j;
+	                break;
+	            }
+	        }
+	        if(flag) break;
+	    }
+	    if(ansi==-1){
+	        cout<<"-1\n";
+	    }
+	    else{
+	        
+	        for(i=ansi; i<=ansl ;++i)
+	        cout<<s[i];
+	        cout<<"\n";
+	    }
+	}
+	return 0;
+}

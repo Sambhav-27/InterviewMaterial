@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+#define N 10005
+using namespace std;
+int search(int  *a, int s, int e, int val){
+    for(int i=s;i<=e;++i)
+    if(a[i]==val)
+    return i;
+    return -1;
+}
+void find(int *in, int *pre, int n, int *pindex, int s, int e){
+    if(s>e) return;
+    //if(s==e) cout<<in[s]<<" ";
+    
+    int k= search(in, s,e, pre[*pindex]);
+    int cur=(*pindex)++;
+    
+    find(in,pre,n,pindex,s,k-1);
+    find(in,pre,n,pindex,k+1,e);
+    
+    cout<<pre[cur]<<" ";
+}
+int main() {
+	int t,n,pre[N],in[N],i,j;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(int i=0;i<n;++i){
+	        cin>>pre[i];
+	        in[i]=pre[i];
+	    }
+	    sort(in, in+n);
+	    
+	// to check invalid preorder traversal
+	// after first greater element than root, all others must be smaller than root
+	    bool flag=1;
+	    int x=pre[0];
+	    for(i=1;i<n;++i){
+	        if(pre[i]>x){
+	            j=i; break;
+	        }
+	    }
+	    for(i=j;i<n;++i){
+	        if(pre[i] < x){
+	            flag=0;
+	             break;
+	        }
+	    }
+	    
+	    if(!flag)
+	    cout<<"NO\n";
+	    else{
+	        int pindex=0,s=0,e=n-1;
+	        find(in, pre, n, &pindex,s,e);
+	        cout<<"\n";
+	    }
+	    
+	    
+	    
+	}
+	return 0;
+}

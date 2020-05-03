@@ -1,0 +1,5 @@
+1. product of all array elements except selft without divide operator
+	Maintaing two arrays for left product  and right product. ans[i]=lr[i] *rl[i]
+	Can also be done using 1 array only. rl can be eliminated by calculating on the fly.
+
+2.

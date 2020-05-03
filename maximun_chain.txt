@@ -1,0 +1,36 @@
+/*
+The structure to use is as follows
+struct val{
+	int first;
+	int second;
+};*/
+
+// like longest increasing subsequence
+
+/*You are required to complete this method*/
+#include<bits/stdc++.h>
+bool comp(val a, val b){
+    return a.first<b.first;
+}
+#define N 1000
+int maxChainLen(struct val a[],int n)
+{
+    int ans[N];
+    int i,j;
+    sort(a,a+n,comp);
+    for(i=0;i<n;++i)
+    ans[i]=1;
+    
+    for(i=0;i<n-1;++i){
+        for(j=i+1;j<n;++j){
+            if(a[j].first>a[i].second){
+                ans[j]=max(ans[j], 1+ans[i]);
+            }
+        }
+    }
+    int maxl=0;
+    for(i=0;i<n;++i)
+    maxl=max(maxl, ans[i]);
+    return maxl;
+
+}

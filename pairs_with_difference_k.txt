@@ -1,0 +1,27 @@
+int pairs(vector < int > a,int k, int n) {
+   int ans=0;
+    int i,j;
+    //sort(a, a+n);
+    sort(a.begin(), a.end());
+    /*for(i=0;i<n;++i){
+        int x=a[i]+k;
+        int flag=bsearch(a,i,n, x);
+        if(flag!=-1) ans++;
+    }*/
+    i=0; j=1;
+    while(j<n){
+        int x=a[j]-a[i];
+        if(x==k){
+            ans++; j++;
+        }
+        else if(x<k) j++;
+            else i++;
+    }
+    
+    
+    return ans;
+}
+
+
+// see tutorial
+// unordered set can also be used

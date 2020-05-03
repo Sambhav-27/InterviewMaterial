@@ -1,0 +1,32 @@
+// max sum path in 2 arrays
+// if two array elements are same then we can jump to other array
+// like merging: keep two counters for both arrays
+ int max_path_sum(int a[], int b[], int l1, int l2)
+{
+    int i,j,k,ans,c1,c2;
+    i=0; j=0;
+    c1=c2=ans=0;
+    while(i<l1 && j<l2){
+        if(a[i]==b[j]){
+            c1+=a[i++];
+            c2+=b[j++];
+            ans+=max(c1, c2);
+            c1=c2=0;
+        }
+        else if(a[i] <b[j]){
+            c1+=a[i++];
+        }
+        else{
+            c2+=b[j++];
+        }
+    }
+    while(i<l1){
+        c1+=a[i++];
+    }
+    while(j<l2){
+        c2+=b[j++];
+    }
+    ans+=max(c1, c2);
+    return ans;
+    
+}

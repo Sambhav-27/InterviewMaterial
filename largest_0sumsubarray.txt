@@ -1,0 +1,54 @@
+// http://practice.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1
+// use hashing to store cur sum;
+// if sum already exists then there is a zero sum subarray
+// test cases: -1 1 -1 1: 4
+// 15 -2 2 -8 1 7 10 23:  5
+int maxLen(int a[],int n)
+{
+    unordered_map<int, int> m;
+    int i,j,k,s,ans=0;
+    s=0;
+    for(i=0; i<n; ++i){
+        s+=a[i];
+        
+        if(s==0)
+        ans=i+1;
+        if(m.find(s)!=m.end()){
+            j=m[s];
+            ans= max(ans, i-j);
+        }
+        else{
+            m[s]=i;
+        }
+    }
+    return ans;
+    
+}
+
+
+///////////////////////////////////
+// http://practice.geeksforgeeks.org/problems/largest-subarray-of-0s-and-1s/1
+// largest subarray with equal no of 0's and 1's
+// treat 0's as -1 and then find largest subarray of 0 sum
+int maxLen(int a[], int n)
+{
+    unordered_map<int, int> m;
+    int i,j,k,s,ans=0;
+    s=0;
+    for(i=0; i<n; ++i){
+        if(a[i]==1)
+        s+=a[i];
+        else s+=-1;
+        
+        if(s==0)
+        ans=i+1;
+        if(m.find(s)!=m.end()){
+            j=m[s];
+            ans= max(ans, i-j);
+        }
+        else{
+            m[s]=i;
+        }
+    }
+    return ans;
+}

@@ -1,0 +1,358 @@
+// http://practice.geeksforgeeks.org/problems/lru-cache/1
+// for first round also study the shorter method with linear search in q
+
+// longer version
+
+/*The structure of the class is as follows 
+class LRUCache
+{
+public:
+    LRUCache(int );
+    int get(int );
+    void set(int , int );
+};*/
+
+struct node{
+    int key, val;
+    node *next, *prev;
+};
+node * getnode(int k, int v){
+    node *t=new node;
+    t->key=k; t->val=v;
+    t->next=t->prev=NULL;
+    return t;
+}
+
+unordered_map<int, node*> m;
+int frames;
+node *front, *rear;
+/*Inititalize an LRU cache with size N */
+LRUCache::LRUCache(int N)
+{
+    m.clear();
+    frames=N;
+    front=rear=NULL;
+}
+
+/*Sets the key x with value y in the LRU cache */
+void LRUCache::set(int x, int y) 
+{
+    if(m.find(x)!=m.end()){// key found
+        node *t= m[x];
+        t->val=y;
+        if(front==rear && front==t){// 1 node
+            // nothing
+        }
+        else if(front->next==rear){// 2 nodes
+            if(t==rear){
+                // nothing
+            }
+            else if(t==front){
+                rear->next= front; rear->prev=NULL;
+                front->prev=rear; front->next=NULL;
+                swap(rear, front);
+            }
+        }
+        else{ // >2 nodes
+            if(front==t){// first node match
+                front=t->next;
+                t->next->prev=NULL;
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t;
+            }
+            else if(t->next==NULL){
+                
+            }
+            else{
+                node *p=t->prev;
+                node *n=t->next;
+                p->next=n;
+                n->prev=p;
+                
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t; // t rear ban gya
+            }
+        }
+    }
+    else{// not found in current frames
+        if(front==rear && rear==NULL){ // 0 nodes
+            if(m.size() < frames){
+                node *t=getnode(x,y);
+                m[x]=t;
+                front=rear=t;
+            }
+        }
+        else if(front==rear){ // 1 node
+            if(m.size() <  frames){
+                node *t=getnode(x,y);
+                m[x]=t;
+                rear->next=t;
+                t->prev=rear;
+                rear=t;
+            }
+            else{// frames=1; m.size()==1 and not found
+                m.erase(front->key);
+                front->key=x;
+                front->val=y;
+                node *t=getnode(x,y);
+                m[x]=t;
+                
+            }
+        }
+        else { // >1 node
+            if(m.size() <  frames){
+                node *t=getnode(x,y);
+                 m[x]=t;
+                 rear->next=t;
+                 t->prev=rear;
+                 rear=t;
+            }
+            else{
+                node *t=getnode(x,y);
+                m[x]=t;
+                rear->next=t;
+                t->prev=rear;
+                rear=t;
+                
+                m.erase(front->key);
+                front=front->next;
+                front->prev=NULL;
+            }
+        }
+    }
+    //  node *cur=front;
+    // while(cur){
+    //     cout<<cur->key<<":"<<cur->val<<" ";
+    //     cur=cur->next;
+    // }
+    // cout<<"\n";
+}
+
+/*Returns the value of the key x if present else returns -1 */
+int LRUCache::get(int x)
+{
+    int ans=-1;
+    if(m.find(x)!=m.end()){// found
+        node *t= m[x];
+       // t->data=y;
+       ans=t->val;
+        if(front==rear && front==t){// 1 node
+            // nothing
+        }
+        else if(front->next==rear){// 2 nodes
+            if(t==rear){
+                // nothing
+            }
+            else if(t==front){
+                rear->next= front; rear->prev=NULL;
+                front->prev=rear; front->next=NULL;
+                swap(rear, front);
+            }
+        }
+        else{ // >2 nodes
+             if(t->prev==NULL){// first node match
+                front=t->next;
+                 t->next->prev=NULL;
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t;
+            }
+            else if(t->next==NULL){ // last node match
+                
+            }
+            else{
+                node *p=t->prev;
+                node *n=t->next;
+                p->next=n;
+                n->prev=p;
+                
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t; // t rear ban gya
+            }
+        }
+    }
+    // node *cur=front;
+    // while(cur){
+    //     cout<<cur->key<<":"<<cur->val<<" ";
+    //     cur=cur->next;
+    // }
+    // cout<<"\n";
+    
+    
+    return ans;
+}
+
+
+
+
+
+
+
+// lil shorter and quicker
+/*The structure of the class is as follows 
+class LRUCache
+{
+public:
+    LRUCache(int );
+    int get(int );
+    void set(int , int );
+};*/
+
+struct node{
+    int key, val;
+    node *next, *prev;
+};
+node * getnode(int k, int v){
+    node *t=new node;
+    t->key=k; t->val=v;
+    t->next=t->prev=NULL;
+    return t;
+}
+
+unordered_map<int, node*> m;
+int frames;
+node *front, *rear;
+/*Inititalize an LRU cache with size N */
+LRUCache::LRUCache(int N)
+{
+    m.clear();
+    frames=N;
+    front=rear=NULL;
+}
+
+/*Sets the key x with value y in the LRU cache */
+void LRUCache::set(int x, int y) 
+{
+    if(m.find(x)!=m.end()){// key found
+        node *t= m[x];
+        t->val=y;
+        if(front==rear && front==t){// 1 node
+            // nothing
+        }
+       
+        else{ // >2 nodes
+            if(front==t){// first node match
+                front=t->next;
+                t->next->prev=NULL;
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t;
+            }
+            else if(t->next==NULL){ // last node match
+                
+            }
+            else{
+                node *p=t->prev;
+                node *n=t->next;
+                p->next=n;
+                n->prev=p;
+                
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t; // t rear ban gya
+            }
+        }
+    }
+    else{// not found in current frames
+        if(front==rear && rear==NULL){ // 0 nodes
+            if(m.size() < frames){
+                node *t=getnode(x,y);
+                m[x]=t;
+                front=rear=t;
+            }
+        }
+        else if(front==rear){ // 1 node
+            if(m.size() <  frames){
+                node *t=getnode(x,y);
+                m[x]=t;
+                rear->next=t;
+                t->prev=rear;
+                rear=t;
+            }
+            else{// frames=1; m.size()==1 and not found
+                m.erase(front->key);
+                front->key=x;
+                front->val=y;
+                node *t=getnode(x,y);
+                m[x]=t;
+                
+            }
+        }
+        else { // >1 node
+            if(m.size() <  frames){
+                node *t=getnode(x,y);
+                 m[x]=t;
+                 rear->next=t;
+                 t->prev=rear;
+                 rear=t;
+            }
+            else{
+                node *t=getnode(x,y);
+                m[x]=t;
+                rear->next=t;
+                t->prev=rear;
+                rear=t;
+                
+                m.erase(front->key);
+                front=front->next;
+                front->prev=NULL;
+            }
+        }
+    }
+    
+}
+
+/*Returns the value of the key x if present else returns -1 */
+int LRUCache::get(int x)
+{
+    int ans=-1;
+    if(m.find(x)!=m.end()){// found
+        node *t= m[x];
+       // t->data=y;
+       ans=t->val;
+        if(front==rear && front==t){// 1 node
+            // nothing
+        }
+        
+        else{ // >2 nodes
+             if(t->prev==NULL){// first node match
+                front=t->next;
+                 t->next->prev=NULL;
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t;
+            }
+            else if(t->next==NULL){ // last node match
+                
+            }
+            else{
+                node *p=t->prev;
+                node *n=t->next;
+                p->next=n;
+                n->prev=p;
+                
+                rear->next=t;
+                t->prev=rear;
+                t->next=NULL;
+                rear=t; // t rear ban gya
+            }
+        }
+    }
+   
+    
+    return ans;
+}
+
+
+
+

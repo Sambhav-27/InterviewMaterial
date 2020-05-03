@@ -1,0 +1,33 @@
+/*  Tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+/*You are required to complete below method */
+int ans[10000];
+void find(Node *root, int len){
+    if(!root) return;
+    
+    if(!root->left && !root->right){
+        ans[len]++;
+    }
+    find(root->left, len+1);
+    find(root->right, len+1);
+}
+void pathCounts(Node *root)
+{
+    // output is path length and no. of paths of that length
+    int i,j,k;
+    for(i=0;i<10000;++i)
+    ans[i]=0;
+    int len=0+1;
+    find(root, len);
+    for(i=0;i<10000;++i){
+        if(ans[i]){
+            cout<<i<<" "<<ans[i]<<" $";
+        }
+    }
+   // cout<<"\n";
+}

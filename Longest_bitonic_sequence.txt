@@ -1,0 +1,45 @@
+//look at the lis part carefully
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+ {
+	int i,j,k,t,n,m,a[N],lr[N],rl[N];
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0; i<n; ++i)
+	    cin>>a[i];
+	    
+	    for(i=0; i<n; ++i)
+	    lr[i]=rl[i]=1;
+	    
+	    for(i=0; i<n; ++i){ // LIS will be max of lr array
+	        for(j=0; j<i; ++j){
+	            if(a[j] < a[i]){
+	                lr[i]=max(lr[i], 1+lr[j]);
+	            }
+	            
+	        }
+	    }
+	    for(i=n-1; i>=0; --i){
+	        for(j=n-1; j>i; --j){
+	            if(a[j] < a[i])
+	            rl[i]=max(rl[i], 1+rl[j]);
+	            
+	        }
+	    }
+	    int ans=0;
+	    for(i=0; i<n; ++i)
+	    ans=max(ans, lr[i]+rl[i]-1);
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
+
+
+///
+for LIS in circular manner
+1. append the whole array to itself
+2. for every window of size n find lis
+O(n*n*n)

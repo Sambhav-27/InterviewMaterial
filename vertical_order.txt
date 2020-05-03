@@ -1,0 +1,42 @@
+//http://www.geeksforgeeks.org/print-a-binary-tree-in-vertical-order-set-3-using-level-order-traversal/
+
+// level order has to bes used, can’t use others, example reason given in link
+
+#include<bits/stdc++.h>
+#define pii pair<Node*, int>
+#define f first
+#define s second
+#define N 1005
+
+map<int, vector<int> > m;
+
+void find(Node *root){
+    queue< pii > q;
+    
+    q.push(pii(root, 0));
+    while(!q.empty()){
+        Node *t=q.front().f;
+        int w=q.front().s; q.pop();
+        m[w].push_back(t->data);
+        
+        if(t->left)
+        q.push(pii(t->left, w-1));
+        if(t->right)
+        q.push(pii(t->right, w+1));
+    }
+}
+void verticalOrder(Node *root)
+{
+    m.clear();
+    find(root);
+    int i,j,k;
+    map<int, vector<int> >::iterator it;
+    for(it=m.begin();it!=m.end();++it){ // if you are using unordered map then can't use this. and also for map always use iterators
+        vector<int> v;
+        v=it->second;
+        for(j=0;j<v.size();++j){
+            cout<<v[j]<<" ";
+        }
+        cout<<"$";
+    }
+}

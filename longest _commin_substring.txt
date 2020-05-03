@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+#define N 1000
+int main() {
+	// not like how you think
+	
+	int i,j,k,t,n,m;
+	string a,b;
+    cin>>t;
+    while(t--){
+        cin>>n>>m;
+        cin>>a>>b;
+        
+        int dp[N][N]={0};
+        int ans=0;
+        for(i=1;i<=n;++i){
+            for(j=1;j<=m;++j){
+                if(a[i-1]==b[j-1])
+                    dp[i][j]=1+dp[i-1][j-1];
+                else
+               dp[i][j]=0;
+               
+               ans=max(ans, dp[i][j]);
+            }
+           
+        }
+      
+        cout<<ans<<"\n";
+    }
+	return 0;
+}
+
+// to get the substring
+// traverse diagonally from location of ans
+
+//If you followed video till the end you would see answer is not at bottom right corner. I iterate matrix again to find max number. Since its longest common substring we cannot store 1 at the point you said otherwise next comparison would think  last 2 character were match and increment this by 1 if current 2 chars are match basically converting this into longest common subsequence.?

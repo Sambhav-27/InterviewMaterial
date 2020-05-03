@@ -1,0 +1,54 @@
+-What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects. [...] Django apps are “pluggable”: You can use an app in multiple projects, and you can distribute apps, because they don’t have to be tied to a given Django installation.
+
+- using dictionary list and df
+
+-- we built a movie recommender website using Django.
+The steps were:
+
+-- design er diagram
+-- Read wikipedia page
+
+1. First I had to find a good and genuine dataset for the recommender system. then clean it which included removing NULL values by inserting outliers in the respective column.
+As i was going to build a website for it so i had to do things suited for it like: in the dataset instead of users userdids were given so I replaced them with random user names to dislay on the website.
+
+The Database included following tables:
+a) user details: id name email pass
+b) movie details: id name genre
+c) reviews: userid movieid rating comment pub_date
+d)cart: userid movieid date
+e) final_buy: userid movieid date transactionno
+(if a user bought many items in a single transaction then multiple rows will be stored in order to reduce redundancy or null values.)
+f)A user forum was also provided
+	posts: postid authidtitle des upvotes date
+
+g)a table to track click counts:
+	hitcount: userid movieid hits
+
+2. My part included: 
+a) cleaning and collecting the dataset and organising the database.
+b) I designed the actual recommender system algorithm.
+c) I also designed an algorithm to find frequent itemsets in the dataset to suggest frequently bought items by the user.
+d) I just know a bit Django so I had to take help from internet to design the website part.
+
+3. now lets talk about the main algos:
+a) Talk about types of recommender and differences 
+	Now since in content based we need features like romance content comedy content science fiction content. These features are different for different users, there isn't any ground truth for them. Different users might have different taste.
+
+so basically I have two matrices
+1. user-movie: how much user rated these movies
+2. user-movie_bought
+
+and then I assign weights to these values
+
+then explain pearson correlation and that table
+and apriori algo
+
+-- for the database if he asks er etc say: My main focus here was to design an algo for recommendations and frequent itemssets. If you want to talk about er diagram then lets talk about my dbms project
+
+-- see code files of both and then done.
+
+Now think about project in last week only
+
+-- runtime of apriori
+
+-- TURN ON THE CHARM.

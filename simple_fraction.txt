@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+// visit the page for thory
+//http://www.geeksforgeeks.org/find-recurring-sequence-fraction/
+void find(int n, int d){
+    int i,j,k;
+    unordered_map<int, int> m;
+    m.clear(); // key= remainder, value=loc in string where found
+    string ans;
+    
+    int rem=n%d;
+    while(1){
+        if(rem==0 || m.find(rem)!=m.end()) break;
+        m[rem]=ans.length();
+        rem*=10;
+        ans+=to_string(rem/d);
+        rem%=d;
+        
+    }
+    if(rem==0){
+        double x,y;
+        x=n; y=d;
+        cout<<x/y<<"\n";
+    }
+    else{
+        cout<<n/d<<".";
+        for(i=0;i<m[rem];++i)
+        cout<<ans[i];
+        cout<<"(";
+    
+        for(i=m[rem];i<ans.length();++i)
+        cout<<ans[i];
+        cout<<")\n";
+    }
+    
+    
+}
+int main() {
+	int t,n,d;
+	cin>>t;
+	while(t--){
+	    cin>>n>>d;
+	    find(n, d);
+	    
+	}
+	return 0;
+}
