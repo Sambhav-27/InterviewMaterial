@@ -1,0 +1,31 @@
+string find(node *root){
+    if(!root) return NULL;
+    
+    if(!root->left && !root->right) // data is in leaf nodes
+       return root->data;
+    
+    
+    string s1= find(root->left);
+    string s2= find(root->right);
+    
+    int a=atoi(s1.c_str());
+    int b=atoi(s2.c_str());
+    
+    if(root->data=="*") // notice the "" as it is string
+    return to_string(a*b);
+    
+    if(root->data=="/")
+    return to_string(a/b);
+    
+    if(root->data=="-")
+    return to_string(a-b);
+    
+    if(root->data=="+")
+    return to_string(a+b);
+    
+}
+int evalTree(node* root)
+{
+    string s= find(root);
+    return atoi(s.c_str());
+}

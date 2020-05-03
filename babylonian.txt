@@ -1,0 +1,18 @@
+/*You are required to complete
+this function*/
+float sqrt1(long long n)
+{
+	float x=n;
+	float y=1;float e=0.01;
+	while(x-y>e)
+	{
+		x=(x+y)/2;
+		y=n/x;  // in each iterationapproximation is made such that x*y=n
+	}
+	return x;
+}
+long long int floorSqrt(long long int x) 
+{
+// Your code goes here 
+return sqrt1(x);
+}

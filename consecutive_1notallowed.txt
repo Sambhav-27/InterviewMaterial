@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define f first
+#define s second
+#define pii pair<int, int>
+#define mod 1000000007
+#define N 100005
+
+ int main() {
+   
+    int t,n,a[N],i;
+    a[1]=2;
+    a[2]=3;
+    for(i=3;i<N;++i){
+        a[i]+=a[i-1]+a[i-2];
+        if(a[i]>mod)
+        a[i]%=mod;
+    }
+    cin>>t;
+    while(t--){
+        cin>>n;
+        cout<<a[n]<<"\n";
+    }
+	return 0;
+}

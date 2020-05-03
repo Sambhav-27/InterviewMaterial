@@ -1,0 +1,72 @@
+/*Complete the function below
+Node is as follows:
+struct Node{
+	int data;
+	Node *left,*right;
+	Node(int d){
+		data=d;
+		left=right=NULL;
+	}
+};*/
+
+// single node is  considered a path
+// different from k sum paths from root to leaf
+// path cannot be from left half to right
+// awesome question
+// test cases:
+//  tree with nodes 0 to 14 serially
+// level order = 0 1 2 3 4 ... 14; k=10 
+// ans=2; (3--7, 10)
+int ans;
+vector<int> path;
+void find(Node *root,int k, int sum){
+    if(!root) return;
+   
+    path.push_back(root->data);
+    find(root->left, k, sum);
+    find(root->right, k, sum);
+    
+    sum=0;
+    for(int j=path.size()-1;j>=0;--j){
+        sum+=path[j];
+        if(sum==k)
+        ans++;
+    }
+    path.pop_back();
+}
+int printCount(Node *root,int k)
+{
+    int sum=0;
+    ans=0;
+    path.clear();
+    find(root, k, sum);
+    return ans;
+}
+
+
+
+////////////////////
+check root to leaf path sum
+
+
+bool ans;
+
+void find(Node *root, int k){
+    if(!root) return;
+    
+     k-=root->data;
+    if(!root->left && !root->right){
+        if(k==0)
+        ans=1;
+    }
+   
+    find(root->left, k);
+    find(root->right, k);
+    // notice no subtracting here, when you use a vector than only popback; different values of k are already there for different layers
+}
+bool hasPathSum(Node *node, int sum)
+{
+    ans=0;
+   find(node, sum);
+   return ans;
+}

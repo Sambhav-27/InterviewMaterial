@@ -1,0 +1,41 @@
+/*struct et
+{
+	char value;
+	et* left, *right;
+};*/
+
+// expression tree from postorder
+
+et* getnode(char val){
+    et *t=new et;
+    t->left=t->right=NULL;
+    t->value=val;
+    return t;
+}
+#include<bits/stdc++.h>
+et* constructTree(char a[])
+{
+    stack< et*> s;
+    while(!s.empty()) s.pop();
+   
+    int n=strlen(a) ;
+    et *t=getnode(a[0]);
+    s.push(t);
+    int i=1;
+    while(s.size()!=1 || i!=n){
+        if(isalpha(a[i])){
+            et *t=getnode(a[i]);
+            s.push(t);
+        }
+        else{
+            et *t=getnode(a[i]);
+            et *x=s.top(); s.pop();
+            et *y= s.top(); s.pop();
+            t->right=x; t->left=y;
+            s.push(t);
+        }
+        ++i;
+    }
+    et*ans= s.top(); s.pop();
+    return ans;
+}

@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+//http://www.geeksforgeeks.org/number-subsequences-form-ai-bj-ck/
+int main()
+ {
+     int t,a,b,c,i,n;
+     cin>>t;
+     while(t--){
+         string s;
+         cin>>s;
+         n=s.length();
+         
+         a=b=c=0;
+         for(i=0;i<n;++i){
+             if(s[i]=='a')
+             a= (1+2*a);
+             else if(s[i]=='b')
+             b= (a+ 2*b);
+             else
+             c= (b+ 2*c);
+         }
+         cout<<c<<"\n";
+     }
+	
+	return 0;
+}

@@ -1,0 +1,57 @@
+// For each element, count number of elements which are on right side of it and are smaller than it.
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+// http://www.geeksforgeeks.org/counting-inversions/
+int merge(int *a, int *l, int n1, int *r, int n2){
+    int i=0,j=0,k=0,ans=0;
+    
+    while(i<n1 && j<n2){
+        if(l[i] <= r[j]){
+            a[k++]=l[i++];
+        }
+        else{
+            a[k++]=r[j++];
+            ans+= n1-i; // two arrays are sorted if one is found greater than other array element then after that all will be greater
+        }
+    }
+    while(i<n1)
+    a[k++]=l[i++];
+    while(j<n2)
+    a[k++]=r[j++];
+    return ans;
+}
+int sort(int *a, int n){
+    int i,mid,ans=0, *l, *r;
+    if(n<2) return ans;
+    
+    mid=n/2;
+    l= new int[mid];
+    r= new int[n-mid];
+    
+    for(i=0; i<mid; ++i)
+    l[i]=a[i];
+    for(i=mid; i<n; ++i)
+    r[i-mid]=a[i];
+    
+    ans= sort(l, mid);
+    ans+= sort(r, n-mid);
+    ans+= merge(a, l, mid, r, n-mid);
+    
+    delete[] l; delete[] r;
+    return ans;
+}
+int main()
+{
+    int i,j,k,t,n,a[N]	;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0; i<n; ++i)
+        cin>>a[i];
+        
+        cout<<sort(a, n)<<"\n";
+    }
+	return 0;
+}

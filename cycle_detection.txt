@@ -1,0 +1,95 @@
+
+// cycle detection
+
+bool has_cycle(Node* head) {
+    
+    Node *s, *f;
+    s=f=head;
+    while(s && f && f->next){
+        s=s->next;
+        f=f->next->next;
+        if(s==f) return 1;
+    }
+    return 0;
+}
+
+
+////////////////////////////////////////////
+
+/*The structure of linked list is the following
+struct Node
+{
+int data;
+Node* next; 
+};*/
+
+/*The function removes the loop from the linked list if present
+You are required to complete this method*/
+void removeTheLoop(Node *head)
+{
+    
+     Node *s, *f;
+     bool flag=0;
+     s=f=head;
+     while(s && f && f->next){
+         s=s->next;
+         f=f->next->next;
+         if(s==f){
+             flag=1; break;
+         }
+     }
+     
+     if(!flag) return; // no loop present;
+     
+     s=head; // start one ptr from head, other from meeting point. they will meet at loop start
+     Node *t;
+     while(1){
+         if(s==f){
+             t=s;
+             break;
+         }
+         s=s->next;
+         f=f->next;
+     }
+     while(s->next!=t)
+     s=s->next;
+     s->next=NULL; //loop removed
+}  
+   
+
+
+/////////////////
+following code also works
+void removeTheLoop(Node *head)
+{
+    
+     Node *s, *f;
+     bool flag=0;
+     s=f=head;
+     while(s && f){
+         s=s->next;
+         f=f->next;
+         if(f)
+         f=f->next;
+         if(s==f){  // has to come at last
+             flag=1; break;
+         }
+         
+     }
+     
+     if(!flag) return; // no loop present;
+     
+     s=head; // start one ptr from head, other from meeting point. they will meet at loop start
+     Node *t;
+     while(1){
+         if(s==f){
+             t=s;
+             break;
+         }
+         s=s->next;
+         f=f->next;
+     }
+     while(s->next!=t)
+     s=s->next;
+     s->next=NULL; //loop removed
+} 

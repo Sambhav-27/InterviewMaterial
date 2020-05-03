@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+#define pii pair<int, int>
+#define f first
+#define s second
+#define N 15
+using namespace std;
+
+int main() {
+	string s;
+	int t=5;
+	cin.ignore();
+	while(t--){
+	    //cin>>s;
+	    //cin.getline(s);
+	    //getline(s, '\n');
+	   // int n=11000000;
+	    //cin.get( s, 10000 );
+	   // cin.ignore();
+        getline(cin, s, '\n');
+        for(int i=0;i<s.length();++i)
+	cout<<s[i];
+	cout<<"\n";
+	}
+	
+	
+	return 0;
+}
+
+// SIGFPE
+
+ divide by 0
+modulo by 0
+overflow
+
+
+/////////
+for c++ string
+string s;
+getline(cin, s, '\n');
+
+for C string
+char s[100];
+cin.getline(s, 100, '\n');
+
+
+
+don't forget the cin.ignore() in both cases before start of while loop

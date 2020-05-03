@@ -1,0 +1,31 @@
+/* Structure for tree and linked list
+struct Node
+{
+    int data;
+
+    // left is used as previous and right is used
+    // as next in DLL
+    Node *left, *right;
+}; */
+
+// This function should convert a given Binary tree to Doubly
+// Linked List
+// root --> Root of Binary Tree
+// head --> Pointer to head node of created doubly linked list
+
+
+
+// notice the reverse inorder traversal
+void BToDLL(Node *root, Node **head)
+{
+    if(!root) return;
+    BToDLL(root->right,head);
+    
+    root->right=*head;
+    if(*head)
+    (*head)->left=root;
+    *head=root;
+    
+    BToDLL(root->left, head);
+}
+

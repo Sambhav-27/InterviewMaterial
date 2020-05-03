@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main() {
+	int t,i,j,k,s,c;
+	cin>>t;
+	while(t--){
+	    char a[N], b[N], ans[N];
+	    
+	    cin>>a>>b;
+	    int n1,n2;
+	    n1=strlen(a);
+	    n2=strlen(b);
+	    
+	    if(n2>n1){
+	        swap(a, b);
+	        swap(n1, n2);
+	    }
+	    int d=n1-n2;
+	    for(i=n2-1;i>=0;--i){
+	        b[i+d]=b[i];
+	    }
+	    for(i=0;i<d;++i)
+	    b[i]='0';
+	    
+	    c=0;
+	    for(i=n1-1; i>=0; --i){
+	        int x1= int(a[i]-48);
+	        int x2= int(b[i]-48);
+	        s=x1 ^ x2 ^ c;
+	        c= (x1&x2)|(x1&c)|(x2&c);
+	        ans[i]=char(s+48);
+	    }
+	    
+	    if(c)
+	    cout<<c;
+	    for(i=0;i<n1;++i)
+	    cout<<ans[i];
+	    cout<<"\n";
+	}
+	return 0;
+}

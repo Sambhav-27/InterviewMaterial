@@ -1,0 +1,27 @@
+/*
+
+The structure of linked list is the following
+
+struct Node
+{
+int data;
+Node* next;
+};
+
+*/
+//http://practice.geeksforgeeks.org/problems/delete-nodes-having-greater-value-on-right/1
+
+Node *compute(Node *head)
+{
+    
+    if(!head->next) return head;  // till 2nd last node
+    Node *temp=compute(head->next);
+    
+    head->next=temp;
+    if(head->data < temp->data){
+        delete(head);  // this is not needed
+        return temp;
+    }
+    
+    return head;
+}

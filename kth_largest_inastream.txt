@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define f first
+#define s second
+#define pii pair<int, int>
+#define mod 1000000007
+#define N 100005
+int n,k,a[N];
+struct comp{
+    bool operator()(const int &a, const int &b){
+        return a>b;
+    }
+};
+priority_queue<int, vector<int>, comp>q;
+ int main() {
+   int t,i;
+   cin>>t;
+   while(t--){
+       cin>>k>>n;
+       while(!q.empty()) q.pop();
+       for(i=0;i<n;++i){
+           cin>>a[i];
+           if(i<k){
+               q.push(a[i]);
+           }
+       }
+       
+       for(i=0;i<k-1;++i)
+       cout<<"-1 ";
+       for(i=k;i<n;++i){
+           cout<<q.top()<<" ";
+           if(a[i]<= q.top()) continue;
+           q.pop();
+           
+           q.push(a[i]);
+       }
+    
+       cout<<q.top();
+       cout<<"\n";
+   }
+    
+	return 0;
+}

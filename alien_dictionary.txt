@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define f first
+#define s second
+#define pii pair<int, int>
+#define mod 1000000007
+#define N1 10
+vector< int >gr[N1]; // notice this
+bool visited[N1];
+stack<int> s;
+
+
+void dfs(int v){
+    visited[v]=1;
+    for(int i=0;i<gr[v].size();++i){
+        int x=gr[v][i];
+        if(!visited[x])
+        dfs(x); 
+    }
+    s.push(v);
+}
+
+string printOrder(string dict[], int N, int k) // given dict is sorted acc to alien language
+{
+    for(int i=0;i<N1;++i){
+       visited[i]=0;
+       gr[i].clear();
+   }
+   while(!s.empty()) s.pop();
+    
+   int i,j,n1,n2;
+   for(i=0;i<N-1;++i){
+       string w1=dict[i];
+       string w2=dict[i+1];
+       n1=w1.length();
+       n2=w2.length();
+       for(j=0;j<min(n1,n2);++j){
+           if(w1[j]!=w2[j]){
+               gr[w1[j]-'a'].push_back(w2[j]-'a');
+               break;
+           }
+       }
+   }
+   
+   
+  for(int i=0;i<k;++i)
+  if(!visited[i])
+  dfs(i);
+   
+   string ans;
+   while(!s.empty()){
+       int x=s.top();
+       char ch=char(x+'a');
+       ans+=ch; //note ans is a string
+       s.pop();
+   }
+   return ans;
+   
+}
+int main(){
+    int t,i,n,k;
+    string str[N1];
+    cin>>t;
+    while(t--){
+        cin>>n>>k;
+        for(i=0;i<n;++i)
+        cin>>str[i];
+        
+        cout<<printOrder(str,n,k)<<"\n";
+    }
+}

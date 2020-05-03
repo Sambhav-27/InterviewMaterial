@@ -1,0 +1,9 @@
+create repositry on website.
+1.  git config --global user.name "sambhav-27"
+2.  git config --global user.email iamsambhavyadav@gmail.com
+3.	Clone the repositry: git clone linkhere
+4.  copy the project in the local repository
+ 	change director using cd to currently cloned directory(ls to diplay)
+5. git add projectfoldername/
+6. git commit -m "first commit" projectfoldername/
+7. git push -u origin master

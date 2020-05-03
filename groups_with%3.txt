@@ -1,0 +1,45 @@
+// form groups of 2 and 3 such that sum of group elemnts %3==0
+/*Input: arr[] = {3, 6, 7, 2, 9}
+Output: 8
+Groups are {3,6}, {3,9}, {9,6},
+           {7,2}, {3, 6,9}, 
+           {3, 7, 2}, {7, 2, 6}, 
+           {7, 2, 9}
+           */
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+ {
+	int i,j,k,t,n,a[N],n1,n2,n3;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    n1=n2=n3=0;
+	    for(i=0; i<n; ++i){
+	        cin>>a[i];
+	        if(a[i]%3==0)
+	        n3++;
+	        else if(a[i]%3==1)
+	        n1++;
+	        else n2++;
+	    }
+	    int ans=0;
+	    if(n3 >= 2){  // n3C2
+	        ans+= n3*(n3-1)/2;
+	    }
+	    if(n3 >= 3){  // n3C3
+	        ans+= n3*(n3-1)*(n3-2)/6;
+	    }
+	    if(n1 >= 3){
+	        ans+= n1*(n1-1)*(n1-2)/6;
+	    }
+	    if(n2 >= 3){
+	        ans+= n2*(n2-1)*(n2-2)/6;
+	    }
+	    ans+= n1*n2;
+	    ans+= n1*n2*n3;
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}

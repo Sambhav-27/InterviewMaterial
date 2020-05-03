@@ -1,0 +1,57 @@
+//http://practice.geeksforgeeks.org/problems/pair-with-greatest-product-in-array/0
+// Given an array of n elements, the task is to find the greatest number such that it is product of two elements of given array. If no such // element exists, print -1.
+
+/* test cases:
+10 2 2 4 35: 4 as 2*2=4
+10 3 5 30 35 : 30 as 10*3=30
+*/
+// hash all array elemnts
+// sort and traverse from back. let cur element is n
+//  check if a pair exists with product as n
+// for first elemnt check only till sqrt(n)
+// use hashing to check for 2nd element
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+{
+    int i,j,k,t,n,a[N];
+    cin>>t;
+    while(t--){
+        cin>>n;
+        unordered_map<int, int> m;
+        for(i=0; i<n; ++i){
+            cin>>a[i];
+            m[a[i]]++;
+        }
+        sort(a, a+n);
+        
+        bool flag=0;
+        int ans=-1;
+        for(i=n-1; i>=0; --i){
+            int x=a[i];
+            for(j=0; a[j]*a[j]<=x && j<i; ++j){ // don't forget the j<i
+                int y= x/a[j];
+                int mod= x%a[j]; // mod is necessary as 35/10 will give 3 and we'll search for 3
+                if(mod || m.find(y)==m.end()) continue;
+                
+                if(a[j]==y){ // for cases like 2*2 ==4
+                    if(m[y] >1){
+                        ans=x; flag=1; break;
+                    }
+                }
+                else{
+                    if(m[y] >0){
+                        ans=x; flag=1; break;   
+                    }
+                }
+            }
+            
+            if(flag) break;
+        }
+        
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

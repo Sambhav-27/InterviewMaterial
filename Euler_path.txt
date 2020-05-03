@@ -1,0 +1,112 @@
+// euler path: degree of all nodes even except two nodes(start and end)
+// euler tour: degree of all nodes even(start and end are same)
+// and graph is connected in both cases
+// both cases are for undirected graph
+
+bool visited[100005];
+int degree[100005];
+void dfs(list<int> *&gr, int v){
+    visited[v]=1;
+    
+    list<int>::iterator i;
+    for(i=gr[v].begin();i!=gr[v].end();++i){
+        degree[*i]++;
+        if(!visited[*i]){
+            
+            dfs(gr, *i);
+        }
+        
+    }
+}
+
+int Graph::isEulerian()
+{
+    
+    int ans,i,c;
+    for(i=0;i<V;++i)
+    visited[i]=0,degree[i]=0;
+    
+    c=0;
+    for(i=0;i<V;++i){
+        if(!visited[i]){
+            c++;
+            dfs(adj, i);
+        }
+    }
+    
+    if(c>1) return 0; // disconnected
+    int odd=0;
+    for(i=0;i<V;++i){
+        if(degree[i]%2)
+        odd++;
+    }
+    if(odd==2 && c==1)
+    return 1;
+    if(odd==0 && c==1)
+    return 2;
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+/////
+
+
+// directed graph
+
+// euler path: indegree=outdegree for all nodes except two nodes(start and end)
+// euler tour: indegree==outdegree(start and end are same)
+// and graph is connected in both cases
+
+bool visited[100005];
+int indegree[100005];
+int outdegree[100005];
+void dfs(list<int> *&gr, int v){
+    visited[v]=1;
+    
+    outdegree[v]+=gr[v].size();
+    list<int>::iterator i;
+    for(i=gr[v].begin();i!=gr[v].end();++i){
+        indegree[*i]++;
+        
+        if(!visited[*i]){
+            
+            dfs(gr, *i);
+        }
+        
+    }
+}
+
+
+bool Graph::isEulerianCycle()
+{
+      int ans,i,c;
+    for(i=0;i<V;++i)
+    visited[i]=0,indegree[i]=0,outdegree[i]=0;
+    
+    c=0;
+    for(i=0;i<V;++i){
+        if(!visited[i]){
+            c++;
+            dfs(adj, i);
+        }
+    }
+    
+    if(c>1) return 0; // disconnected
+    bool flag=1;
+    for(i=0;i<V;++i){
+        if(indegree[i] != outdegree[i]){
+            flag=0;break;
+        }
+    }
+    
+    return flag;
+}

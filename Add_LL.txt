@@ -1,0 +1,81 @@
+// for first round just reverse the lists, and add, then reverse the answer.
+
+int find(Node *cur){// count no. of nodes
+    int c=0;
+    while(cur){
+        c++;
+        cur=cur->next;
+    }
+    return c;
+}
+int c; //carry
+Node *rtlist;
+Node * sum(Node *f, Node *s){ // if you don't want to create a new list then uncomment the two lines in each func
+    if(!f) return NULL;
+    
+    sum(f->next, s->next);
+    int x=f->data + s->data + c;
+   // s->data=x%10;
+    push(&rtlist, x%10); // adds to front
+    c=x/10;
+    //return s;
+    return rtlist;
+}
+Node *rtlist2;
+Node * sumcarry(Node *cur){
+    if(!cur) return NULL;
+    
+    sumcarry(cur->next);
+    int x=cur->data+c;
+    //cur->data=x%10;
+    push(&rtlist2, x%10);
+    c=x/10;
+    //return cur;
+    return rtlist2;
+}
+
+Node*  addTwoLists(Node* first, Node* second){
+  
+    rtlist=rtlist2=NULL;
+    
+    int c1=find(first);
+    int c2=find(second);
+    if(c1>c2){
+        swap(first, second); // second is always greater
+        swap(c1, c2);
+    }
+    
+    
+    c=0; //carry
+    int x=c2-c1;
+    Node *cur=second, *b=second;
+    if(x){
+        while(--x)
+        cur=cur->next;
+        b=cur->next;
+        cur->next=NULL; // segregate first part
+    }
+    
+    
+    Node *ans= sum(first, b);
+   
+  if(c2-c1>0){ // add carry to extra part of second
+      int x=c2-c1;
+      Node *cur=second;
+      Node *t=sumcarry(cur);
+      // now add segregated parts
+      cur=t;
+      while(cur->next)
+        cur=cur->next;
+     
+      cur->next=ans;
+      ans=t;
+  }
+  if(c){
+      Node *t=newNode(c);
+      t->next=ans;
+      ans=t;
+  }
+ 
+   return ans;
+}

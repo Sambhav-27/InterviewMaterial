@@ -1,0 +1,33 @@
+/* Link list Node 
+struct Node
+{
+    int data;
+    Node* next;
+};*/
+/*You are required to complete below method*/
+//delete all occurences of x
+Node* deleteAllOccurances(Node *head,int x)
+{
+    if(head==NULL) return NULL;
+    if(head->next==NULL){
+        if(head->data==x)
+        return NULL;
+        return head;
+    }
+    if(head->data==x){ //first node
+        Node *t=head->next;
+        delete(head);
+        head=t;
+    }
+    Node *cur=head;
+    while(cur->next){
+        if(cur->next->data==x){
+            Node * t=cur->next->next;
+            delete(cur->next);
+            cur->next=t;
+        }
+        else // this else is very imp. advance only when not deleted
+        cur=cur->next;
+    }
+    return head;
+}

@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+/*You are required to complete below method */
+int ans,mnode;
+void find(Node* root, int k){
+    if(!root) return;
+    
+    if(ans > abs(k-(root->data))){
+        ans=abs(k-(root->data));
+        mnode=root->data;
+    }
+   
+    find(root->left, k);
+    find(root->right,k);
+    
+    
+    
+}
+int maxDiff(Node *root, int k)
+{
+    ans=INT_MAX;
+    find(root, k);
+    return mnode;
+}
+
+
+
+///not as easy as it looks
+// if tree is bst o(h) solution is possible
+//http://www.geeksforgeeks.org/find-closest-element-binary-search-tree/

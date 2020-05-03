@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct pii{
+    int x,y,mov;
+};
+queue<pii> q;
+bool visited[100][100];
+
+bool issafe(int x, int y, int n, int m){
+    return (x>=1 && y>=1 && x<=n && y<=m);
+}
+int main() {
+	int t,n,i,j,k,sx,sy,dx,dy,m;
+	cin>>t;
+	while(t--){
+	    cin>>n>>m;
+	    cin>>sx>>sy>>dx>>dy;
+	    while(!q.empty()) q.pop();
+	    for(i=0;i<=n;++i)
+	    for(j=0;j<=m;++j)
+	    visited[i][j]=0;
+	    
+	    int dir[8][2]={-2,-1, -1,-2,  2,1,  1,2,  -2,1,  2,-1,  1,-2,  -1,2};
+	    int ans=0;
+	    pii t;
+	    bool flag=0;
+	    t.x=sx; t.y=sy; t.mov=0;
+	    q.push(t);
+	    visited[sx][sy]=1;
+	    while(!q.empty()){
+	        pii t=q.front(); q.pop();
+	        if(t.x==dx && t.y==dy){
+	            ans=t.mov; 
+	            flag=1; break;
+	        }
+	       
+	       for(i=0;i<8;++i){
+	            int u=t.x+dir[i][0];
+	            int v=t.y+dir[i][1];
+	            if(issafe(u,v,n,m) && !visited[u][v]){
+	                pii w;
+	                w.x=u; w.y=v; w.mov=t.mov+1;
+	                q.push(w);
+	                visited[u][v]=1;
+	            }
+	        }
+	    }
+	    if(!flag)
+	    cout<<"-1\n";
+	    else
+	    cout<<ans<<"\n";
+	    
+	}
+	return 0;
+}

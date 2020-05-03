@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+#define pii pair<int, int>
+#define f first
+#define s second
+#define N 1000005
+using namespace std;
+pii v[N]; // f=parent; s=rank;
+int find(int i){
+    if(v[i].f!=i)
+    v[i].f=find(v[i].f);
+    
+    return v[i].f;
+}
+void Union(int x, int y){
+    int r1=find(x);
+    int r2=find(y);
+    
+    if(v[r1].s < v[r2].s)
+    v[r1].f=r2;
+    else if(v[r1].s > v[r2].s)
+    v[r2].f=r1;
+    else{
+        v[r2].f=r1;
+        v[r1].s++;
+    }
+}
+int main() {
+    int i,k;
+    
+    for(i=0;i<N;++i){
+        v[i].f=i;
+        v[i].s=0;
+    }
+    cin>>k;
+    for(i=0;i<k;++i){
+        int x,y;
+        cin>>x>>y;
+        Union(x,y);
+    }
+    
+    
+    
+    cout<<find(1)<<find(2)<<" ";
+    
+	return 0;
+}

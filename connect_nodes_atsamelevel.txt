@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+deque<Node *> q;
+void connect(Node *root)
+{
+    while(!q.empty()) q.pop_front();
+    
+    int prec=1,curc=0,temp=1;
+    q.push_front(root);
+    Node *pre=NULL;
+    while(!q.empty()){
+        curc=0;
+        while(prec>0){
+           
+            
+               
+                Node *x=q.front(); q.pop_front();
+                if(prec==temp){
+                    pre=x;
+                }
+                else{
+                    pre->nextRight=x;
+                    pre=x;
+                }
+                if(prec==1){
+                    x->nextRight=NULL;
+                }
+                 
+                
+                if(x->left){
+                    q.push_back(x->left);
+                    curc++;
+                }
+                if(x->right){
+                    q.push_back(x->right);
+                    curc++;
+                }
+            
+            
+            prec--;
+        }
+        prec=curc;
+        temp=curc;
+        
+    }
+}
+

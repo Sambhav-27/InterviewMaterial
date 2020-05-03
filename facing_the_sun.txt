@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+{
+    int i,j,k,t,n,a[N];
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        
+        int maxl=-1;
+        int ans=0;
+        for(i=0; i<n; ++i){
+            if(a[i] > maxl){ // check if equal to will come in problem statement
+                ans++;
+                maxl=a[i];
+            }
+        }
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

@@ -1,0 +1,61 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100005
+struct node{
+    char data;
+    int fre;
+    node *left, *right;
+    node(){}
+    node(char ch, int f){
+        data=ch; fre=f;
+        left=right=NULL;
+    }
+};
+struct comp{
+    bool operator()(const node *a, const node *b){
+        return a->fre>b->fre;
+    }
+};
+priority_queue<node*, vector<node*>, comp> q;
+void print(node *root, string s){
+    if(!root) return;
+    
+    if(root->data!='#'){// leaf node
+        cout<<s<<" ";
+    }
+    print(root->left, s+"0");
+    print(root->right, s+"1");
+}
+void huffman(string s, int *a, int n){
+    for(int i=0;i<n;++i){
+        node *t=new node(s[i], a[i]);
+        q.push(t);
+    }
+    while(q.size()!=1){
+        node *x=q.top(); q.pop();
+        node *y=q.top(); q.pop();
+        
+        node *t=new node('#', x->fre+y->fre);
+        t->left=x;  t->right=y; // don't forget this line
+        q.push(t);
+    }
+    node *root=q.top(); q.pop();
+    
+    print(root, "");
+}
+int main() {
+	int t,i,j,k, freq[N];
+	string s;
+	cin>>t;
+	while(t--){
+	    cin>>s;
+	    int n=s.length();
+	    for(i=0;i<n;++i)
+	    cin>>freq[i];
+	    
+	    huffman(s, freq, n);
+	    cout<<"\n";
+	}
+	return 0;
+}

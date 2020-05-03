@@ -1,0 +1,35 @@
+/*The function takes an adjacency matrix representation of the graph (g)
+and an integer(v) denoting the no of vertices as its arguments.
+You are required to complete below method */
+#include<bits/stdc++.h>
+#define N 100005
+bool isBipartite(int g[MAX][MAX], int v)
+{   
+    queue<int> q;
+    while(!q.empty()) q.pop();
+    int color[N];
+    int i,j,k,ans;
+    for(i=0;i<v;++i)
+    color[i]=-1;
+    
+    
+    q.push(0);
+    color[0]=1;
+    while(!q.empty()){  // notice that color array is not bool
+        int x=q.front(); q.pop();
+        
+        for(i=0;i<v;++i){
+            if(g[x][i]==0) continue;
+            
+            if(color[i]==-1){
+               
+                color[i]=1-color[x];
+                q.push(i);
+            }
+            else if(color[i]==color[x])
+            return 0;
+        }
+    }
+    
+    return 1;
+}

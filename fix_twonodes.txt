@@ -1,0 +1,31 @@
+node *t1, *t2, *t3, *pre;
+bool mark;
+void find(node *root){
+    if(!root) return;
+    
+    find(root->left);
+    if(root->data < pre->data && !mark){
+        t1=pre;
+        t2=root; mark=1; // t2 is kept for adjacent nodes
+    }
+    if(root->data < pre->data && mark){
+        t3=root;
+    }
+    pre=root;
+    find(root->right);
+}
+struct node *correctBST( struct node* root )
+{
+    t1=t2=t3=NULL;
+    pre=root; // pre needs to be initialez for first iteration
+    mark=0;
+    find(root);
+    if(t3){
+        swap(t1->data, t3->data);
+    }
+    else{// two nodes are adjacent
+        swap(t1->data, t2->data);
+    }
+    
+    return root;
+}

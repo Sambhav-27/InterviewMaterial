@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+// it's like merging n rows, visit the links
+//http://www.geeksforgeeks.org/kth-smallest-element-in-a-row-wise-and-column-wise-sorted-2d-array-set-1/
+//https://stackoverflow.com/questions/15179536/kth-smallest-element-in-sorted-matrix/18966104#18966104
+#define N 100005
+struct pii{
+    int v,r,c;
+    pii(){}
+    pii(int a, int b,int d):v(a), r(b), c(d){}
+};
+struct comp{
+    bool operator()(const pii &a, const pii &b){
+        return a.v>b.v; //minheap
+    }
+};
+priority_queue<pii, vector<pii>, comp>q;
+int kthSmallest(int a[MAX][MAX], int n, int k)
+{
+    int i,j,ind[N]; // index of ith col
+    while(!q.empty()) q.pop();
+    
+    for(i=0;i<n;++i){
+        ind[i]=1;
+        q.push(pii(a[0][i], 0, i));
+    }
+    
+    int ans;
+    while(k){
+        pii x=q.top(); q.pop();
+        ans=x.v;
+        //cout<<x.v<<":";
+        int i=ind[x.c];
+        if(i<n){
+            q.push(pii(a[i][x.c], i, x.c)); // notice this line carefully
+            ind[x.c]+=1;
+        }
+        k--;
+    }
+    return ans;
+    
+}

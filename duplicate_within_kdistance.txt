@@ -1,0 +1,45 @@
+// unordered sets can also be used. using window approach add cur item and remve prevous
+// item. before adding check if it already contains that item
+//http://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define pii pair<int, int>
+#define f first // posn
+#define s second // val
+#define N 100005
+bool comp(pii a, pii b){
+    if(a.s==b.s)
+    return a.f<b.f;
+    return a.s<b.s;
+}
+int main()
+{
+    int i,j,k,n,t;
+    cin>>t;
+    while(t--){
+        cin>>k>>n;
+        vector< pii > v;
+        for(i=0; i<n; ++i){
+            int x;
+            cin>>x;
+            v.push_back(pii(i, x));
+        }
+        
+        sort(v.begin(), v.end(), comp);
+        bool flag=0;
+        for(i=0;i<v.size()-1; ++i){
+            if(v[i].s==v[i+1].s){
+                if(v[i+1].f - v[i].f <=k){
+                    flag=1; break;
+                }
+            }
+        }
+        if(flag)
+        cout<<"True\n";
+        else
+        cout<<"False\n";
+        
+    }
+	return 0;
+}

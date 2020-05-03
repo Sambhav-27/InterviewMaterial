@@ -1,0 +1,25 @@
+vector<int> v;
+string s;
+k=2;
+reverse(v.begin(), v.end());
+rotate(v.begin(), v.begin()+k, v.end()); // rotate left by k // 						for right rotate k= n-k
+
+reverse(s.begin(), s.end());
+rotate(s.begin(), s.begin()+k, s.end());
+
+2. for pairs with given sum:sorting approach; use hashing to check for sum-a[i]
+3.Dynamically allocating 2d array
+
+int **ans;
+
+ans=new int*[n];
+
+for(i=0;i<n;i++)
+
+ans[i]=new int[k+1]();
+
+for(i=0;i<n;++i)
+delete[]ans[i];
+delete[] ans;
+
+whenever you use new[], use delete[].

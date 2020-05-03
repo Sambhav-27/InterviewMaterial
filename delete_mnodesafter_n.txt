@@ -1,0 +1,33 @@
+
+// delete n nodes after m nodes
+void linkdelete(struct node  *head, int m, int n)
+{
+    node *cur=head;
+    int i,j,k;
+    bool flag=0;
+    while(1){
+        i=m-1;
+        while(i--){
+            if(!cur->next){
+                flag=1;
+                break;
+            }
+            cur=cur->next;
+        }
+        
+        node *t=cur;
+        i=n+1;
+        while(i--){
+            if(!t->next){
+                cur->next=NULL;
+                flag=1; break;
+            }
+            t=t->next;
+        }
+        if(flag) break;
+        cur->next=t;
+        cur=cur->next;
+    }
+    
+}
+

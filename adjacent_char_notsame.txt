@@ -1,0 +1,47 @@
+//http://www.geeksforgeeks.org/rearrange-characters-string-no-two-adjacent/
+// build a max heap of char and their freq. get the top element and add to o/p
+// ans push it in the heap in next iteration
+
+
+
+
+
+struct pii{
+    char ch;
+    int f;
+    pii(){}
+    pii(char x, int g){
+        ch=x; f=g;
+    }
+};
+struct comp{
+    bool operator()(const pii &a, const pii &b){
+        return a.f<b.f;
+    }
+};
+priority_queue< pii, vector<pii>, comp> q;
+string rearrangeString(string s)
+{
+   
+    int i,j,k,l,n=s.length();
+    int f[26]={0};
+    for(i=0;i<n;++i)
+    f[s[i]-'a']++;
+    
+    for(i=0;i<26;++i){
+        q.push(pii(char('a'+i), f[i]));
+    }
+    string ans;
+    i=0;
+    pii t={'z', -100};
+    while(i<n){
+        pii p=q.top(); q.pop();
+        ans+=p.ch;
+        
+        q.push(t); // prev iteration char
+        t= pii(p.ch, p.f-1);
+      ++i;
+       
+    }
+    return ans;
+}

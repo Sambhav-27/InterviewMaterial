@@ -1,0 +1,43 @@
+
+ Node *getnode(int x){
+     Node *t=new Node;
+     t->data=x;
+     t->next=NULL;
+     return t;
+ }
+void sortedInsert(Node** head_ref, int x)
+{
+    Node *head= *head_ref;
+    Node *t=getnode(x);
+    
+    if(!head){
+        head=t;
+        head->next=t; 
+        return;
+    }
+    
+    Node *tail=head;
+    while(tail->next!=head)
+    tail=tail->next;
+    
+    if(x < head->data){
+        tail->next=t;
+        t->next=head;
+        head=t;
+        *head_ref=head; // don't forget this line, wherever head is changed
+        return ;
+    }
+    
+    if(tail->data < x){
+        tail->next=t;
+        t->next=head;
+        return;
+    }
+    
+    Node *cur=head;
+    while(cur->next->data < x){
+        cur=cur->next;
+    }
+    t->next=cur->next;
+    cur->next=t;
+}

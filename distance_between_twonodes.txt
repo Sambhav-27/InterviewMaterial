@@ -1,0 +1,77 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+/* Should return minimum distance between a and b 
+   in a tree with given root*/
+   
+   
+// harder than it seems
+int x,y,z;
+Node *lca(Node *root, int a, int b){
+    if(!root)return NULL;
+    
+    if(root->data==a || root->data==b) return root;
+    Node*l=lca(root->left, a, b);  // if both return non-null then a is on 1 side, b on other
+    Node*r=lca(root->right, a, b);// if either returns null then it has reached till last, but didn't find any node with given value
+    
+    if(l && r) return root;
+    if(l)return l;
+    return r;
+}
+void find(Node *root, int a, int h, int &ans){ // look ans is passed by reference
+    if(!root) return;
+    
+    if(root->data==a){
+        ans=h;
+        return ;
+    }
+    find(root->left, a, h+1, ans);
+    find(root->right, a, h+1, ans);
+}
+int findDist(Node* root, int a, int b)
+{
+    Node *t=lca(root, a, b);
+    
+    
+    find(root, a, 0, x);
+   
+    find(root, b, 0, y);
+    find(root, t->data, 0, z);
+    return x+y-z-z;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/// all3 finds can be combined, lot of parameters!
+
+void find(Node *root, int a,int b, int c, int h, int &x, int &y, int &z){ // look ans is passed by reference
+    if(!root) return;
+    
+    if(root->data==a){
+        x=h;
+       // return ;
+    }
+    if(root->data==b){
+        y=h;
+       // return ;
+    }
+    if(root->data==c){
+        z=h;
+       // return ;
+    }
+    find(root->left, a,b,c, h+1, x,y,z);
+    find(root->right, a,b,c, h+1, x,y,z);
+}

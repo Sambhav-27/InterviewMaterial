@@ -1,0 +1,43 @@
+/* The function prints V space separated integers where 
+    the ith integer denote the shortest distance of ith vertex
+    from source vertex */
+#include<bits/stdc++.h>
+#define pii pair<int, int>
+#define f first
+#define s second
+#define N 1005
+#define INF 100000
+struct comp{
+    bool operator()(const pii &a, const pii &b){
+        return a.s>b.s;
+    }
+};
+priority_queue< pii, vector< pii >, comp >q;
+void dijkstra(int gr[MAX][MAX], int src,int n)
+{
+   int ans[N];
+   bool visited[N];
+   for(int i=0;i<n;++i){
+       ans[i]=INF;
+       visited[i]=0;
+   }
+   ans[src]=0;
+   q.push(pii(src,0));
+   
+   while(!q.empty()){
+       int x=q.top().f; q.pop();
+       if(visited[x]) continue;
+       
+       for(int i=0;i<n;++i){
+           int len=gr[x][i];
+           if(!visited[i] && ans[x]+len <ans[i]){
+               ans[i]=ans[x]+len;
+               q.push(pii(i,ans[i]));
+           }
+           
+       }
+       visited[x]=1;
+   }
+   for(int i=0;i<n;++i)
+   cout<<ans[i]<<" ";
+}

@@ -1,0 +1,52 @@
+//http://www.geeksforgeeks.org/find-four-elements-a-b-c-and-d-in-an-array-such-that-ab-cd/
+
+
+#include <bits/stdc++.h>
+#define pii pair<int, int>
+#define f first
+#define s second
+using namespace std;
+#define N 1000
+
+// assumed array elements are distinct
+// another sol: O(n^3) and O(1) space after sorting the array and using 2ptrs approach
+
+bool comp(vector< pii > v1, vector< pii > v2){
+    if(v1.size()>1 && v2.size()>1){
+        if(v1[0].f == v2[0].f && v1[0].s==v2[0].s &&v1[1].f==v2[1].s)
+    }
+    return v1.size()>v2.size();
+}
+int main() {
+    
+	int t,i,j,k,n,a[N];
+	unordered_map<int, vector<pii> >m;
+	
+	cin>>t;
+	while(t--){
+	    m.clear();
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    bool flag=0;
+	    for(i=0;i<n-1;++i){
+	        for(j=i+1;j<n;++j){
+	            int sum=a[i]+a[j];
+	            m[sum].push_back(pii(i,j));
+	           
+	        }
+	    }
+	    
+	    sort(m.begin(), m.end(), comp);
+	    for(i=0;i<m.size();++i){
+	        vector< pii > v;
+	        v=m[i];
+	        for(j=0;j<v.size();++j)
+	        cout<<v[j].f<<","<<v[j].s<<"  ";
+	        cout<<"\n";
+	    }
+	   
+	}
+	return 0;
+}

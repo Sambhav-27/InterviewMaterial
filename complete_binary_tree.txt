@@ -1,0 +1,32 @@
+/* Given a binary tree, return true if the tree is complete
+   else false */
+
+
+
+//http://www.geeksforgeeks.org/check-whether-binary-tree-complete-not-set-2-recursive-solution/
+// level order traversal can also be used
+// pass by reference is used as an alternative to global variables
+
+
+
+int c;
+void find(node *root){
+    if(!root) return;
+    c++;
+    find(root->left);
+    find(root->right);
+}
+bool find2(node *root, int i){
+    if(!root) return 1;
+    
+    if(i>=c) return 0;
+    bool x= find2(root->left, 2*i+1);
+    bool y= find2(root->right, 2*i+2);
+    return x&& y;
+}
+bool isCompleteBT(struct node* root)
+{
+    c=0;
+    find(root);
+    return find2(root, 0);
+}

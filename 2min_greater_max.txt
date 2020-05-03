@@ -1,0 +1,29 @@
+//http://www.geeksforgeeks.org/remove-minimum-elements-either-side-2min-max/
+// The idea is to find the maximum sized subarray such that 2*min > max.
+#include <iostream>
+using namespace std;
+
+int main() {
+	int i,j,k,t,n,a[1000];
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    int ans=0,cmin,cmax;
+	    for(i=0;i<n-1;++i){ // chooses start pt
+	        cmin=cmax=a[i];
+	        for(j=i+1;j<n;++j){ // chooses end pt
+	            cmin=min(cmin, a[j]);
+	            cmax=max(cmax, a[j]);
+	            
+	            if(2*cmin > cmax){
+	                ans=max(ans, j-i+1);
+	            }
+	        }
+	    }
+	    cout<<n-ans<<"\n";
+	}
+	return 0;
+}

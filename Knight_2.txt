@@ -1,0 +1,66 @@
+#include <cmath>
+#include<bits/stdc++.h>
+using namespace std;
+#define N 30
+// BFS works like a charm here because in unweighted graphs BFS guarantees that the first time you visit a cell it gives //the shortest path.
+
+// note the constructors in pii
+
+
+
+struct pii{
+    int f,s,mov;
+    pii(){}
+    pii(int a, int b, int c): f(a),s(b), mov(c){}
+};
+
+bool visited[N][N];
+bool safe(int i, int j, int n){
+    if(i>=0 && j>=0 && i<n && j<n)
+        return (!visited[i][j]);
+    return 0;
+}
+int bfs(int a, int b, int n){
+    int i,j,k,ans=0;
+    int dir[8][2]={a,b, a,-b, -a,b, -a,-b, b,a, b,-a, -b,a, -b,-a};
+    for(i=0;i<N;++i)
+        for(j=0;j<N;++j)
+        visited[i][j]=0;
+        
+    queue< pii >q;
+    while(!q.empty()) q.pop();
+    q.push(pii(0,0, 0));
+    visited[0][0]=1;
+    while(!q.empty()){
+        int u=q.front().f;
+        int v=q.front().s;
+        int m=q.front().mov; q.pop();
+        
+        if(u==n-1 && v==n-1)
+            return m;
+        for(i=0;i<8;++i){
+            int x=u+dir[i][0];
+            int y=v+dir[i][1];
+            
+            if(!safe(x,y,n)) continue;
+           
+            q.push(pii(x,y, m+1));
+            visited[x][y]=1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    int n,i,j,k,ans;
+    cin>>n;
+    
+    for(i=1;i<n;++i){
+        for(j=1;j<n;++j){
+            cout<<bfs(i,j,n)<<" ";            
+        }
+        cout<<"\n";
+    }
+    return 0;
+}

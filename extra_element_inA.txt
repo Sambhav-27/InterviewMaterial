@@ -1,0 +1,23 @@
+// two arrays a and b are sorted and have same elemnts except 1 extra element in a in
+// between. find its index
+
+int find(int *a, int *b, int s, int e){
+    int ans=-1;
+    while(s<=e){
+        int m=(s+e)/2;
+        
+        if(a[m]==b[m])
+        s=m+1;
+        else{
+            ans=m; // don't return here; keep on going left
+                    // after the extra element, no elemnts will be same at same index in both arrays
+            e=m-1;
+        }
+    }
+    return ans;
+}
+int findExtra(int a[],int b[],int n)
+{
+    int ans=find(a, b, 0, n-1);
+    return ans;
+}

@@ -1,0 +1,35 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+#define N 1000
+#define lld long long
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    lld i,j,k,n,m,a[N];
+    lld dp[N][N]={0};
+    cin>>n>>m;
+    for(i=1;i<=m;++i)
+        cin>>a[i];
+    
+    sort(a, a+m);
+    for(i=0;i<=m;++i)
+        dp[i][0]=1;
+    for(i=0;i<=n;++i)
+        dp[0][i]=0;
+    
+    for(i=1;i<=m;++i){
+        for(j=1;j<=n;++j){
+            if(j<a[i])
+                dp[i][j]=dp[i-1][j];
+            else
+                dp[i][j]=dp[i-1][j]+dp[i][j-a[i]];
+        }
+    }
+    
+    cout<<dp[m][n]<<"\n";
+    return 0;
+}

@@ -1,0 +1,44 @@
+// intersection of two LL
+// not as easy as it looks
+Node *getnode(int x){
+    Node *t=new Node;
+    t->val=x;
+    t->next=NULL;
+    return t;
+    
+}
+
+void intersection(Node **head1r, Node **head2r,Node **head3r)
+{
+    Node *head1, *head2, *head3;
+    head1= *head1r; head2= *head2r; head3= *head3r;
+    
+    Node *cur1=head1, *tail;
+    Node *cur2=head2;
+    
+    if(!cur1 || !cur2) return;
+    
+    Node *t=getnode(-1); // dummy head node
+    head3=t;
+    tail=t;
+    
+    while(cur1 && cur2){
+        if(cur1->val==cur2->val){
+            Node *t=getnode(cur1->val);
+            tail->next=t;
+            t->next=NULL;
+            tail=t;
+            cur1=cur1->next;  // ...do not forget these here...
+            cur2=cur2->next; 
+        }
+        else if(cur1->val < cur2->val){
+            cur1=cur1->next;
+        }
+        else{
+            cur2=cur2->next;
+        }
+    }
+    
+    head3=head3->next; // remove dummy head node
+    *head3r=head3; // notice this line
+}

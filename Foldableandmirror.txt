@@ -1,0 +1,28 @@
+// convert tree to its mirror
+void mirror(Node* root) 
+{
+     if(!root) return;
+     mirror(root->left);
+     mirror(root->right);
+     
+     swap(root->left, root->right);
+}
+
+
+// foldable
+/* Returns true if the given tree is foldable */
+bool find(node *root1, node *root2){
+    if(!root1 && !root2) return 1;
+    
+    bool l=0,r=0;
+    if(root1 && root2){ // for mirror add, root1->data == root->data
+        l= find(root1->left, root2->right);
+        r= find(root1->right, root2->left);
+    }
+    
+    return l &&r;
+}
+bool isFoldable(struct node *root)
+{
+    return find(root, root);
+}

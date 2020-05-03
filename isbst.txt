@@ -1,0 +1,22 @@
+
+#include<bits/stdc++.h>
+int maxx=INT_MAX;
+int minn=INT_MIN;
+bool isbst(Node* root, int min, int max){
+    if(!root) return 1;
+    
+    if(root->data<min || root->data > max)
+    return 0;
+    bool l=isbst(root->left, min, root->data-1);
+    bool r=isbst(root->right, root->data+1, max);
+    return l&& r;
+}
+bool isBST(Node* root) {
+    // Your code here
+    if(!root) return 1;
+    
+    bool x=isbst(root, minn,maxx);
+    return x;
+   
+}
+

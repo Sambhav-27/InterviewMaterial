@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define INF 1000000
+#define N 10005
+int main() {
+	int i,j,k,n,a[N];
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0;i<n;++i)
+        cin>>a[i];
+        
+        int ans[N];
+        for(i=0;i<n;++i)
+        ans[i]=INF;
+        
+        ans[0]=0;
+        for(i=0;i<n;++i){
+            for(j=i+1;j<n;++j){ // look in question if backward steps are allowed
+                if(j-i > a[i]) continue;
+                ans[j]=min(ans[j], 1+ans[i]);
+            }
+        }
+        if(ans[n-1]==INF)
+        cout<<"-1\n";
+        else{
+            cout<<ans[n-1]<<"\n";
+        }
+    }
+	return 0;
+}

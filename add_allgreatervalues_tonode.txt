@@ -1,0 +1,17 @@
+// in a tree
+int sum;
+void find(Node *root){
+    if(!root) return;
+    
+    find(root->right);
+    int x=root->data;
+    root->data=root->data+sum;
+    sum+=x;
+    find(root->left);
+}
+void modify(Node **cur)
+{
+    Node *root=*cur;
+    sum=0;
+    find(root);
+}

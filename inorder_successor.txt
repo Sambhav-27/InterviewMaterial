@@ -1,0 +1,30 @@
+// if there is right child then ans=min(of right subtree)
+// else parent of x
+// reference node x is given; BST
+// so good
+Node *find(Node *root){
+    if(!root) return NULL;
+    while(root->left){
+        root=root->left;
+    }
+    return root;
+}
+Node * inOrderSuccessor(Node *root, Node *x)
+{
+    if(!root) return NULL;
+    if(x->right)
+    return find(x->right);
+    
+    Node*ans=NULL;
+    while(root){
+        if(root->data < x->data){
+            root=root->right;
+        }
+        else if(root->data > x->data){// remember inorder is left visit right. Thus if we are going on left, in next inorder we'll come back to it
+            ans=root;
+            root=root->left;
+        }
+        else break;
+    }
+    return ans;
+}
