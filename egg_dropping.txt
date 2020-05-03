@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100
+int main(){
+    int i,j,k,t,n,m;
+    cin>>t;
+    while(t--){
+        cin>>n>>m;// eggs, floor
+        
+        int dp[N][N]={0}; // necessary
+        for(i=1; i<=m;++i)
+        dp[0][i]=i;
+        
+        // no need to do it for every test case
+        // watch tusha roy
+        for(i=1; i<n; ++i){
+            for(j=1; j<=m; ++j){
+                if(i > j)
+                dp[i][j]= dp[i-1][j];
+                else{
+                     int x=1000;
+                    for(k=1; k<=j; ++k){
+                        x= min(x, 1+max(dp[i-1][k-1], dp[i][j-k]));
+                    }
+                    dp[i][j]=x;
+                }
+            }
+        }
+        
+        // for(i=0;i<n;++i){
+        //     for(j=1; j<=m; ++j)
+        //     cout<<dp[i][j]<<" ";
+        //     cout<<"\n";
+        // }
+        cout<<dp[n-1][m]<<"\n";
+        
+    }
+	
+	return 0;
+}

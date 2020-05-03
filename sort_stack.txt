@@ -1,0 +1,29 @@
+/*The structure of the class is
+class SortedStack{
+public:
+	stack<int> s;
+	void sort();
+};
+*/
+
+void SortedStack :: sort()
+{
+    // helper stack will always be sorted
+    // if cur ele form main stack violates property then pop from helper and push to main
+    // top will be greatest element
+   stack<int> t;
+   while(!s.empty()){
+       int cur=s.top(); s.pop();
+       
+       // cur will be go to top of helper if it is greatest
+       while(!t.empty() && t.top() > cur){ // t.empty() condition will come first
+           s.push(t.top()); t.pop();
+       }
+       t.push(cur);
+   }
+   // ans will be in helper stack;
+   
+
+   s=t; // assigning 1 stack to another just works
+   
+}

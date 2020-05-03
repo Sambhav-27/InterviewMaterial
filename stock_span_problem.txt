@@ -1,0 +1,49 @@
+// we basically need to find previous greater element for each a[i]
+// http://www.geeksforgeeks.org/the-stock-span-problem/
+// every array element is added and removed once only, so time is O(n)
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+int main()
+{
+	int i,j,k,t,a[N],n;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    for(i=0;i<n;++i)
+	    cin>>a[i];
+	    
+	    vector<int> ans;
+	    stack<int> st; //stores indices of elements; values of elements of stack are in decreasing order from bottom to top
+	    
+	    st.push(0);
+	    ans.push_back(1);
+	    for(i=1; i<n;++i){
+	       
+	       while(!st.empty() && a[st.top()] <= a[i]) // cause stack just stores indices
+	       st.pop();
+	       
+	       if(st.empty())
+	       ans.push_back(i+1);
+	       else
+	       ans.push_back(i- st.top());  // notice carefully, if you want index or value
+	       
+	       st.push(i);
+	    }
+	    
+	    for(i=0;i<ans.size();++i)
+	    cout<<ans[i]<<" ";
+	    cout<<"\n";
+	    
+	}
+	return 0;
+}
+
+
+// footnotes:
+for evry ele if you just want overall smaller on left then use the array lr
+
+if you want index of prev smallaer or something like that than use stack
+
+
+// histogram area

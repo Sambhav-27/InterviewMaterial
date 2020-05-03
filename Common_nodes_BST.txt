@@ -1,0 +1,31 @@
+//if trees aren't bst then we need to use hashing to find common nodes in two arrays
+// use the fact that in bst inorder is sorted
+
+
+void in(Node *root, vector<int> &v){
+    if(!root) return;
+    
+    in(root->left, v);
+    v.push_back(root->data);
+    in(root->right, v);
+}
+void printCommon(Node *root1, Node *root2)
+{
+     vector<int> a,b;
+     in(root1, a);
+     in(root2, b);
+     
+     int i,j,k;
+     i=j=0;
+     while(i<a.size() && j<b.size()){
+         if(a[i]==b[j]){
+             cout<<a[i]<<" ";
+             ++i;
+             ++j;
+         }
+         else if(a[i]<b[j])
+         i++;
+         else j++;
+     }
+     cout<<"\n";
+}

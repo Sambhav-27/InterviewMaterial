@@ -1,0 +1,22 @@
+
+int c,y;
+void find(Node *head){
+    if(!head) return;
+    find(head->next);
+    
+    int x= head->data+y+c;
+    head->data= x%10;
+    c=x/10;
+    y=0;
+}
+Node *addOne(Node *head)
+{
+    c=0; y=1;
+    find(head); // no need to pass reference as data is manipulated
+    if(c){
+        Node *t=newNode(c);
+        t->next=head;
+        return t;
+    }
+    return head;
+}

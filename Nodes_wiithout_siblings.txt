@@ -1,0 +1,29 @@
+// vector is just used to print in sorted order
+
+/* Prints the nodes having no siblings.  */
+vector<int> v;
+void find(Node *root){
+    if(!root) return;
+    if(root->left && !root->right){
+        //cout<<root->left->data<<" ";
+        v.push_back(root->left->data);
+    }
+    if(root->right && !root->left){
+        //cout<<root->right->data<<" ";
+        v.push_back(root->right->data);
+    }
+    find(root->left);
+    find(root->right);
+}
+void printSibling(Node* node)
+{
+    v.clear();
+   find(node);
+   if(v.size()==0)
+   cout<<"-1";
+   else{
+       sort(v.begin(), v.end());
+       for(int i=0; i<v.size(); ++i)
+       cout<<v[i]<<" ";
+   }
+}

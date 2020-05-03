@@ -1,0 +1,23 @@
+// maximum path sum between any 2 leaves
+
+
+int ans;
+int find(Node *root){
+    if(!root) return 0;
+    
+    if(!root->left && !root->right){
+        return root->data;
+    }
+    
+    int x=find(root->left);
+    int y= find(root->right);
+    ans=max(ans, x+y+root->data);
+    
+    return max(x, y) +root->data;
+}
+int maxPathSum(struct Node *root)
+{
+    ans=0;
+    find(root);
+    return ans;
+}

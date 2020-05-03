@@ -1,0 +1,110 @@
+Node *findmin(Node *root){
+    if(!root) return NULL;
+    while(root->left)
+    root=root->left;
+    return root;
+}
+Node * deleteNode(Node *root,  int x)
+{
+    if(!root) return NULL;
+    
+    if(x < root->data)
+    root->left= deleteNode(root->left, x);
+    else if(root->data < x)
+    root->right= deleteNode(root->right, x);
+    else{
+        
+        // no child
+        if(!root->left && !root->right){
+            delete root;
+            return NULL;
+        }
+        // one child
+        else if(root->right && !root->left){
+            Node *t=root->right;
+            delete root;
+            return t;
+        }
+        else if(root->left && !root->right){
+            Node *t=root->left;
+            delete root;
+            return t;
+        }
+        else{
+            Node *t= findmin(root->right);
+            root->data= t->data;
+            root->right=deleteNode(root->right, t->data);
+            return root;
+        }
+    }
+}
+
+
+/// following code also works
+
+Node *findmin(Node *root){
+    if(!root) return NULL;
+    while(root->left)
+    root=root->left;
+    return root;
+}
+Node * deleteNode(Node *root,  int x)
+{
+    if(!root) return NULL;
+    
+    if(x < root->data)
+    root->left= deleteNode(root->left, x);
+    else if(root->data < x)
+    root->right= deleteNode(root->right, x);
+    else{
+        
+        // no child
+        if(!root->left && !root->right){
+            return NULL;
+        }
+        // one child
+        else if(root->right && !root->left){
+            return root->right;
+        }
+        else if(root->left && !root->right){
+            return root->left;
+        }
+        else{
+            Node *t= findmin(root->right);
+            root->data= t->data;
+            root->right=deleteNode(root->right, t->data);
+            return root;
+        }
+    }
+}
+
+
+
+//////////////
+
+struct node* insert(struct node* root, int x)
+{
+    node *t=newNode(x);
+    if(!root){
+        root=t;
+        return root;
+    }
+    node *cur= root;
+    node *p;
+    while(cur){
+        p=cur;
+        
+        if(x < cur->data)
+        cur=cur->left;
+        else if(x > cur->data)
+        cur=cur->right;
+        else
+        return root; // whether duplicates are allowed or not check in problem statement
+    }
+    if(x < p->data)
+    p->left=t;
+    else
+    p->right=t;
+    
+    return root;
+}

@@ -119,4 +119,5 @@ We are given a set of n distinct elements and an unlabeled binary tree with n no
 if n element are inserted in bst in different orders than inorder traversal will always be same. It's the height that changes.
 height of root=0; level of root=1;
 
+--------------------------------------------------------
 - 

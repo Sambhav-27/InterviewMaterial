@@ -1,0 +1,46 @@
+// search in row wise and column wise sorted matrix
+// start from bottom left or top right and move accordingly
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 1000
+int main(){
+    int i,j,k,t,n,m,x,a[N][N];
+    cin>>t;
+    while(t--){
+        cin>>n>>m;
+        for(i=0;i<n;++i)
+        for(j=0;j<m;++j)
+        cin>>a[i][j];
+        cin>>x;
+        
+        bool flag=0;
+        int cur;
+        i=n-1; j=0;  // bottom left
+        while(1){
+            
+            if(i<0 || j>=m) break;
+            cur= a[i][j];
+            
+            if(cur==x){
+                flag=1; break;
+            }
+            else if(cur > x){
+                i--;
+               
+            }
+            else if(cur < x){
+                j++;
+                
+            }
+        }
+       
+        if(flag)
+        cout<<"1\n";
+        //cout<<i<<" "<<j<<"\n";
+        else
+        cout<<"0\n";
+    }
+	
+	return 0;
+}

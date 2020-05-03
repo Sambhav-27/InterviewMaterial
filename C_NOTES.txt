@@ -1,0 +1,367 @@
+- scanf returns the no. of inputs it has successfully read.
+-  printf(" \"GEEKS %% FOR %% GEEKS\"");
+		output= “GEEKS % FOR % GEEKS"
+- printf(5 + "GeeksQuiz");  o/p = Quiz
+- printf("%c ", 5["GeeksQuiz"]);  o/p= Q
+-  printf("%c ", "GeeksQuiz"[5]); o/p= Q
+
+- gets() doesn't do any array bound testing and should not be used.
+- scanf("%4s", str); means read max 4 chars from console. Extra chars would be ignored
+
+- char *s = "Geeks Quiz";
+    int n = 7;
+    printf("%.*s", n, s);	O/p= Geeks Q
+.* means The precision is not specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted.
+
+-int x = printf("GeeksQuiz");
+   printf("%d", x);
+The printf function returns the number of characters successfully printed on the screen. The string "GeeksQuiz" has 9 characters, so the first printf prints GeeksQuiz and returns 9.
+
+-printf("%d", printf("%d", 1234)); 	o/p= 12344
+
+- The return type of getchar() is int to accommodate EOF which indicates failure:
+- fprintf() with FILE stream as stdout is same as printf. i.e. fprintf(stdout,"=%d=",a); and printf("=%d=",a); both are equivalent. 
+
+
+- printf("%d %d %d", i++, i++, i++); Output is compiler dependent as c doesn't specify how parameters are read.
+if left to right then  5 6 7
+else 7 6 5
+
+-Don't forget pointers are also passed by value.
+-In C, functions can return any type except arrays and functions. We can get around this limitation by returning pointer to array or pointer to function.
+- 
+int main()
+{
+  printf("%d", main);  
+  return 0;
+} o/p= address of main function
+
+- int (*ptr)(int ) = fun;	error if fun is define after this line and not declared before.
+-extern keyword is used for global variables. Functions are global anyways, so adding extern(to a function definition) doesn't add anything.
+
+- when we make a global variable or a function static, access to variable/fun becomes limited to the file in which it is declared.
+
+-in C: void fun(); means fun can be called with any number of parameters of any type
+void fun(void); means can only be called without any parameters.
+in C++ both are same.
+
+- for pass by reference use:
+int fun(int *a){
+	cout<<(*a);
+}
+fun(&a);
+
+or
+int fund(int &a){
+	cout<<a;
+}
+fun(a);
+
+- int a = 10;
+ int b = 15;
+
+ printf("=%d",(a+1),(b=a+2));
+ printf(" %d=",b);
+
+o/p:   =11 12=
+As per C standard C11, all the arguments of printf() are evaluated irrespective of whether they get printed or not. That’s why (b=a+2) would also be evaluated and value of b would be 12 after first printf().
+
+- int a = 10;
+
+ printf("=%d %d=",(a+1));
+
+o/p is undefined. Depends on compiler.Some would print 0, some would print garbage. Most would print garbage.
+
+- fun; // notice it's not fun(); where fun is a function
+Above is not an error, though fun won't be called. the reference to the function name simply generates a pointer to the function.
+
+- Remember: int *ptr; means pointer to an integer.
+
+- Storage Classes in C
+auto(default): scope= where variable is declared
+
+register: Hints to compiler that access to a variable should be fast(store it in a cpu register not in ram). ex- for loop variables.
+A variable declared register cannot have its address computed.
+Ex- register int a[5];
+the only legal use of above array is with sizeof operator, others would require the address of its elements. We can't access its elements.
+
+static: lifetime is until program remains. No change in scope. Only innitialized once. Static is like global variables but with local scope.
+
+extern: Used to signal to the compiler that the extern-definition is simply a placeholder, and the actual definition is somewhere else. Declaring a variable as extern will result in your program not reserving any memory for the variable in the scope that it was declared. It is also common to find function prototypes declared as extern.
+
+/* file1.c */
+int foo = 2;  /* Has external linkage since it is declared at file scope. */
+/* file2.c */
+#include <stdio.h>
+int main(void)
+{
+    /* `extern` keyword refers to external definition of `foo`. */
+    extern int foo;
+    printf("%d\n", foo);
+    return 0;
+}
+
+others: typedef, _Thread_local
+
+- type qualifiers: const, volatile
+
+- when pass by value is used: in recursive functions, variable's value at its time is used(a new copy every time).
+when pass by reference, final value of variable is used.
+void fun(int *a){
+    if(!(*a)) return;
+    
+    *a= *a-1;
+    fun(&*a);
+    cout<<*a<<":";
+}
+int a=5;
+fun(&a);
+o/p: 0:0:0:0:0:
+
+void fun(int a){
+    if(!a) return;
+    
+    a=a-1;
+    fun(a);
+    cout<<a<<":";
+}
+int a=5;
+fun(a);
+o/p:	 0:1:2:3:4:
+
+void fun(int a){
+    if(!a) return;    
+    
+    fun(a-1);
+    cout<<a<<":";
+}
+int a=5;
+fund(a)
+o/p:  1:2:3:4:5:
+
+if fun(--a) is used then o/p: 0:1:2:3:4:
+if fun(a--) is used the stack overflow
+
+
+int main()
+{
+    static int i=5;
+    if(--i){
+        main();
+        printf("%d ",i);
+    }
+}
+o/p: 0 0 0 0
+
+- int main()
+{
+    static int i=5;
+    if (--i){
+        printf("%d ",i);
+        main();
+    }
+} o/p: 4 3 2 1
+
+- in C(not in c++), static variables can only be initialized using constant literals. i.e. static int i=10; // valid
+static int i=x; // ivalid in c
+
+- Declaring a global variable as static limits its scope to the same file in which it is defined.
+
+-  Declaration(memory isn't reserved) can be done any number of times but definition only once.
+
+extern int var; // declaration
+int main(void)
+{
+ var = 10;
+ return 0;
+} // error: var is not defined; // int var has to be present somewhere.
+
+int var; // definiton
+extern int var = 0; // definition
+
+- strcpy(des, src)
+- floating types are always signed only. (unsigned double is error.)
+- The only storage-class specifier that shall occur in a parameter declaration is register. i.e. only void fun(register int a); is allowed
+- extern const volatile int real_time_clock; // valid
+ where real_time_clock may be modifiable by hardware, but cannot be assigned to, incremented, or decremented
+
+- char a = '\012';
+printf("%d", a); o/p= 10
+\ is an escape sequence of octal, next three are digits are interpreted as octal(if a digit greater than 7 appears before 3 digits then that many are considered).
+here 012 in octal is 10 in decimal
+
+- void *a; // allowed
+void a; // not allowed; thus void *a,b; // not allowed
+
+- sizeof operator return unsigned int
+if (sizeof(int) > -1)
+        printf("Yes");
+    else
+        printf("No");
+
+o/p: No
+-1 will be promoted to unsigned. negative num's are stored in 2's comp frm. And 2's complement of -1 will be much larger.
+- float %f  double %lf  long double %Lf
+
+- signed a; unsigned b; // valid: int is implicitly assumed
+-int i = 1, 2, 3; // error; first i=2 is ceated then after comma a new identifier is searched which happens to be 2 which isn't valid.
+- int i = (1, 2, 3); // i=3; expression within bracket is evaluated from left to right but always the right value is assigned.
+
+-int i;
+ i = 1, 2, 3;  // i gets 1; comma acts as separator; treated as (i=1),2,3;
+
+- an expression(or a fun) doesn't get evaluated inside sizeof operator.
+Ex- a= sizeof(b=c+d); // b=c+d is not evaluated
+ex- printf("%d", sizeof(printf("GeeksQuiz")));  // o/p= 4; inner printf 
+is not evaluated/printed but it returns 9 whose size is 4
+
+- int p = f1() + f2();  // depends on compiler whether f1 gets called first or f2.
+-   ++*p  // first * then ++
+-   *p++  // first ++ then *
+
+- X = X ^ Y;
+  Y = X ^ Y;
+  X = X ^ Y;  // swap x,y
+
+- x += y += 10  // right to left; depends on associativity of operators
+- fmod for mod of floats
+- if(i);  is same as if(i) { } // no misplaced else error would be generated
+- for (n = 9; n!=0; n--)
+     printf("n = %d", n--); // infinite loop
+- in a switch, anything outside cases is ignored.
+- a switch expression can be int, char, enum; // no float
+- duplicate cases are not allowed in a switch.
+- can't do : case a[0]:  // error
+
+
+- default of a switch will be evaluated at last, it doesn't matter whether you place it at the beginning or end.
+-  goto and it's label should both be within same function
+- none of the cases or default is compulsory.
+
+
+
+
+-  m=malloc(5); m= NULL;   // memory leak. assigned to null without freeing
+- calloc also initializs to 0
+- int *arr;
+arr = (int *)malloc(5 * sizeof(int));
+arr = (int *)calloc(5, sizeof(int));
+
+- uninitialized global variable and local static variables: bss
+	local variable: stack
+	dynamically allocated: heap
+- remember: you can't initialize inside a struct definition
+- static is not allowed in union.(both c and c++)
+- static is not allowed in struct(C). Valid in c++.
+- A structure cannot contain a member of its own type because if this is allowed then it becomes impossible for compiler to know size of such struct. Although a pointer of same type can be a member because pointers of all types are of same size and compiler can calculate size of struct
+
+- ASCII of '\0' is 0. printf("%s", s): prints till first '\0';
+- when a struct/class object of 1 type is assigned to another and it contains an array. The array elements are also assigned.(Deep copy)
+Ex- struct stud{
+	char ch[20]};
+stud s1,s2;
+strcpy(s1.ch, "ramesh");
+s2=s1;
+cout<<s2.ch;  
+o/p= ramesh    // each array element is copied
+
+- struct Point p1 = {.y = 0, .z = 1, .x = 2};  // valid
+
+- if array is partially initialized, rest elements are assigned 0.
+- Remember: There's a table for macro, so serial order is not followed in macro.
+-  A token is source-program text that the compiler does not break down into component elements. There are 6 types of C tokens : identifiers, keywords, constants, operators, string literals and other separators
+
+- printf("%d",090); // error; 0 means octal but 9 is not an octal digit
+
+
+- int a[5];
+	a++; // error; l value required
+- int arr[5];
+    // Assume base address of arr is 2000 and size of integer is 32 bit
+    printf("%u %u", arr + 1, &arr + 1);
+o/p: 2004 2020
+Name of array in C gives the address(except in sizeof operator) of the first element. Adding 1 to this address gives the address plus the sizeof type the array has. Applying the Address-of operator before the array name gives the address of the whole array(which is addr of 1st element). Adding 1 to this address gives the address plus the sizeof whole array.
+
+-  int n = sizeof(arr)/sizeof(arr[0]); // works fine where array is define; But doesn't work when array is passed to a fun beacuase array is passed as ptr.
+
+- int *a[10]; // it is like a 2d array; 10 array base ptrs.
+thus a[i], a[i][j] both are fine.
+int b[10][10]; // b[i][j] is fine; b[i] is not fine.
+
+- void a[10]; // invalid
+void *a[10]; // valid
+
+- *arr += *(arr + n - 1) += 10;   // adds 10 to last element and (lastele+10) to first.
+
+- if array elements goes out of bound, it may print garbage or may crash if addr is invalid.
+- except the first dimension, evry other dimension must be specified.
+
+- int arr[50] = {0,1,2,[47]=47,48,49};
+ it’ll initialize arr[0], arr[1], arr[2], arr[47], arr[48] and arr[49] to 0,1,2,47,48 and 49 respectively. The remaining elements of the array would be initialized to 0.
+
+	int n=5; or cin>>n;
+- int a[n]; // valid; but only for an array defined inside a fun; not for global arrays.
+- int a[n]={0}; // invalid
+
+-------------------------------------------------
+
+- *ptr=0; // changes the value to 0 pointed by ptr
+- only integral values can be added or subtracted from a pointer. We can also subtract or compare two pointers of same type.
+
+-float arr[5] = {12.5, 10.0, 13.5, 90.5, 0.5};
+    float *ptr1 = &arr[0];
+    float *ptr2 = ptr1 + 3;  // moves 3 postns
+ 
+    printf("%f ", *ptr2);  // value at postn
+    printf("%d", ptr2 - ptr1);  // o/p is not difference of addresses; it gives how many postns they are apart
+
+o/p: 90.50000 3
+
+- Don't forget that int *a is an array.
+- sizeof should never be used with array passed as parameter.
+
+- void *ptr = (int *)&a;  // valid
+	but while deferencing void ptrs typecast it as
+	*(int *)ptr; // valid
+	*ptr// invalid
+
+- 
+void swap (char *x, char *y)
+{
+    char *t = x;
+    x = y;
+    y = t;
+}
+char *x="sam";
+char *y= "bhav";
+swap(x,y); // doesn't swaps them because passed by value; remember array is passed by reference, pointers aren't.
+instead use void swap(char **x, char **y){
+	char *t= *x;  // also if you don't use * here and just use in parameters then only local copy would be changed
+	*x=*y;
+	*y=t; 	
+}
+
+- ++*p is evaluated as ++(*p) // i.e. value at address of p is incremented
+- *p++ is evaluated as *(p++)
+
+- int ( * f) (int * ) ; // A pointer to a function that takes an integer pointer as argument and returns an integer.
+
+- Given is a 2d array array[5][5].
+Suppose base address of array is 2000
+array = 2000
+*array = 2000
+array[0] = 2000
+
+- int (*p)[10][20];
+   printf("%d",  sizeof(*p));// notice its *p not p; it was p o/p would be 4
+o/p: 800
+
+- int a[5] = {1,2,3,4,5};
+    int *ptr = (int*)(&a+1);
+    printf("%d %d", *(a+1), *(ptr-1));
+o/p: 2 5
+ (a+1) points to 2. The expression (&a + 1) is actually an address just after end of array ( after address of 5 ) because &a contains address of an item of size 5*integer_size and when we do (&a + 1) the pointer is incremented by 5*integer_size. ptr is type-casted to int * so when we do ptr -1, we get address of 5
+
+a gives addrs of 1st element and a+1 increments ptr to next int element
+&a gives addrs of array(which is addrs of 1st element) by &a+1 increments ptr to next array
+- 

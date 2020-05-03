@@ -1,0 +1,40 @@
+//http://practice.geeksforgeeks.org/problems/numbers-with-same-first-and-last-digit/0
+
+/*in each ten number span we have only one 
+number which has the given property except 
+1 to 10 which has 9 numbers (all one digit number)
+having same starting and ending digit.*/
+
+#include<bits/stdc++.h>
+using namespace std;
+int find(int n){ // for 1 to n
+    if(n==0) return 0;
+    
+    int x=n/10;
+    
+    int f,l,m=n;
+    l=m%10;
+    while(m){
+        f=m;
+        m/=10;
+    }
+    if(f> l) x-=1; // if first digit is greater than last digit than 1 needs to be subtracted
+                    // example in 40; n/10 =4; but actually there are only 3 numbers: 11 22 33
+    
+    if(n>9) x+=9;
+    else x+=n;
+    
+    return x;
+}
+int main()
+ {
+	int i,j,k,t,l,r,ans;
+	cin>>t;
+	while(t--){
+	    cin>>l>>r;
+	    
+	    ans=find(r)- find(l-1);
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}

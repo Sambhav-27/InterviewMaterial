@@ -1,0 +1,141 @@
+- ctors should be public to create object of a class.
+- Point p1, *p2; // ctor is called for p1; not for p2, p2 is a ptr not an object.
+- Point *t1, *t2;   // No constructor call
+t1 = new Point();  // Normal(default) constructor call
+t2 = new Point(*t1);   // Copy constructor call 
+Point t3 = *t1;  // Copy Constructor call
+Point x= p7; // copy ctor
+Point t4;   // Normal Constructor call
+t4 = t3;   // Assignment operator call 
+
+- class X 
+{
+public:
+    int x;
+};
+X a = {10};  // structure like initialization is fine.
+
+- if we write a default or parameterized constructor, still then compiler creates a copy constructor.
+But if we write any constructor, then compiler doesn't create the default constructor.
+
+- if there is a parameterised ctor with default parameters then there is no need of default ctor.
+
+- if an object is created dynamically then, if new is used ctor is called. if malloc is used, ctor is not called.
+- global variables are constructed before main.
+
+- String s2=s1; // if there is no copy ctor, compiler will generate a copy ctot but it will do shallow copy(both s1 and s2 will point to same location).
+
+- ctors can't be virtual.
+- copy ctor argument should be const and passed by reference. Test(Test &t)
+- static fun/variables can be called without an object. Ex: Test::getx(); static variables are also called class variables.
+
+- static methods can be overloaded.
+- Test& fun(){
+	....
+	return *this; // allowed
+}
+- when a fun returns a reference, it can be used as lvalue.
+-  int x = 10;
+  int& ref = x;  // now ref is alias of c; both can be used interchangeably.
+- Don't forget private members can only be accessed through member funs.
+- friendship is not inherited. i.e. if B is derived from A and fun is a friend of A then it doesn't mean that fun is a friend of B.
+
+- We can declare fun of 1 class as friends of other.
+Ex: in B write this: friend void A::show();
+
+- when 1 struct is derived from other default specifier is public. For class it is private.
+- An empty class has size of 1 byte to ensure that two different objects have different addresses.
+-  size of static members is not counted in size of objects.
+
+- in case of multilevel inheritanc, a fun is searched linearly upward in the inheriteance hierarchy until a match is found.
+- A base class pointer can point to a derived class object, but we can only access base class member or virtual functions using the base class pointer.
+
+- if base class has two versions of fun
+	void fun(){}
+	void fun(int a){}
+and derived class writes its own version of one of the fun say
+	void fun(){...}
+then both of base's fun with same name are not accessible in derived.
+But we can access base's fun using scope resolution operator even if they are hidden.
+Derived d;
+d.Base::fun(5);  // valid
+d.fun(5); // invalid
+
+- we can pass derived objects to a function which accepts base class's object. But then extra features added of derived are sliced off.
+
+- The base class members cannot be directly assigned using initializer list in derived class's members.
+
+- ::x always gives the global x.
+- Union can also have funs, same like struct.
+- if a class has a private dtor then it's object can only be created using new.
+
+- int const s=9; // valid
+-  A const object can only call const functions. Use the word const in function definition.
+- static data members can be constant.
+- Let A be a class
+int foo()
+{
+    i=3;
+    A ob;
+    return i;
+} // destructor of A will be called after returning i. Thus if i is modified in dtor of A, it's old value will be returned.
+	
+int foo()
+{
+    i = 3;
+    {
+        A ob;
+    }  // after this line dtor of A will be called;
+    return i;
+}
+
+int& foo()
+{
+    i = 3;
+    A ob;
+    return i;
+} // return reference to i(references are automatically dereferenced). Thus if dtor of A modifies i, new value will be seen by the calling fun.
+
+- int **arr = new int *[10];  // array of size 10 of ptrs to integers
+- new is an operator
+- Always check if ctor is private.
+- int *ptr = new int;
+    delete ptr;
+    delete ptr; // deleting twice may cause crashing
+- we can delete a null ptr
+
+- the default assignment operator provided by compiler does shallow copy.
+
+- pure virtual pointers can have a body.
+clas s{
+	public:
+	virtual void foo()=0;
+};
+void s::foo(){
+}
+
+- We can still create pointers of an abstract class.
+- if derived class doesn't override pure virtual fun then it also becomes abstract clas.
+- There is nothing like Virtual Constructor. Making constructors virtual doesn't make sense as constructor is responsible for creating an object and it can’t be delegated to any other object by virtual keyword means.
+
+- static funs can't be virtual because static funs are class specific and may not be called on objects.
+- A class having a virtual fun will have a vptr which will increase the size of class.
+
+- if a class has a virtual fun then all its derived class will have the same funcs as virtual only.
+
+- this ptr is passed as hidden argument to all non static fun calls.
+i.e. static funs don't know this ptr.
+- this fun can be used in chained fun calls, as the fun will return *this.
+- this is a const ptrs. So can't use this=s1;
+- function ovrloading:
+	different return types and same signature not allowe.
+	one static and other non-static, rest part same  not allowed.
+	one fun const and other non-constant, rest part same is allowed.
+-  If we have specified default values in fun declaration then there is no need to specify them in definition.
+
+####################################################################
+
+
+
+
+

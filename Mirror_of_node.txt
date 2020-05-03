@@ -1,0 +1,26 @@
+int ans,tar;
+int find(Node *root1, Node *root2){
+    if(!root1 || !root2) return -1;
+    
+    if(root1->key==tar)
+        return root2->key;
+    
+    if(root2->key==tar)
+        return root1->key;
+    
+    
+    int l= find(root1->left, root2->right);
+    int r= find(root1->right, root2->left);
+    if(l!=-1) return l;
+    if(r!=-1) return r;
+    return -1;
+}
+int findMirrorRec(int target, struct Node* left,
+							struct Node* right)
+{
+    ans=-1;
+    tar=target;
+    //find(root->left, root->right);
+    return find(left, right);
+    
+}

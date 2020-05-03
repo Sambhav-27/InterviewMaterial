@@ -1,0 +1,85 @@
+// // don't use x and y for r,c as cartesian plane is opposite of row, col
+// don't forget the visited array
+
+vector<string> big;
+bool visited[MAX][MAX];
+bool safe(int a[][MAX], int n, int x, int y){
+    if(x>=0 && y>=0 && x<n && y<n && a[x][y]==1 && !visited[x][y])
+    return 1;
+    return 0;
+}
+
+int dir[4][2]={1,0, -1,0, 0,1, 0,-1}; // D U R L
+
+void dfs(int a[][MAX], int n, int r, int c, string ans){
+    
+    if(r==n-1 && c==n-1){
+       big.push_back(ans); return;
+    }
+    
+    visited[r][c]=1; // this will come here only not above, above if. we don't want to mark the target as visited.
+    
+    for(int i=0;i<4;++i){
+        int u= r+dir[i][0];
+        int v= c+dir[i][1];
+        
+        if(!safe(a, n, u,v)) continue;
+        
+        if(i==0) ans+="D";
+        else if(i==1) ans+="U";
+        else if(i==2) ans+="R";
+        else ans+="L";
+        
+        dfs(a, n, u, v, ans);
+        ans.pop_back();
+    }
+   
+    visited[r][c]=0;
+}
+
+vector<string> printPath(int a[MAX][MAX], int n)
+{
+    int i,j, x=0,y=0;
+    string ans;
+    for(i=0;i<MAX;++i){
+        for(j=0;j<MAX;++j)
+        visited[i][j]=0;
+    }
+    big.clear();
+    dfs(a, n, x, y, ans);
+    sort(big.begin(), big.end());
+    return big;
+}
+
+
+///
+if you just want to check a path use a flag variable but that might result in tle.
+so return a variable as soon as it return 1 don’t go further
+
+
+bool dfs(int a[][MAX], int n, int r, int c, string ans){
+    
+    if(r==n-1 && c==n-1){
+       big.push_back(ans); return 1;
+    }
+    
+    visited[r][c]=1;
+    
+    for(int i=0;i<4;++i){
+        int u= r+dir[i][0];
+        int v= c+dir[i][1];
+        
+        if(!safe(a, n, u,v)) continue;
+        
+        if(i==0) ans+="D";
+        else if(i==1) ans+="U";
+        else if(i==2) ans+="R";
+        else ans+="L";
+        
+        if(dfs(a, n, u, v, ans)) return 1;
+        ans.pop_back();
+    }
+   
+    visited[r][c]=0;
+    return 0;
+}

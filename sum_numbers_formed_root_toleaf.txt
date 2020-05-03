@@ -1,0 +1,28 @@
+// http://practice.geeksforgeeks.org/problems/root-to-leaf-paths-sum/1
+// no need of a vector to store all the numbers
+
+#define lld long long
+lld ans;
+lld x;
+void find(Node *root){
+    if(!root) return;
+    
+    x*=10;
+    x+=root->data;
+    if(!root->left && !root->right)
+    ans+=x;
+    
+    find(root->left);
+    find(root->right);
+    x-=root->data;
+    x/=10;
+   
+    
+}
+long long treePathsSum(Node *root)
+{
+    ans=0;
+    x=0;
+    find(root);
+    return ans;
+}

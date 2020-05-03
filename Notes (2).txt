@@ -1,10 +1,4 @@
-1. They give marks in VIVA by asking where you are interning.
 
-2.http://www.geeksforgeeks.org/number-subsequences-form-ai-bj-ck/
-
-3.working of maps
-
-4. mention something awkward in the interview or funny.
 
 5.Internship in a company doesn't show that you are a champ in programming. It just shows that you have a bit of experience in real world coding and projects.
 
@@ -18,7 +12,7 @@ Your projects in your last 3 years shows how much have you learnt yourself. What
 
 9. check password of all you coding ids
 
-10. small programs like mirror isomorphic, converting to mirror tree, symmetric etc ect
+
 
 11. check if a number is palindrome, reverse the number and then compare if equal to original.
 
@@ -63,5 +57,15 @@ use: strcpy(ch, ans.c_str());
 21. Hardest problem you have solved
 22. function memort: stack; global: heap
 23: IN DBMS project seat allocated using excel sheet wala algo
+24 substring search in string
+25. OS Lab programs
+26. Nth stair wala.
+27. Remember the name of the interviewer.
+28. for reversing a circular list, first make it linear then reverse and then restore it.
 
+29. When something is related to mirror in tree, then use two pointers in call as find(root->left, root->right);
+
+30 ios_base::sync_with_stdio(false);
+cin.tie(NULL);  learn them
+31. in interests column write programming instead of data structures
 

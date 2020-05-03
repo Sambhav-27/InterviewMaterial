@@ -1,0 +1,28 @@
+
+// split circular LL from middle, splitted lists are also circular
+// in case of odd nodes, extra element is in list1
+
+
+void splitList(Node *head, Node **h1, Node **h2)
+{
+    Node *cur=head;
+    Node *s, *f;
+    s=f=head;
+    while(f->next!=head && f->next->next!=head){
+        s=s->next;
+        f=f->next;
+        if(f->next!=head)
+        f=f->next;
+    }
+    *h2=s->next;
+    *h1=head;
+    s->next=head;
+    Node *t=*h2;
+    while(t->next!=head)
+    t=t->next;
+    t->next=*h2;
+    
+   
+    
+    
+}

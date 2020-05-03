@@ -1,0 +1,55 @@
+//http://practice.geeksforgeeks.org/problems/count-palindrome-sub-strings-of-a-string/0
+            // Add current palindrome substring ( + 1)
+            // and rest palinrome substring (dp[i][j-1] + dp[i+1][j])
+            // remove common palinrome substrings (- dp[i+1][j-1])
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 1000
+int find(string str)
+{
+   int dp[N][N]={0};
+   bool flag[N][N]={0};
+   int i,j,k,ans,l,n=str.length();
+   
+   for(i=0;i<n;++i)
+   flag[i][i]=1;
+   
+   
+  for(i=0;i<n-1;++i){ // for 2 length substrings
+      if(str[i]==str[i+1]){
+          dp[i][i+1]=1;
+          flag[i][i+1]=1;
+      }
+  }
+  
+   for(l=3;l<=n;++l){ // notice l from 3
+       for(i=0;i<n;++i){
+           j=i+l-1;
+           if(j>=n) break;
+           if(str[i]==str[j] && flag[i+1][j-1])
+           flag[i][j]=1;
+           
+           if(flag[i][j])
+           dp[i][j]=dp[i+1][j]+ dp[i][j-1]+ 1 -dp[i+1][j-1];
+           else
+           dp[i][j]=dp[i+1][j]+ dp[i][j-1]- dp[i+1][j-1];
+       }
+   }
+
+   return dp[0][n-1];
+}
+ 
+int main()
+ {
+     int i,j,k,t,n;
+     cin>>t;
+     while(t--){
+         cin>>n;
+         string s;
+         cin>>s;
+         cout<<find(s)<<"\n";
+     }
+	
+	return 0;
+}

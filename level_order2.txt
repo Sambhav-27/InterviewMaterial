@@ -1,0 +1,61 @@
+void find(Node *root){
+    queue<Node *>q;
+    int curcount, c;
+    
+    c=1;
+    q.push(root);
+    while(!q.empty()){
+        curcount=0;
+        while(c--){
+            Node *t= q.front(); q.pop();
+            
+            cout<<t->key<<" ";
+            if(t->left){
+                q.push(t->left); curcount++;
+            }
+            if(t->right){
+                q.push(t->right); curcount++;
+            }
+           // c--;
+        }
+        cout<<"\n";
+        c=curcount;
+    }
+}
+
+
+// printing first and last node of level
+void find(Node *root){
+    queue<Node *>q;
+    int x,curcount, c;
+    
+    c=1;
+    q.push(root);
+    while(!q.empty()){
+        curcount=0;
+        while(c--){
+            Node *t= q.front(); q.pop();
+            if(c+1==x && c!=0)// first node of level
+            cout<<t->key<<" ";
+            if(c==0)// last node of level; notice for last node c will be 0
+            cout<<t->key<<" ";
+            
+            if(t->left){
+                q.push(t->left); curcount++;
+            }
+            if(t->right){
+                q.push(t->right); curcount++;
+            }
+           
+        }
+        
+        c=curcount;
+        x=c; // for last node
+    }
+}
+
+void printCorner(Node *root)
+{
+        find(root);
+
+}

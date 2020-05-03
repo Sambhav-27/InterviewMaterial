@@ -1,0 +1,39 @@
+// http://practice.geeksforgeeks.org/problems/arrange-consonants-and-vowels/1
+struct Node* arrange(Node *head)
+{
+    Node *cur=head;
+    Node *head2=newNode('#'); // dummy node
+    Node *tail=head2;
+    
+    while(cur && cur->next){
+        char x=cur->next->data;
+        if(x=='a' || x=='e' || x=='i' || x=='o' || x=='u'){
+            Node *t=cur->next;
+            cur->next=cur->next->next;
+            tail->next=t;
+            t->next=NULL;
+            tail=t; // t tail ban gya
+        }
+        else{
+            cur=cur->next;
+        }
+    }
+    
+    char x=head->data;
+    if(x=='a' || x=='e' || x=='i' || x=='o' || x=='u'){ // first node is vowel
+        head2->data=x;
+        
+        tail->next=head->next;
+        return head2;
+    }
+    else{
+        if(head2->next){
+            head2=head2->next;
+            tail->next=head;
+            return head2;
+        }
+        else{
+            return head;
+        }
+    }
+}

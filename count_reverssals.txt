@@ -1,0 +1,56 @@
+// count reversals to make paranthesis balanced
+// first remove the balanced part
+// then ans= ceil(count of {) + ceil(count of })
+
+#include<bits/stdc++.h>
+using namespace std;
+int ceil(int a, int b){
+    if(a==0) return 0;
+    return 1+ (a-1)/b; // works only for +ve nos
+}
+int main()
+{
+    int i,j,k,t,n,ans;
+    cin>>t;
+    while(t--){
+        string s;
+        stack<char> st;
+        cin>>s;
+        n=s.length();
+        
+        for(i=0;i<n;++i){
+            char c=s[i];
+            if(c=='{'){
+                st.push(c);
+            }
+            else{
+                if(st.empty()) 
+                st.push(c);
+                else if(st.top()=='{')
+                st.pop();
+                else st.push(c);
+            }
+        }
+        int x=0,y=0;
+        while(!st.empty()){
+            if(st.top()=='{')
+            x++;
+            else y++;
+            //cout<<st.top(); // notice if you do this, unbalanced part will be outputed in reverse
+            st.pop();
+        }
+        
+        //ans= ceil(x, 2) +ceil (y, 2);  // correct way
+        
+        ans= ceil(double(x)/double(2)) + ceil(double(y)/ double(2));  // correct way
+        
+        // ans= ceil(double(x/y)) + ceil(double(y/2)); // wrong way
+        
+        
+        if((x+y)%2==1) // not possible
+        cout<<"-1\n";
+        else
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int i,j,k,t;
+    cin>>t;
+    while(t--){
+        string a;
+        cin>>a;
+        int n=a.length();
+        
+        stack<int> s;
+        for(i=0; i<n; ++i){
+            char c=a[i];
+            if(isdigit(c)){
+                s.push(int(c-48)); // because stack is of int
+            }
+            else{
+                int x=s.top(); s.pop(); // right child
+                int y=s.top(); s.pop(); //left child
+                if(c=='*')
+                s.push(y*x);
+                else if(c=='/')
+                s.push(y/x);  // check if x is 0
+                else if(c=='-')
+                s.push(y-x);
+                else if(c=='+')
+                s.push(y+x);
+            }
+        }
+        
+        cout<<s.top()<<"\n";
+    }
+	return 0;
+}

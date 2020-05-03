@@ -1,0 +1,37 @@
+// if it's a BST then only preorder or postorder is enough
+// if it's a BT then in and pre/post needs to be stored
+// however only pre can be stored when we store a marker for null children
+// marker count will be n+1 but this sol is better than storing 2 traversal's as each node
+// may contain huge data.
+// simply store MARK for null children
+#define MARK -1
+int n;
+void serialize(Node *root,vector<int> &v)
+{
+    if(!root){
+        v.push_back(MARK); return;
+    }
+    v.push_back(root->data);
+    serialize(root->left, v);
+    serialize(root->right, v);
+}
+
+Node *deserial(vector<int> &v, int *i){
+    if(*i==v.size() || v[*i]==MARK){
+        return NULL;
+    }
+    Node *t= newNode(v[*i]);
+    
+    *i=*i+1;
+    t->left= deserial(v, i);
+    *i=*i+1;
+    t->right= deserial(v, i);
+    
+    return t;
+}
+Node * deSerialize(vector<int> &v)
+{
+    n= v.size();
+    int i=0;
+    return deserial(v, &i);
+}

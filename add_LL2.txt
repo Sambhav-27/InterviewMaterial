@@ -1,0 +1,46 @@
+// LSB at lhs(ulta); msb at rhs; ans will also be like this
+Node*  addTwoLists(Node* first, Node* second){
+    Node *a=first;
+    Node *b=second;
+    Node *ans=newNode(-1); // dummy node
+    Node *tail=ans;
+    
+    int c=0;
+    while(a && b){
+        int x= a->data+ b->data + c;
+        Node *t=newNode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t; // t tail ban gya
+        
+        c=x/10;
+        a=a->next; b=b->next;
+    }
+    while(a){
+        int x= a->data + c;
+        Node *t=newNode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+        c=x/10;
+        a=a->next;
+    }
+    while(b){
+        int x=b->data + c;
+        Node *t=newNode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+        
+        c=x/10;
+        b=b->next;
+    }
+    if(c){
+        Node *t=newNode(c);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+    }
+    ans=ans->next;
+    return ans;
+}

@@ -1,0 +1,47 @@
+// there are n plots on each side of road, how many ways to build buildings on them
+// such that there is atleast an empty plot b/w them.
+// first notice that result of 1 side is independent of other
+// so ans= result(1side) * result(1side)
+// a building can be constructed only if previous plot was a space
+// thus countB[n]=countS[n-1]
+// a space can be left irrespective of previous plot
+// thus countS[n]= countS[n-1] +countB[n-1];
+// result(1side)= countB[n] +countS[n];
+
+// observation: answers are square of fibonacci series
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 100005
+#define mod 1000000007
+#define int long long
+int M(int a){
+    if(a>=mod)
+    a%=mod;
+    return a;
+}
+main()
+{
+    int i,j,k,t,n,ans;
+    int cb[N],cs[N];
+    
+    cb[1]=cs[1]=1;
+    for(i=2;i<=N;++i){
+        cb[i]= M(cs[i-1]);
+        int x= M(cs[i-1]) + M(cb[i-1]);
+        cs[i]=M(x);
+    }
+    cin>>t;
+    while(t--){
+        cin>>n;
+        
+        ans= M(cs[n]) + M(cb[n]);
+        
+        ans=M(ans);
+        ans*=ans;
+        ans=M(ans);
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

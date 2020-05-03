@@ -1,0 +1,17 @@
+// deletes node greater than k
+
+Node* deleteNode(Node* root, int k)
+{
+    if(!root) return NULL;
+    
+    root->left = deleteNode(root->left, k);
+    root->right= deleteNode(root->right, k);
+    
+    if(root->data >= k){
+        Node *t=root->left;
+        delete root;   // can work without this
+        return t;
+    }
+    
+    return root;
+}

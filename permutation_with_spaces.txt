@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<string> big;
+void find(string s, string ans, int i, int n){
+    if(i==n){
+        cout<<"("<<ans<<")"; return;
+    }
+    
+    // either add a char
+    ans+=s[i];
+    find(s, ans, i+1, n);
+    ans.pop_back();
+    
+    // or a space then a char
+    ans+=" ";
+    ans+=s[i];
+    find(s, ans, i+1, n);
+    ans.pop_back(); ans.pop_back();
+}
+int main(){
+    int i,j,k,t,n;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+       
+        n=s.length();
+        string ans; i=1;
+        ans+=s[0]; // first char will remain same
+        find(s, ans, i, n);
+        
+        
+        cout<<"\n";
+    }
+	
+	return 0;
+}

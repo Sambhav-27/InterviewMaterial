@@ -1,0 +1,76 @@
+/*Given an array of strings A[ ], determine if the strings can be chained together to form a circle. A
+string X can be chained together with another string Y if the last character of X is same as first
+character of Y. */
+// graph has always 26 nodes
+// directed from first letter to last letter
+// check if eulerian tour exists
+
+#include<bits/stdc++.h>
+using namespace std;
+#define N 26
+vector< int > gr[N];
+
+bool visited[N];
+int indegree[N];
+int outdegree[N];
+
+void dfs(int v){
+    visited[v]=1;
+    
+    outdegree[v]+=gr[v].size();
+    
+    
+    for(int i=0;i!=gr[v].size();++i){
+        int x=gr[v][i];
+        indegree[x]++;
+        
+        if(!visited[x]){
+            
+            dfs(x);
+        }
+        
+    }
+}
+bool find(){
+     int ans,i,c;
+    for(i=0;i<N;++i)
+    visited[i]=0,indegree[i]=0,outdegree[i]=0;
+    
+    c=0;
+    for(i=0;i<N;++i){
+        if(!visited[i] && gr[i].size()>0){ // don't forget this 2nd condition
+            c++;
+            dfs(i);
+        }
+    }
+    
+    if(c>1) return 0; // disconnected
+    bool flag=1;
+    for(i=0;i<N;++i){
+        if(indegree[i] != outdegree[i]){
+            flag=0;break;
+        }
+    }
+    
+    return flag;
+}
+int main()
+{
+    int i,j,k,t,n;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        
+        for(i=0;i<N;++i)
+        gr[i].clear();
+        for(i=0; i<n; ++i){
+            string s;
+            cin>>s;
+            int n=s.length();
+            gr[s[0]-'a'].push_back(s[n-1]-'a');
+        }
+        
+        cout<<find()<<"\n";
+    }
+	return 0;
+}

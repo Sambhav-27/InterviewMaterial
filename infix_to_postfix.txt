@@ -1,0 +1,58 @@
+// refer 4th sem notes
+
+#include<bits/stdc++.h>
+using namespace std;
+int prec(char ch){
+    if(ch=='^')
+    return 4;
+    if(ch=='*' || ch=='/')
+    return 3;
+    if(ch=='+' || ch=='-')
+    return 2;
+    return -1;
+}
+void find(string a, int n){
+    int i,j,k;
+    stack<char> s;
+    for(i=0; i<n; ++i){
+        char c=a[i];
+        if(isalpha(c)){
+            cout<<c;
+        }
+        else if(c=='('){
+            s.push(c);
+        }
+        else if(c==')'){
+            while(!s.empty()){
+                if(s.top()=='('){
+                    s.pop(); break;
+                }
+                cout<<s.top(); s.pop();
+            }
+        }
+        else{
+            while(!s.empty() && prec(c) <= prec(s.top())){
+                cout<<s.top(); s.pop();
+            }
+            s.push(c); // don't forget this line
+        }
+    }
+    while(!s.empty()){
+        cout<<s.top();
+        s.pop();
+    }
+}
+int main()
+{
+    int i,j,k,t,n;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        n=s.length();
+        
+        find(s, n);
+        cout<<"\n";
+    }
+	return 0;
+}

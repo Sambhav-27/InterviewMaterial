@@ -1,0 +1,45 @@
+/* Given a singly linked list L0 -> L1 -> … -> Ln-1 -> Ln. Rearrange the nodes in the list
+so that the new formed list is : L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2.*/
+// cut in middle
+// reverse second half
+// merge altenatively
+
+void reverse(Node *head, Node**temp){
+    if(!head) return;
+    if(!head->next){
+        *temp=head; return;
+    }
+    
+    reverse(head->next, temp);
+    head->next->next=head;
+    head->next=NULL;
+}
+Node *inPlace(Node *root)
+{
+    Node *s,*f;
+    s=root;//to find middle of list is different from loop detection
+    f=root->next; // notice this
+    while(f && f->next){
+        s=s->next;
+        f=f->next->next;
+    }
+    
+    Node *h1=root;
+    Node *h2=s->next;
+    s->next=NULL;
+    
+    reverse(h2, &h2);
+    
+    Node*cur=h1;
+    
+    while(cur && h2){
+        Node *t=h2->next;
+        h2->next=cur->next;
+        cur->next=h2;
+        
+        cur=cur->next->next;
+        h2=t;
+    }
+    return h1;
+}
+

@@ -1,0 +1,22 @@
+map<int, int> m; //ordered map is necessary
+void find(Node *root, int w){
+    if(!root) return;
+    
+    m[w]+=root->data;
+    find(root->left, w-1);
+    find(root->right, w+1);
+}
+void printVertical(Node *root)
+{
+    m.clear();
+    find(root, 0);
+    
+    map<int, int>::iterator it;
+    for(it=m.begin(); it!=m.end(); ++it){
+        int x=it->second;
+        cout<<x<<" ";
+    }
+    
+}
+
+// diagonal traversal etc in older notes

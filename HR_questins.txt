@@ -1,0 +1,41 @@
+-- I'm excellent enough, Thank you. how are you?
+
+- First of all, thank you sir for the opportunity to introduce myself.
+My name is sambhav and i am from Delhi. I'm pursuing computer engineering, till now my percentage is __. I belong to a middle class family of 5 members.
+Talking about my technical skills, I can say I'm a decent enough programmer with good problem solving skills.
+As i have mentioned in my resume, I prefer c++ for coding.
+
+As far as my inspiaration is considered, it is from my parents who helps and motivates and encourages me in a hundred little ways everyday.
+
+My hobbies, I play outdoor sports as a recreational activity.During my school days, i've won a gold medal in badminton at district level. I'm also good at basketball and cricket.
+
+
+During this summer, I developed a Recommender system based website and also an algorithm for a spam classifier.
+also during the earlier part of this year i built a train reservation system. The main focus here was on applying database concepts.
+That's all about me. Thank you.
+---------------------------
+- strength: well! some people are born talented, some have to work hard for each and every little thing. I'm the second one. So I can safely say, i am not afraid of hard work.
+I'm a self motivated person.
+weaknesses: I can say I'm a easily deceived person, I trust everyone.
+
+- Why didn't you interned:Sir I tried for 5 companies in the 5th semester, I didn't get selected. In the 6th sem i didn't apply for a single company beacause I thought of improving my skills by doing projects myself. In this way i would be improving at a self pace.
+
+- Why should we hire you over others: Sir I don't know about others but i can say about myself. You have very well tested my problem solving skills, so you must be having a fair idea about my skills.
+Other than that i can say that I'm a calm person and believe me i have learnt a lot in the past year about handling failure and being commposed.
+
+- why do you want to work with us: 
+
+- challenges in project: well! the whole project was new to me. For the first 15 days i had to learn about machine learning and then a lil bit Django as well.
+First i has to search a lot for a good enough dataset.
+
+ Calculating accuracy was a problem to me, i couldn't find a way to test the efficiency of my algo, I asked and discussed with many of my friends. As there were holidays i couldn't find any teacher in college. finally I solved it by myself by calculating MAE.
+The matrix for the user-movie was not full. Not all users rate all the movies, So had to track the transactions dataset.
+
+
+- improvement: cold start problem, track user clicks, conten+collaborative
+
+- toughest question you have solved: Not the toughest but it was a good question, ADMAG.
+
+
+- 
+

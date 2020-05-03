@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int i,j,k,t,n;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        n=s.length();
+        int v[26]={0};
+        
+        for(i=0;i<n;++i)
+        v[s[i]-'a']++;
+        
+        bool ans=1;
+        map<int, int> m;
+        for(i=0;i<26;++i){
+            if(v[i])
+            m[v[i]]++;
+        }
+        if(m.size()>2) ans=0;
+        
+        if(m.size()==2){
+            map<int, int>::iterator it;
+            it=m.begin();
+            int x=it->first;
+            ++it;
+            int y=it->first;
+            
+            if(abs(x-y)>1) ans=0;
+            else{
+                it=m.begin();
+                x=it->second;
+                ++it;
+                y=it->second;
+                if(x!=1 && y!=1) ans=0;
+            }
+        }
+        cout<<ans<<"\n";
+    }
+	return 0;
+}

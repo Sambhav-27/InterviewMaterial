@@ -1,0 +1,98 @@
+void reverse(Node *head, Node **temp){
+    if(!head) return;
+    if(!head->next){
+        *temp=head; return;
+    }
+    reverse(head->next, temp);
+    head->next->next=head;
+    head->next=NULL;
+}
+
+//assumes first is greater than second
+Node*  addLL(Node* first, Node* second){
+    Node *a=first;
+    Node *b=second;
+    reverse(a, &a); // this
+    reverse(b, &b); // this
+    
+    Node *ans=newNode(-1); // dummy node
+    Node *tail=ans;
+    
+    int c=1;
+    while(a && b){
+        int x= a->data+ (9-b->data) + c; // here
+        Node *t=newNode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t; // t tail ban gya
+        
+        c=x/10;
+        a=a->next; b=b->next;
+    }
+    while(a){
+        int x= a->data +9 + c; // here
+        Node *t=newNode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+        c=x/10;
+        a=a->next;
+    }
+    while(b){
+        int x=(9-b->data) + c; // here
+        Node *t=newNode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+        
+        c=x/10;
+        b=b->next;
+    }
+    // if(c){
+    //     Node *t=newNode(c);
+    //     tail->next=t;
+    //     t->next=NULL;
+    //     tail=t;
+    // }
+    ans=ans->next;
+    reverse(ans, &ans);  // and this
+    return ans;
+}
+int f(Node *cur){
+    int c=0;
+    while(cur){
+        c++;
+        cur=cur->next;
+    }
+    return c;
+}
+Node* subLinkedList(Node* l1, Node* l2) // subtract larger list from smaller
+{
+    Node *x=l1; Node *y=l2;
+    
+    int c1,c2;
+    c1= f(l1);
+    c2= f(l2);
+    
+    if(c2 > c1)
+    swap(l1, l2);
+    bool flag=0;
+    while(x && y && c1==c2){
+        if(x->data == y->data){
+            x=x->next;
+            y=y->next;
+        }
+        else if(x->data > y->data){
+            break;
+        }
+        else{
+            flag=1; break;
+        }
+    }
+    if(flag)
+    swap(l1, l2);
+   
+    
+    Node *t= addLL(l1, l2);
+    return t;
+}

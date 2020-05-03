@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 100005
+#define eps 0.0000000000001
+double search(double a[], double b, double e, int n, int x){
+    double left,right,temp;
+    int i,j,k;
+    while(b<=e){
+        double m=(b+e)/2;
+        
+        left=right=0;
+        for(i=0;i<=x;++i)
+        left+=1.0/(m-a[i]);
+        
+        for(i=x+1;i<n;++i)
+        right+=1.0/(a[i]-m);
+        
+        temp=left-right;
+        if(abs(temp) < eps) return m;
+        else if(left-right > 0)
+        b=m;
+        else
+        e=m;
+    }
+    return N;
+}
+
+void find(double a[], int n){
+    int i,j,k;
+    double b,e;
+    for(i=0;i<n-1;++i){
+        
+        b=a[i]; e=a[i+1];
+        
+        double ans=search(a, b,e,n,i);
+        if(ans!=N)
+        printf("%.2lf ", ans);  // notice this
+        //cout<<ans<<" ";
+    }
+}
+int main() {
+   int i,n,t;
+   double a[N];
+   cin>>t;
+   while(t--){
+       cin>>n;
+       for(i=0;i<n;++i)
+       cin>>a[i];
+       
+       find(a, n);
+       cout<<"\n";
+   }
+    
+	return 0;
+}

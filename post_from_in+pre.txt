@@ -1,0 +1,25 @@
+int find(int *a, int s, int e, int val){
+    
+    for(int i=s; i<=e; ++i)
+    if(a[i]==val)
+    return i;
+    return -1;
+}
+
+void print(int *in, int *pre, int *i, int s, int e){
+    if(s>e) return;
+    
+    int x=find(in, s, e, pre[*i]);
+    int t=pre[*i];
+    *i= *i+1;
+    print(in, pre, i, s, x-1);
+    
+    print(in, pre, i, x+1, e);
+    
+    cout<<t<<" ";
+}
+void printPostOrder(int in[], int pre[], int n)
+{
+    int i=0;
+    print(in, pre, &i, 0, n-1);
+}

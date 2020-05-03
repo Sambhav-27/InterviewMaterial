@@ -1,0 +1,50 @@
+
+node * getnode(int x){
+    node *t= new node;
+    t->data=x;
+    t->next=NULL;
+    return t;
+}
+struct pii{
+    int a,b;
+   
+    pii(int x=0, int y=0){ // use default values always
+        a=x; b=y;
+    }
+};
+
+
+struct node* findIntersection(struct node* head1, struct node* head2)
+{
+       
+    node *head=getnode(-1);
+    node *tail=head;
+    
+    map<int, pii> s;
+    node *cur=head1;
+    while(cur){
+        s[cur->data].a+=1;   // because of this default values are provided
+        cur=cur->next;
+    }
+    cur=head2;
+    while(cur){
+        s[cur->data].b+=1;
+        cur=cur->next;
+    }
+    map<int, pii>::iterator it;
+    for(it=s.begin();it!=s.end();++it){
+        pii p= it->second;
+        
+        while(p.a >=1 && p.b >=1){
+             
+            node *t= getnode(it->first);
+            tail->next=t;
+            t->next=NULL;
+            tail=t;
+            p.a-=1; p.b-=1;
+        }
+    }
+    head=head->next;
+    return head;
+    
+}

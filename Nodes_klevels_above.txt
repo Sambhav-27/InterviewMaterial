@@ -1,0 +1,35 @@
+// count all distinct nodes that are k level up from any leaf node
+// test case: 15 22 L 15 47 R 22 45 L 22 37 R 47 31 L 47 49 R 
+//  k=1; ans=2;
+// O(n)
+#include<bits/stdc++.h>
+
+#define N 10000
+vector<int> v;
+bool done[N];
+int counter;
+
+void find(Node *root, int k){
+    if(!root) return;
+    
+    v.push_back(root->key);
+    
+    if(!root->left && !root->right){
+        int x=v.size()-k-1;
+        if(x>=0 && !done[x]){
+            counter++;
+            //cout<<v[x]<<" ";
+            done[x]=1;
+        }
+    }
+    find(root->left, k);
+    find(root->right, k);
+    
+    v.pop_back();
+    done[v.size()]=0;
+}
+
+v.clear();
+    counter=0;
+    memset(done, 0, sizeof(done));
+    find(node, k);

@@ -1,0 +1,43 @@
+// https://stackoverflow.com/questions/15240648/copy-a-linked-list-with-next-and-random-pointer-only-read-privileges-are-given
+
+Node * copyList(Node *head)
+{
+    Node*cur=head;
+    
+    while(cur){ // create copy of nodes and insert after them
+        Node *t=newNode(cur->data);
+        t->next=cur->next;
+        cur->next=t;
+        
+        cur=t->next;
+    }
+    
+    // now there are even nodes in LL
+    cur=head;
+    while(cur && cur->next){ // set the arb ptrs of new nodes
+        if(cur->arb!=NULL)
+        cur->next->arb = cur->arb->next;
+        else
+        cur->next->arb=NULL;
+        
+        cur=cur->next->next;
+    }
+    
+    
+    cur=head;
+    Node*copy=head->next;
+    Node *tail=copy;
+    
+    while(cur){ //segregate nodes
+        if(cur->next)
+        cur->next=cur->next->next;
+      
+        if(tail->next)
+        tail->next=tail->next->next;
+        
+        cur=cur->next;
+        tail=tail->next;
+    }
+   
+    return copy;
+}

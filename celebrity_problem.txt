@@ -1,0 +1,25 @@
+
+int getId(int mat[MAX][MAX], int n)
+{
+    int i,j,k,a,b;
+    a=0; b=n-1;
+    
+    while(a < b){
+        if(mat[a][b]) // a knows b; thus a can't be the celebrity
+        a++;
+        else // a doesn't know b; thus b can't be the celebrity
+        b--;
+    }
+    //  now a and b are same
+    // just check if a is celebrity
+    
+    for(i=0;i<n;++i)
+    if(mat[a][i]) return -1;
+    
+    for(i=0;i<n;++i){
+        if(i==a) continue;
+        if(!mat[i][a])
+        return -1;
+    }
+    return a;
+}

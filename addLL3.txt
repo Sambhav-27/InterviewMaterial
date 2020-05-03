@@ -1,0 +1,117 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct Node{
+    int data;
+    Node *next;
+};
+Node *getnode(int x){
+    Node *t=new Node;
+    t->data=x;
+    t->next=NULL;
+    return t;
+}
+// usual number representation
+void reverse(Node *head, Node **temp){
+    if(!head) return;
+    if(!head->next){
+        *temp=head; return;
+    }
+    reverse(head->next, temp);
+    head->next->next=head;
+    head->next=NULL;
+}
+
+
+Node*  addLL(Node* first, Node* second){
+    Node *a=first;
+    Node *b=second;
+    reverse(a, &a); // this
+    reverse(b, &b); // this
+    
+    Node *ans=getnode(-1); // dummy node
+    Node *tail=ans;
+    
+    int c=0;
+    while(a && b){
+        int x= a->data+ b->data + c;
+        Node *t=getnode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t; // t tail ban gya
+        
+        c=x/10;
+        a=a->next; b=b->next;
+    }
+    while(a){
+        int x= a->data + c;
+        Node *t=getnode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+        c=x/10;
+        a=a->next;
+    }
+    while(b){
+        int x=b->data + c;
+        Node *t=getnode(x%10);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+        
+        c=x/10;
+        b=b->next;
+    }
+    if(c){
+        Node *t=getnode(c);
+        tail->next=t;
+        t->next=NULL;
+        tail=t;
+    }
+    ans=ans->next;
+    reverse(ans, &ans);  // and this
+    return ans;
+}
+######################################################################
+
+int main() {
+    int i,j,k,t,n,x,m;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        Node *head1,*tail1,*head2, *tail2;
+        head1=head2=tail1=tail2=NULL;
+        for(i=0; i<n; ++i){
+            cin>>x;
+            if(!head1){
+                head1=getnode(x);
+                tail1=head1;
+            }
+            else{
+                tail1->next=getnode(x);
+                tail1=tail1->next;
+            }
+        }
+        cin>>m;
+        for(i=0; i<m; ++i){
+            cin>>x;
+            if(!head2){
+                head2=getnode(x);
+                tail2=head2;
+            }
+            else{
+                tail2->next=getnode(x);
+                tail2=tail2->next;
+            }
+        }
+        
+        Node *ans= addLL(head1, head2);
+        Node *cur=ans;
+        while(cur){
+            cout<<cur->data<<" ";
+            cur=cur->next;
+        }
+        cout<<"\n";
+    }
+    
+	return 0;
+}

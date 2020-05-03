@@ -1,0 +1,16 @@
+Node *removeDuplicates(Node *root)
+{
+    set<int> s;
+    Node *cur=root;
+    s.insert(cur->data) ;
+    while(cur && cur->next){
+        if(s.find(cur->next->data)!=s.end()){
+            cur->next=cur->next->next;
+        }
+        else{
+            s.insert(cur->next->data);
+            cur=cur->next;
+        }
+    }
+    return root;
+}

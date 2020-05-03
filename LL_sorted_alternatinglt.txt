@@ -1,0 +1,67 @@
+// http://practice.geeksforgeeks.org/problems/linked-list-that-is-sorted-alternatingly/1
+/*Input List: 10->40->53->30->67->12->89->NULL
+Output List: 10->12->30->43->53->67->89->NULL
+*/
+// separate both parts
+// reverse second part and then merge
+
+Node *getnode(int x){
+    Node *t=new Node;
+    t->data=x;
+    t->next=NULL;
+    return t;
+}
+Node *temp;
+void reverse(Node *head){
+    if(!head){
+        temp=NULL; return;
+    }
+    if(!head->next){
+        temp=head; return;
+    }
+    reverse(head->next);
+    
+    head->next->next=head;
+    head->next=NULL;
+}
+Node *merge(Node *a, Node *b){
+    if(!a) return b;
+    if(!b) return a;
+        
+    Node *r;
+    if(a->data < b->data){
+        r=a;
+        r->next=merge(a->next, b);
+    }
+    else{
+        r=b;
+        r->next=merge(a, b->next);
+    }
+    return r;
+}
+void sort(Node **headr)
+{
+    
+     Node *head=*headr;
+     Node *cur=head;
+     Node *head2=getnode(-1);
+     Node *tail2=head2;
+     
+     while(cur && cur->next){// separate odd and even posn nodes
+             Node *t=cur->next;
+             cur->next=cur->next->next;
+             tail2->next=t;
+             t->next=NULL;
+             tail2=t;
+             
+             cur=cur->next;
+         
+     }
+     head2=head2->next; // delete dummy node
+    
+     reverse(head2);
+     head2=temp;
+     
+     *headr=merge(head, head2);
+    
+}

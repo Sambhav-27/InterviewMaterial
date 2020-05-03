@@ -1,0 +1,19 @@
+// for finding if loop exists, use this
+
+s=f=head;
+     bool flag=0;
+     while(f && f->next){
+         s=s ->next;
+         f= f->next->next;
+         if(s== f){
+             flag=1; break;
+         }
+     }
+
+// for finding middle node without a loop, use this
+s=head;
+   f=head->next;
+   while(f && f->next){
+       s= s->next;
+       f= f->next->next;
+   }
