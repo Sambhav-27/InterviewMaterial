@@ -1,0 +1,56 @@
+#define NOTFOUND -1
+
+void printKDistBottom(Node* root, int k, int level) {
+    if(!root) {
+        return;
+    }
+    
+    if(k == level) {
+        cout<<root->data;
+    }
+    
+    printKDistBottom(root->left, k, level+1);
+    printKDistBottom(root->right, k, level+1);
+}
+
+int fun(Node* root, int target, int k) {
+    if(!root) {
+        return NOTFOUND;
+    }
+    
+    if(root->data == target) {
+        // check in subtree
+        
+       printKDistBottom(root, k, 0);
+        return 1;
+    }
+    
+   int leftD = fun(root->left, target, k);
+    
+    if(leftD != NOTFOUND) { // found in left subtree
+        
+        if(leftD == k) // root matches
+            cout<<root->data;
+         else
+        printKDistBottom(root->right, k-leftD-1, 0);
+        
+        return leftD+1;
+    }
+    
+
+    
+   int rightD = fun(root->right, target, k);
+    
+    if(rightD != NOTFOUND) {
+        
+        if(rightD == k)
+            cout<<root->data;
+        else
+        printKDistBottom(root->left, k-rightD-1, 0);
+        
+        return rightD+1;
+    }
+    
+    return NOTFOUND;
+    
+}
