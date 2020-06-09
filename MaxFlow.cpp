@@ -39,10 +39,8 @@ int bfs(int src, int dest, vector<int> &parent) {
         int minFlowInPath = q.front().second;
         q.pop();
         
-        
         for(pii child: graph[p]) {
             int c = child.first;
-            
             
             if(parent[c] == -1 && residual[p][c] > 0) { // parent is also used as visited here
                 
@@ -68,14 +66,12 @@ int getMaxFlow(int src, int dest, int n) {
     while(1) {
         int minFlowOfPath = bfs(src, dest, parent);
         
-        
         if(minFlowOfPath == 0) break;
         totalFlow += minFlowOfPath;
         
         int cur = dest;
         while(cur != src) {
-            
-            
+             
             int prev = parent[cur];
             
             residual[prev][cur] -= minFlowOfPath;
