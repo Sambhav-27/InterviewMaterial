@@ -1,3 +1,5 @@
+// time is O(N). Each node is traversed at max 2 times
+
 #define NOTFOUND -1
 
 void printKDistBottom(Node* root, int k, int level) {
@@ -37,8 +39,8 @@ int fun(Node* root, int target, int k) {
         return leftD+1;
     }
     
-
-    
+   
+   // Note that we reach here only when node was not found in left subtree 
    int rightD = fun(root->right, target, k);
     
     if(rightD != NOTFOUND) {
