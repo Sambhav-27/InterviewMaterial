@@ -1,0 +1,129 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define pb push_back
+#define N 505
+#define INF 1000000
+ 
+struct Edge{
+    int a, b, capacity, cost; // cost is cost per unit flow
+    Edge(int a, int b, int capacity, int cost):
+    a(a), b(b), capacity(capacity), cost(cost) {}
+};
+ 
+vector<vector<int>> adj, cost, capacity;
+vector<Edge> edges;
+int n, m; // n = no of vertices; m= edges
+ 
+void shortestPath(int src, vector<int> &dist, vector<int> &parent) {
+    int i,j;
+ 
+    dist.assign(n+1, INF);
+    parent.assign(n+1, -1);
+    dist[src] =0;
+ 
+    for(i=0; i<n-1;++i) {
+ 
+        bool flag = false;
+ 
+        for(j=0;j<m;++j) {
+            Edge edge = edges[j];
+ 
+            if(dist[edge.a] < INF) {
+                if(capacity[edge.a][edge.b] > 0  && edge.cost + dist[edge.a] < dist[edge.b]) {
+                    dist[edge.b] = edge.cost + dist[edge.a];
+                    parent[edge.b] = edge.a;
+                    flag = true;
+                }
+            }
+ 
+        }
+ 
+        if(!flag) break;
+    }
+}
+ 
+ 
+int minCostKFLow(int src, int tank, int K) {
+    adj.assign(N, vector<int>());
+    cost.assign(N, vector<int>(N, 0)); // use it like 2d aray
+    capacity.assign(N, vector<int>(N, 0)); // use it like 2d aray
+ 
+ 
+    for(Edge edge: edges) {
+        adj[edge.a].pb(edge.b);
+        adj[edge.b].pb(edge.a); // graph is directed; this is opposite edges in flow graph; For handling undirected graphs, see cp algo
+ 
+        cost[edge.a][edge.b] = edge.cost;
+        cost[edge.b][edge.a] = - edge.cost;  // cost is negative in oppsote direction
+ 
+        capacity[edge.a][edge.b] = edge.capacity;
+        // intital capacity(residual) of opposite edge is 0
+    }
+ 
+    int flow=0, cost=0;
+    vector<int> dist, parent;
+    while(flow < K) {
+        shortestPath(src, dist, parent);
+ 
+        if(dist[tank] == INF) break;
+ 
+        // find min capacity edge in path
+        int minCap = INF;
+        int cur = tank;
+        while(cur != src) {
+            minCap = min(minCap, capacity[parent[cur]][cur]);
+            cur = parent[cur];
+        }
+ 
+        minCap = min(minCap, K-flow);
+ 
+ 
+        // apply flow
+        flow += minCap;
+        cost += minCap * dist[tank]; // dist[dst] = min dist of tank from src; and min dist is calculated in terms of cost/unit flow of each edge;
+                                    // and we are reducing minCap from each edge; Notice that each edge has a different cost/unit
+                                    // but it doesn't matter here, cuz we know the sum of all
+ 
+        cur = tank;
+        while(cur != src) {
+            capacity[parent[cur]][cur] -= minCap;
+            capacity[cur][parent[cur]] += minCap;
+ 
+            cur = parent[cur];
+        }
+    }
+ 
+    if(flow < K) return -1;
+    return cost;
+ 
+}
+ 
+ 
+int main() {
+ 
+    int t;
+    cin>>t;
+    while(t--) {
+        cin>>n>>m;
+ 
+        // capacity.assign(N, vector<int>(N, 0));
+        for(int i=0; i<m; ++i) {
+            int a,b,cost,cap;
+            cin>>a>>b>>cost>>cap;
+            edges.pb(Edge(a, b, cap, cost));
+            // capacity[a][b] = cap;
+        }
+ 
+        int x = minCostKFLow(1, 2, 2);
+        cout<<x<<"\n";
+ 
+ 
+        // vector<int> dist, p;
+        // shortestPath(2, dist, p);
+        // for(int i=1;i<=n; ++i) {
+        //     cout<<dist[i]<<"  ";
+        // }
+    }
+    return 0;
+}
+ 
