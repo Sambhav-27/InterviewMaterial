@@ -41,3 +41,43 @@ void dijkstra(int gr[MAX][MAX], int src,int n)
    for(int i=0;i<n;++i)
    cout<<ans[i]<<" ";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+vector<int> dijkistra(vector<pii>  gr[N], int src) {
+        
+        while(!q.empty()) q.pop();
+        vector<int> parent(N, -1);
+        vector<int> dist(N, INF);
+        vector<bool> visited(N, false);
+        
+        dist[src]=0;
+        q.push(pii(src,0));
+
+        while(!q.empty()){
+            int x=q.top().f; q.pop();
+            if(visited[x]) continue;
+
+            for(pii c: gr[x]) {
+                int len = c.s;
+                if(!visited[c.f] && dist[x] + len < dist[c.f]) {
+                    dist[c.f] = dist[x] + len;
+                    q.push(pii(c.f, dist[c.f]));
+                    parent[c.f] = x;
+                }
+            }
+           visited[x]=1;
+        }
+        
+        return parent;
+    }
